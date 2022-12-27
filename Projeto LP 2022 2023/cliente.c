@@ -46,7 +46,7 @@ int adicionarCliente(Clientes *clientes){
         lerString(clientes->clientes[clientes->total].email, SIZE_EMAIL, "Email: ");
          
         lerString(clientes->clientes[clientes->total].pais, SIZE_PAIS, "País: ");
-         
+        
         return clientes->total++;
     }
     return -1;
@@ -135,3 +135,4 @@ void inserirCliente(Clientes *clientes){
         printf("Erro a lista de clietes está cheia\n");
     }
 }
+

@@ -21,8 +21,21 @@ typedef struct{
 typedef struct{
     int id;
     char nome[50];
-    int preco;
+    float preco;
     Componentes componentesUsados;
 }Produto;
+
+typedef struct{
+    Produto produtos[10];
+    int totalProdutos;
+}ProdutoList;
+
+int procurarProduto(ProdutoList *lista, int id);
+
+void readListaProdutos(ProdutoList *lista);
+
+void printListaProdutos(ProdutoList *lista);
+
+void writeListaProdutos(ProdutoList *lista);
 
 #endif /* PRODUTO_H */
