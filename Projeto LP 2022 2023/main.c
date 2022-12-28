@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menu.h"
+#include "cliente.h"
 
 
 /*
@@ -20,7 +21,22 @@
  */
 int main(int argc, char** argv) {
     
+
     menu(); 
+
+/*
+    Clientes clientes;
+    
+    inserirCliente(&clientes);
+    inserirCliente(&clientes);
+    printf("Prints:\n");
+    listarClientes(clientes);
+    editarCliente(&clientes);
+    eliminarCliente(&clientes);
+    printf("Novos prints:\n");
+    listarClientes(clientes);
+    
+*/
 
     return (EXIT_SUCCESS);
 }

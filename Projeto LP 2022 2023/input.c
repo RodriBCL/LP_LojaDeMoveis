@@ -28,6 +28,8 @@ int obterInt(char *msg){
     printf(msg);
     scanf("%d", &valor);
     
+    cleanInputBuffer();
+    
     return valor;
 }
 
@@ -73,8 +75,8 @@ char obterChar(char *msg){
 
 
 void lerString(char *string, unsigned int tamanho, char *msg){
+    fflush(stdin);
     printf(msg);
-    
     if(fgets(string, tamanho, stdin) != NULL){
         unsigned int len = strlen(string) - 1;
         if(string[len] == '\n'){

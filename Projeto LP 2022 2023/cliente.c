@@ -29,24 +29,34 @@ int procurarCliente(Clientes clientes, int id){
 
 
 int adicionarCliente(Clientes *clientes){
+/*
+    if(clientes->total == 0){
+        clientes->clientes = (Clientes*)malloc((clientes->total + 1) * sizeof(Clientes));
+    }else{
+        clientes->clientes = (Clientes*)realloc((clientes->total), (clientes->total + 1)*sizeof(Clientes));
+    }
+*/
+    
     int id = obterInt("Id: ");
     
     if(procurarCliente(*clientes, id) == -1){
          
-        clientes->clientes[clientes->total].id = id;
+        (*clientes).clientes[(*clientes).total].id = id;
          
-        lerString(clientes->clientes[clientes->total].nome, SIZE_NOME, "Nome: ");
+        lerString((*clientes).clientes[(*clientes).total].nome, SIZE_NOME, "Nome: ");
          
-        lerString(clientes->clientes[clientes->total].nif, SIZE_NIF, "Nif: ");
+        lerString((*clientes).clientes[(*clientes).total].nif, SIZE_NIF, "Nif: ");
          
-        lerString(clientes->clientes[clientes->total].morada, SIZE_MORADA, "Morada: ");
+        lerString((*clientes).clientes[(*clientes).total].morada, SIZE_MORADA, "Morada: ");
          
-        lerString(clientes->clientes[clientes->total].telefone, SIZE_TELEFONE, "Telefone: ");
+        lerString((*clientes).clientes[(*clientes).total].telefone, SIZE_TELEFONE, "Telefone: ");
          
-        lerString(clientes->clientes[clientes->total].email, SIZE_EMAIL, "Email: ");
+        lerString((*clientes).clientes[(*clientes).total].email, SIZE_EMAIL, "Email: ");
          
-        lerString(clientes->clientes[clientes->total].pais, SIZE_PAIS, "País: ");
+        lerString((*clientes).clientes[(*clientes).total].pais, SIZE_PAIS, "País: ");
         
+        
+
         return clientes->total++;
     }
     return -1;
@@ -54,7 +64,7 @@ int adicionarCliente(Clientes *clientes){
 
 
 void imprimirCliente(Cliente cliente){
-    printf("Id:%d\nNome:%s\nNif:%s\nMorada:%s\nTelefone:%s\nEmai:%s\nPaís:%s",cliente.id, cliente.nome, 
+    printf("Id:%d\nNome:%s\nNif:%s\nMorada:%s\nTelefone:%s\nEmai:%s\nPaís:%s\n",cliente.id, cliente.nome, 
                                                                               cliente.nif, cliente.morada, 
                                                                               cliente.telefone, cliente.email,
                                                                               cliente.pais);
@@ -125,6 +135,8 @@ void eliminarCliente(Clientes *clientes){
 }
 
 
+
+
 void inserirCliente(Clientes *clientes){
     if(clientes->total < 100){
         if(adicionarCliente(clientes) == -1){
@@ -133,6 +145,9 @@ void inserirCliente(Clientes *clientes){
         
     }else{
         printf("Erro a lista de clietes está cheia\n");
+        printf("%d", clientes->total);
     }
 }
+
+
 

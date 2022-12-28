@@ -31,10 +31,10 @@ typedef struct
     char pais[SIZE_PAIS];
 } Cliente;
 
-//Create a struct to store an infinite number of clients 
+
 typedef struct 
 {
-    Cliente *clientes;
+    Cliente clientes[100];
     int total;
 } Clientes;
 

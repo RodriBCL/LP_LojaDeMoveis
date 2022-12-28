@@ -13,7 +13,7 @@
 #ifndef ENCOMENDA_H
 #define ENCOMENDA_H
 
-#endif /* ENCOMENDA_H */
+#include "cliente.h"
 
 typedef struct{
     int dia;
@@ -40,3 +40,5 @@ void registarEncomenda(Encomendas *Encomendas, Clientes *listaClientes);
 void imprimirEncomendas(Encomendas *listaEncomendas);
 
 void imprimirEncomendaCliente(Encomendas *listaEncomendas, Clientes *listaClientes);
+
+#endif /* ENCOMENDA_H */

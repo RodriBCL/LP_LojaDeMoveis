@@ -11,17 +11,16 @@
  */
 
 #include "menu.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "menu.h"
 #include "cliente.h"
 #include "encomenda.h"
 
 #define MENU "+--------------------------+"
 
 void menu(){
+    Cliente clietes;
     int escolha;
 
     puts(MENU);
@@ -89,7 +88,7 @@ void menuAdmin(){
     puts(MENU);
     printf("Escolha uma opção: ");
     scanf("%d", &escolha);
-    system("clear");
+    
 
     switch(escolha){
         case 1:
@@ -102,7 +101,10 @@ void menuAdmin(){
             editarCliente(&clientes);
             break;
         case 4:
+            printf("Olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
+            printf("%d\n", clientes.total);
             listarClientes(clientes);
+            printf("Adeuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus\n");
             break;
         case 5:
             imprimirEncomendas(&encomendas);
