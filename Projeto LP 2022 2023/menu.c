@@ -19,7 +19,7 @@
 
 #define MENU "+--------------------------+"
 
-void menu(Clientes clientes){
+void menu(Clientes *clientes){
     int escolha;
 
     puts(MENU);
@@ -44,7 +44,7 @@ void menu(Clientes clientes){
             menuAdmin(clientes);
             break;
         case 2:
-            menuCliente();
+            menuCliente(clientes);
             break;
         case 0:
             sairPrograma();
@@ -61,7 +61,7 @@ void menu(Clientes clientes){
 }
 
 
-void menuAdmin(Clientes clientes){
+void menuAdmin(Clientes *clientes){
     int escolha;
     
     puts(MENU);
@@ -89,19 +89,16 @@ void menuAdmin(Clientes clientes){
 
     switch(escolha){
         case 1:
-           inserirCliente(&clientes);
+           inserirCliente(clientes);
             break;
         case 2:
-            eliminarCliente(&clientes);
+            eliminarCliente(clientes);
             break;
         case 3:
-            editarCliente(&clientes);
+            editarCliente(clientes);
             break;
         case 4:
-            printf("Olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
-            printf("Total de clientes: %d\n", clientes.total);
             listarClientes(clientes);
-            printf("Adeuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus\n");
             break;
         case 5:
 /*
@@ -131,7 +128,7 @@ void menuAdmin(Clientes clientes){
 
 
 
-void menuCliente(Clientes clientes){
+void menuCliente(Clientes *clientes){
     int escolha;
 
     puts(MENU);

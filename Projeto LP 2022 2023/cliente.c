@@ -56,8 +56,6 @@ int adicionarCliente(Clientes *clientes){
          
         lerString((*clientes).clientes[(*clientes).total].pais, SIZE_PAIS, "País: ");
         
-        
-
         return clientes->total++;
     }
     return -1;
@@ -72,12 +70,12 @@ void imprimirCliente(Cliente cliente){
 }
 
 
-void listarClientes(Clientes clientes){
+void listarClientes(Clientes *clientes){
     int i;
     
-    if(clientes.total > 0){
-        for(i = 0; i < clientes.total; i++){
-            imprimirCliente(clientes.clientes[i]);
+    if(clientes->total > 0){
+        for(i = 0; i < clientes->total; i++){
+            imprimirCliente(clientes->clientes[i]);
         }
     }else{
         printf("Não existem clientes criados!!\n");

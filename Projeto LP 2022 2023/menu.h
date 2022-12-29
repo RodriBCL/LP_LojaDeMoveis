@@ -14,9 +14,9 @@
 #define MENU_H
 #include "cliente.h"
 
-void menu(Clientes clientes);
-void menuAdmin(Clientes clientes);
-void menuCliente();
+void menu(Clientes *clientes);
+void menuAdmin(Clientes *clientes);
+void menuCliente(Clientes *clientes);
 void sairPrograma();
 
 

@@ -16,6 +16,7 @@
 #include <string.h>
 #include "cliente.h"
 #include "encomenda.h"
+#include "produto.h"
 
 #define MENU "+--------------------------+"
 
@@ -23,11 +24,16 @@
  * 
  */
 int main(int argc, char** argv) {
-  
+  printf("puta1");
     Clientes clientes;
+    printf("puta1");
+    ProdutoList produto;
+    printf("puta1");
     
-
-    menu(clientes);
+    readListaProdutos(&produto);
+/*
+    menu(&clientes);
+*/
 
 
 /*

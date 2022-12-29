@@ -14,13 +14,16 @@
 #define PRODUTO_H
 
 typedef struct{
-    char descricao[100];
+    char *descricao;
     int quantidade;
+    char *codMaterial;
+    char *unidade;
 }Componentes;
 
 typedef struct{
-    char id[6];
-    char nome[50];
+    char *id;
+    char *nome;
+    char *dimensoes;
     float preco;
     Componentes *componentesUsados;
 }Produto;
