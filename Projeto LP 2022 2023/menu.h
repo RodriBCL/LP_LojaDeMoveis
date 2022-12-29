@@ -12,9 +12,10 @@
 
 #ifndef MENU_H
 #define MENU_H
+#include "cliente.h"
 
-void menu();
-void menuAdmin();
+void menu(Clientes clientes);
+void menuAdmin(Clientes clientes);
 void menuCliente();
 void sairPrograma();
 

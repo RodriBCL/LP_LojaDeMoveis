@@ -19,8 +19,7 @@
 
 #define MENU "+--------------------------+"
 
-void menu(){
-    Cliente clietes;
+void menu(Clientes clientes){
     int escolha;
 
     puts(MENU);
@@ -42,7 +41,7 @@ void menu(){
 
     switch(escolha){
         case 1:
-            menuAdmin();
+            menuAdmin(clientes);
             break;
         case 2:
             menuCliente();
@@ -56,16 +55,14 @@ void menu(){
             fflush(stdin);
             getchar();
             system("clear");
-            menu();
+            menu(clientes);
             break;
     };
 }
 
 
-void menuAdmin(){
+void menuAdmin(Clientes clientes){
     int escolha;
-    Clientes clientes;
-    Encomendas encomendas;
     
     puts(MENU);
     printf("  Gestão de loja de moveis  \n");
@@ -102,12 +99,14 @@ void menuAdmin(){
             break;
         case 4:
             printf("Olaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\n");
-            printf("%d\n", clientes.total);
+            printf("Total de clientes: %d\n", clientes.total);
             listarClientes(clientes);
             printf("Adeuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuus\n");
             break;
         case 5:
+/*
             imprimirEncomendas(&encomendas);
+*/
             break;
         case 6:
             //editar produto
@@ -116,7 +115,7 @@ void menuAdmin(){
             //eliminar produto
             break;
         case 0:
-            menu();
+            menu(clientes);
             break;
         default:
             printf("Opção inválida\n");
@@ -124,17 +123,16 @@ void menuAdmin(){
             fflush(stdin);
             getchar();
             system("clear");
-            menu();
+            menu(clientes);
             break;
     };
-    menuAdmin();
+    menuAdmin(clientes);
 }
 
 
-void menuCliente(){
+
+void menuCliente(Clientes clientes){
     int escolha;
-    Clientes clientes;
-    Encomendas encomendas;
 
     puts(MENU);
     printf("  Gestão de loja de moveis  \n");
@@ -155,13 +153,17 @@ void menuCliente(){
 
     switch(escolha){
         case 1:
+/*
             registarEncomenda(&encomendas, &clientes);
+*/
             break;
         case 2:
+/*
             imprimirEncomendaCliente(&encomendas, &clientes);
+*/
             break;
         case 0:
-            menu();
+            menu(clientes);
             break;
         default:
             printf("Opção inválida\n");
@@ -169,11 +171,12 @@ void menuCliente(){
             fflush(stdin);
             getchar();
             system("clear");
-            menu();
+            menu(clientes);
             break;
     };
-    menuCliente();
+    menuCliente(clientes);
 }
+
 
 
 void sairPrograma(){

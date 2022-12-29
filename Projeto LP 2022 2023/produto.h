@@ -19,10 +19,10 @@ typedef struct{
 }Componentes;
 
 typedef struct{
-    int id;
+    char id[6];
     char nome[50];
     float preco;
-    Componentes componentesUsados;
+    Componentes *componentesUsados;
 }Produto;
 
 typedef struct{

@@ -10,19 +10,25 @@
  * Created on 5 de dezembro de 2022, 12:16
  */
 
+#include "menu.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include "menu.h"
+#include <string.h>
 #include "cliente.h"
+#include "encomenda.h"
 
+#define MENU "+--------------------------+"
 
 /*
  * 
  */
 int main(int argc, char** argv) {
+  
+    Clientes clientes;
     
 
-    menu(); 
+    menu(clientes);
+
 
 /*
     Clientes clientes;

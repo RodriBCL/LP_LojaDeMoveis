@@ -14,6 +14,7 @@
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 
 int procurarCliente(Clientes clientes, int id){
@@ -29,13 +30,13 @@ int procurarCliente(Clientes clientes, int id){
 
 
 int adicionarCliente(Clientes *clientes){
-/*
-    if(clientes->total == 0){
-        clientes->clientes = (Clientes*)malloc((clientes->total + 1) * sizeof(Clientes));
+
+    if((*clientes).total == 0){
+        (*clientes).clientes = (Cliente*)malloc(sizeof(Clientes));
     }else{
-        clientes->clientes = (Clientes*)realloc((clientes->total), (clientes->total + 1)*sizeof(Clientes));
+        (*clientes).clientes = (Cliente*)realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof(Clientes));
     }
-*/
+
     
     int id = obterInt("Id: ");
     

@@ -60,8 +60,10 @@ void writeListaProdutos(ProdutoList *lista){
         return;
     }
 
-    for(int i = 0; i < lista->totalProdutos; i++){
+    for(i = 0; i < lista->totalProdutos; i++){
         fprintf(fp, "%d %s %f", lista->produtos[i].id, lista->produtos[i].nome, lista->produtos[i].preco);
     }
     fclose(fp);
 }
+
+

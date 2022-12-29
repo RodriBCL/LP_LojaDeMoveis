@@ -34,7 +34,7 @@ typedef struct
 
 typedef struct 
 {
-    Cliente clientes[100];
+    Cliente *clientes;
     int total;
 } Clientes;
 
