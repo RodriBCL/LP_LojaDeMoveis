@@ -24,7 +24,7 @@
  * 
  */
 int main(int argc, char** argv) {
-  printf("puta1");
+    printf("puta1");
     Clientes clientes;
     printf("puta1");
     ProdutoList produto;

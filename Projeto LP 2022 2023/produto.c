@@ -114,22 +114,34 @@ void readListaProdutos(ProdutoList *lista){
     }
     int i = 0;
     int j = 0;
-    printf("putaMaster");
+        
+    char *c1  ;
+    char *c2 ;
+    char *c3 ;
+    char *c4 ;
+    char *c5 ;
+    char *c6 ;
+    char *c7 ;
+    char *c8 ;
+        
+    
     while ((lido = getline(&linha, &len, fp)) != -1){
-        printf("puta1");
-        dados = ft_split(linha, ';');
-        char *c1 = dados[0];
-        char *c2 = dados[1];
-        char *c3 = dados[2];
-        char *c4 = dados[3];
-        char *c5 = dados[4];
-        char *c6 = dados[5];
-        char *c7 = dados[6];
-        char *c8 = dados[7];
-        printf("puta2");
+        
+         dados = ft_split(linha, ';');
+        
+        
         if(i != 0){
-            printf("puta3");
-            if(c1 != ""){
+            
+            if(dados[7] != NULL){
+                c1 = dados[0];
+                c2 = dados[1];
+                c3 = dados[2];
+                c4 = dados[3];
+                c5 = dados[4];
+                c6 = dados[5];
+                c7 = dados[6];
+                c8 = dados[7];
+               
                 j = 0;
                 (*lista).totalProdutos++;
                 produto.id = malloc(sizeof(char)*strlen(c1));
@@ -140,19 +152,28 @@ void readListaProdutos(ProdutoList *lista){
                 strcpy(produto.dimensoes, c3);
                 produto.preco = atof(c4);
                 produto.componentesUsados = (Componentes*)malloc(sizeof(Componentes));
-                printf("puta4");
+                
+                
+                
+            }else{
+                c5 = dados[0];
+                c6 = dados[1];
+                c7 = dados[2];
+                c8 = dados[3];
+                
             }
+             printf("%s %s",c5,c8);  
             componentes.codMaterial = malloc(sizeof(char)*strlen(c5));
-            componentes.codMaterial = strcpy(componentes.codMaterial, c5);
+            strcpy(componentes.codMaterial, c5);
             componentes.descricao = malloc(sizeof(char)*strlen(c6));
-            componentes.descricao = strcpy(componentes.codMaterial, c6);
-            componentes.quantidade = c7;
+            strcpy(componentes.descricao, c6);
+            componentes.quantidade = atoi (c7);
             componentes.unidade = malloc(sizeof(char)*strlen(c8));
-            componentes.unidade = strcpy(componentes.codMaterial, c8);
+            strcpy(componentes.unidade, c8);
             produto.componentesUsados = realloc(produto.componentesUsados, sizeof(Componentes)*j);
             produto.componentesUsados[j] = componentes;
             j++;
-            printf("puta5");
+            
         }
         i++;
     }
