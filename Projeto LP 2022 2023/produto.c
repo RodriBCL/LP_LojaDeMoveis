@@ -123,16 +123,49 @@ void readListaProdutos(ProdutoList *lista){
     char *c6 ;
     char *c7 ;
     char *c8 ;
-        
+    (*lista).produtos = malloc (sizeof(ProdutoList)); 
     
-    while ((lido = getline(&linha, &len, fp)) != -1){
+    
+    /*while ((lido = getline(&linha, &len, fp)) != -1){
         
-         dados = ft_split(linha, ';');
-        
+         //dados = ft_split(linha, ';');
+         int k = 0;
+         char* token;
+         token = strtok(linha,";");
+         while(token != NULL)
+         {
+           sscanf(token,"%s",dados[k++]);
+           token = strtok (NULL,";");
+           
+         }
+         printf("%s\n",linha);
+        printf("%s %s %s %s %s %s %s %s\n",dados[0],dados[1],dados[2],dados[3],dados[4],dados[5],dados[6],dados[7]);*/
+    char buffer[1024];
+    //dados = malloc(sizeof(char*)*10);
+    while (fgets(buffer, 1024, fp))
+    {
+        dados = malloc(sizeof(char*)*10);
+        //printf("%s",buffer);
+        // Get the columns from the buffer
+        char *column = strtok(buffer, ";");
+        int k = 0;
+        while (column)
+        {
+            // Do something with the column
+            //printf("%s ", column);
+            dados [k++] = column;
+            // Get the next column
+            column = strtok(NULL, ";");
+            
+        }
+        //printf("\n");
+         
+        printf("%s %s %s %s %s %s %s %s\n",dados[0],dados[1],dados[2],dados[3],dados[4],dados[5],dados[6],dados[7]);
         
         if(i != 0){
             
             if(dados[7] != NULL){
+                printf("%s %s puta %s %s %s %s %s %s\n",dados[0],dados[1],dados[2],dados[3],dados[4],dados[5],dados[6],dados[7]);
                 c1 = dados[0];
                 c2 = dados[1];
                 c3 = dados[2];
@@ -144,15 +177,18 @@ void readListaProdutos(ProdutoList *lista){
                
                 j = 0;
                 (*lista).totalProdutos++;
-                produto.id = malloc(sizeof(char)*strlen(c1));
+                
+                produto.id = malloc(sizeof(char)*(strlen(c1)+ 1));
                 strcpy(produto.id, c1);
-                produto.nome = malloc(sizeof(char)*strlen(c2));
+                produto.nome = malloc(sizeof(char)*(strlen(c2)+ 1));
                 strcpy(produto.nome, c2);
-                produto.dimensoes = malloc(sizeof(char)*strlen(c3));
+                produto.dimensoes = malloc(sizeof(char)*(strlen(c3)+ 1));
                 strcpy(produto.dimensoes, c3);
                 produto.preco = atof(c4);
                 produto.componentesUsados = (Componentes*)malloc(sizeof(Componentes));
-                
+                (*lista).produtos = realloc ((*lista).produtos,sizeof(ProdutoList)*((*lista).totalProdutos + 1));
+                (*lista).produtos[(*lista).totalProdutos - 1] = produto; 
+                //printf("%d %s \n",(*lista).totalProdutos, dados[7]);
                 
                 
             }else{
@@ -162,24 +198,37 @@ void readListaProdutos(ProdutoList *lista){
                 c8 = dados[3];
                 
             }
-             printf("%s %s",c5,c8);  
-            componentes.codMaterial = malloc(sizeof(char)*strlen(c5));
+             
+            componentes.codMaterial = malloc(sizeof(char)*(strlen(c5)+ 1));
             strcpy(componentes.codMaterial, c5);
-            componentes.descricao = malloc(sizeof(char)*strlen(c6));
+            componentes.descricao = malloc(sizeof(char)*(strlen(c6)+ 1));
             strcpy(componentes.descricao, c6);
             componentes.quantidade = atoi (c7);
-            componentes.unidade = malloc(sizeof(char)*strlen(c8));
+            componentes.unidade = malloc(sizeof(char)*(strlen(c8)+ 1));
             strcpy(componentes.unidade, c8);
-            produto.componentesUsados = realloc(produto.componentesUsados, sizeof(Componentes)*j);
+            produto.componentesUsados = realloc(produto.componentesUsados, sizeof(Componentes)*(j + 1));
             produto.componentesUsados[j] = componentes;
             j++;
             
         }
         i++;
+        dados [0] = NULL;
+        dados [1] = NULL;
+        dados [2] = NULL;
+        dados [3] = NULL;
+        dados [4] = NULL;
+        dados [5] = NULL;
+        dados [6] = NULL;
+        dados [7] = NULL;
+        
+        free(dados);
+          
     }
-    printf("%s %s %s %f %s %s %i %s", produto.id, produto.nome, produto.dimensoes, produto.preco, produto.componentesUsados[2].codMaterial, produto.componentesUsados[2].descricao, produto.componentesUsados[2].quantidade, produto.componentesUsados[2].unidade);
+    
     fclose(fp);
+    
 }
+
 
 void printListaProdutos(ProdutoList *lista){
     int i;
@@ -202,7 +251,7 @@ void writeListaProdutos(ProdutoList *lista){
     }
 
     for(i = 0; i < lista->totalProdutos; i++){
-        fprintf(fp, "%d %s %f", lista->produtos[i].id, lista->produtos[i].nome, lista->produtos[i].preco);
+        fprintf(fp, "%s %s %f", lista->produtos[i].id, lista->produtos[i].nome, lista->produtos[i].preco);
     }
     fclose(fp);
 }

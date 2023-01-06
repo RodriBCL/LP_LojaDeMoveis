@@ -29,8 +29,9 @@ int main(int argc, char** argv) {
     printf("puta1");
     ProdutoList produto;
     printf("puta1");
-    
+    produto.totalProdutos = 0;
     readListaProdutos(&produto);
+    printf("%s ",produto.produtos[2].id);
 /*
     menu(&clientes);
 */

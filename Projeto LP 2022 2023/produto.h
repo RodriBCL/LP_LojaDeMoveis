@@ -29,7 +29,7 @@ typedef struct{
 }Produto;
 
 typedef struct{
-    Produto produtos[10];
+    Produto *produtos;
     int totalProdutos;
 }ProdutoList;
 
