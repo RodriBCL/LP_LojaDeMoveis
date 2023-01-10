@@ -25,6 +25,7 @@ typedef struct{
     char *nome;
     char *dimensoes;
     float preco;
+    int n_componentes;
     Componentes *componentesUsados;
 }Produto;
 
