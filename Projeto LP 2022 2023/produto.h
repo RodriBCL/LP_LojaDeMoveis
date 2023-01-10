@@ -38,8 +38,8 @@ int procurarProduto(ProdutoList *lista, int id);
 
 void readListaProdutos(ProdutoList *lista);
 
-void printListaProdutos(ProdutoList *lista);
+void printListaProdutos(ProdutoList lista);
 
-void writeListaProdutos(ProdutoList *lista);
+void writeListaProdutos(ProdutoList lista);
 
 #endif /* PRODUTO_H */

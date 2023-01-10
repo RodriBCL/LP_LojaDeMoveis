@@ -16,30 +16,18 @@
 #include <string.h>
 #include <assert.h>
 
-void remove_newline(char *s)
-{
-    char t[100];
-    int i, j;
-    for (i = 0, j = 0; i < strlen(s); i++)
-    {
-        if (s[i] != '\n')
-        {
-            t[j] = s[i];
-            j++;
-        }
-    }
-    t[j] = '\0';
-    strcpy(s, t);
-}
-
 void readListaProdutos(ProdutoList *lista){
     FILE *fp;
-    Produto *produto;
-    Componentes componentes; 
+    //ProdutoList (*lista);
+    Produto produtos;
     char **dados;
     size_t len = 500;
     ssize_t lido = 0;
     char *linha = NULL;
+    
+    int produto = 0;
+    int componentes = 0;
+
     fp = fopen("Tabela_Ficha_Tecnica.csv", "r");
 
     if(fp == NULL){
@@ -47,128 +35,95 @@ void readListaProdutos(ProdutoList *lista){
         return;
     }
     int i = 0;
-    int j = 0;
-        
-    char *c1;
-    char *c2;
-    char *c3;
-    char *c4;
-    char *c5;
-    char *c6;
-    char *c7;
-    char *c8;
-    (*lista).produtos = malloc (sizeof(ProdutoList)); 
-    
+    (*lista).produtos = malloc(sizeof(Produto));
     char buffer[1024];
     while (fgets(buffer, 1024, fp))
     {
-        dados = malloc(sizeof(char*) * 8);
+        dados = malloc(sizeof(char*) * 10);
+    	dados[0] = NULL;
+        dados[1] = NULL;
+        dados[2] = NULL;
+        dados[3] = NULL;
+        dados[4] = NULL;
+        dados[5] = NULL;
+        dados[6] = NULL;
+        dados[7] = NULL;
         char *column = strtok(buffer, ";");
         int k = 0;
         while (column)
         {
-            dados [k++] = column;
+            dados[k++] = column;
             column = strtok(NULL, ";");
         }
-  
-        if(i != 0){
-            if(dados[7] != NULL){
-                c1 = dados[0];
-                c2 = dados[1];
-                c3 = dados[2];
-                c4 = dados[3];
-                c5 = dados[4];
-                c6 = dados[5];
-                c7 = dados[6];
-                c8 = dados[7];        
-                j = 0;
-                (*lista).totalProdutos++;
-                
-                produto.id = malloc(sizeof(char)*(strlen(c1)+ 1));
-                strcpy(produto.id, c1);
-                produto.nome = malloc(sizeof(char)*(strlen(c2)+ 1));
-                strcpy(produto.nome, c2);
-                produto.dimensoes = malloc(sizeof(char)*(strlen(c3)+ 1));
-                strcpy(produto.dimensoes, c3);
-                produto.preco = atof(c4);
-                produto.componentesUsados = (Componentes*)malloc(sizeof(Componentes));
-                (*lista).produtos = realloc ((*lista).produtos,sizeof(Produto)*((*lista).totalProdutos + 1));
-                (*lista).produtos[(*lista).totalProdutos - 1] = produto; 
-                //printf("%d %s \n",(*lista).totalProdutos, dados[7]);
-                
-                
+		if(i != 0)
+        {
+            if(dados[7] != NULL)
+            {
+            	(*lista).totalProdutos++;
+                produto++;
+                componentes = 0;
+                (*lista).produtos = realloc((*lista).produtos, sizeof(Produto) * produto);
+                (*lista).produtos[produto - 1].id = malloc(sizeof(char) * strlen(dados[0]));
+                strcpy((*lista).produtos[produto - 1].id, dados[0]);
+                (*lista).produtos[produto - 1].nome = malloc(sizeof(char) * strlen(dados[1]));
+                strcpy((*lista).produtos[produto - 1].nome, dados[1]);
+                (*lista).produtos[produto - 1].dimensoes = malloc(sizeof(char) * strlen(dados[2]));
+                strcpy((*lista).produtos[produto - 1].dimensoes, dados[2]);
+                (*lista).produtos[produto - 1].preco = atof(dados[3]);
+                (*lista).produtos[produto - 1].componentesUsados = malloc(sizeof(Componentes) * (componentes + 1));
+                (*lista).produtos[produto - 1].n_componentes = 0;
             }else{
-                c5 = dados[0];
-                c6 = dados[1];
-                c7 = dados[2];
-                c8 = dados[3];
+                dados[4] = dados[0];
+                dados[5] = dados[1];
+                dados[6] = dados[2];
+                dados[7] = dados[3];
             }
-   
-            componentes.codMaterial = malloc(sizeof(char)*(strlen(c5)+ 1));
-            strcpy(componentes.codMaterial, c5);
-            componentes.descricao = malloc(sizeof(char)*(strlen(c6)+ 1));
-            strcpy(componentes.descricao, c6);
-            componentes.quantidade = atoi (c7);
-            componentes.unidade = malloc(sizeof(char)*(strlen(c8)+ 1));
-            strcpy(componentes.unidade, c8);
-            produto.componentesUsados = (Componentes*)realloc(produto.componentesUsados, sizeof(Componentes)*(j + 1));
-            produto.componentesUsados[j] = componentes;
-            
-            printf("%s %d %s %s\n", produto.id, (*lista).produtos[i].n_componentes, produto.componentesUsados[j].descricao, componentes.descricao);
-            (*lista).produtos[i].n_componentes = j++;
+            componentes++;
+            (*lista).produtos[produto - 1].n_componentes++;
+            (*lista).produtos[produto - 1].componentesUsados = (Componentes *)realloc((*lista).produtos[produto - 1].componentesUsados, sizeof(Componentes) * (componentes + 1));
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].codMaterial = malloc(sizeof(char) * strlen(dados[4]));
+            strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].codMaterial, dados[4]);
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao = malloc(sizeof(char) * strlen(dados[5]));
+            strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao, dados[5]);
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].quantidade = atoi(dados[6]);
+            //necessario remover quebra de linha do dados[7]
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade = malloc(sizeof(char) * strlen(dados[7]));
+            strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade, dados[7]);		
         }
-        
-        //Depois disto n.componentes = 0
         i++;
-
-        dados [0] = NULL;
-        dados [1] = NULL;
-        dados [2] = NULL;
-        dados [3] = NULL;
-        dados [4] = NULL;
-        dados [5] = NULL;
-        dados [6] = NULL;
-        dados [7] = NULL;
-
-        free(dados); 
+        free(dados);
     }
-    printListaProdutos(lista);
     fclose(fp);
 }
 
-
-void printListaProdutos(ProdutoList *lista){
+void printListaProdutos(ProdutoList lista){
     int i, j;
- 
-    printf("Em loja exixtem:\n");
-    for(i = 0; i < lista->totalProdutos; i++){
-        printf("\n%s %s %s %f\n", lista->produtos[i].id, lista->produtos[i].nome, lista->produtos[i].dimensoes, lista->produtos[i].preco);
-        printf("%d", lista->produtos[i].n_componentes);
-
-        for(j = 0; j < lista->produtos[i].n_componentes; j++){
-            printf("PUTA");
-            printf("%s ", lista->produtos[i].componentesUsados[j].codMaterial);
+    printf("Em loja exixtem %d produtos:\n", lista.totalProdutos);
+    for(i = 0; i < lista.totalProdutos; i++){
+        printf("\n--%s %s %s %f Numero de componentes: %d\n", lista.produtos[i].id, lista.produtos[i].nome, lista.produtos[i].dimensoes, lista.produtos[i].preco,lista.produtos[i].n_componentes);
+        for(j = 0; j < lista.produtos[i].n_componentes; j++){
+            printf("-%s %d %s %s", lista.produtos[i].componentesUsados[j].codMaterial, lista.produtos[i].componentesUsados[j].quantidade, lista.produtos[i].componentesUsados[j].descricao, lista.produtos[i].componentesUsados[j].unidade);
         }
-
     }
 }
 
 
-void writeListaProdutos(ProdutoList *lista){
+void writeListaProdutos(ProdutoList lista){
     FILE *fp;
-    Produto produto;
-    int i;
-    fp = fopen("Tabela_Ficha_Tecnica.csv", "w");
-
+    //mudar nome do ficheiro
+    fp = fopen("Tabela_Ficha_Tecnica1.csv", "w");
     if(fp == NULL){
         puts("Erro ao abrir o ficheiro");
         return;
     }
-
-    for(i = 0; i < lista->totalProdutos; i++){
-        fprintf(fp, "%s %s %f", lista->produtos[i].id, lista->produtos[i].nome, lista->produtos[i].preco);
+    fprintf(fp,"Cod_Produto;Produto;Dimensoes;Pre�o;Cod_Material;Descri��o;Quantidade;Unidade\n");
+    int i, j;
+    for(i = 0; i < lista.totalProdutos; i++){
+        fprintf(fp,"%s;%s;%s;%f;%s;%s;%d;%s", lista.produtos[i].id, lista.produtos[i].nome, lista.produtos[i].dimensoes, lista.produtos[i].preco,lista.produtos[i].componentesUsados[0].codMaterial, lista.produtos[i].componentesUsados[0].descricao, lista.produtos[i].componentesUsados[0].quantidade, lista.produtos[i].componentesUsados[0].unidade);
+        for(j = 1; j < lista.produtos[i].n_componentes; j++){
+            //necessario adicionar \n no fim do fprintf depois de remover o \n dos dados que vão para a lista
+            fprintf(fp,"%s;%d;%s;%s", lista.produtos[i].componentesUsados[j].codMaterial, lista.produtos[i].componentesUsados[j].quantidade, lista.produtos[i].componentesUsados[j].descricao, lista.produtos[i].componentesUsados[j].unidade);
+        }
     }
     fclose(fp);
 }
-
-

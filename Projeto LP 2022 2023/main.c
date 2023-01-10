@@ -30,7 +30,8 @@ int main(int argc, char** argv) {
    
     produto.totalProdutos = 0;
     readListaProdutos(&produto);
-    
+    printListaProdutos(produto);
+    writeListaProdutos(produto);
 /*
     menu(&clientes);
 */
