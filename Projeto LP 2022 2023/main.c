@@ -27,11 +27,15 @@ int main(int argc, char** argv) {
     
     Clientes clientes;
     ProdutoList produto;
+    Encomendas encomenda;
    
     produto.totalProdutos = 0;
+    inserirCliente(&clientes);
     readListaProdutos(&produto);
-    printListaProdutos(produto);
-    writeListaProdutos(produto);
+    registarEncomenda(&encomenda, clientes, produto);
+    
+    
+    
 /*
     menu(&clientes);
 */

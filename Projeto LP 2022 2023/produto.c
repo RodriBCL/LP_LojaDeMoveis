@@ -127,3 +127,17 @@ void writeListaProdutos(ProdutoList lista){
     }
     fclose(fp);
 }
+
+
+/*
+int procurarProduto(ProdutoList produtos, int id){
+    
+    for(int i = 0; i < produtos.totalProdutos; i++){
+        if(id == produtos.produtos[i].id){
+            return id;
+        }
+    }
+    return -1;
+}
+
+*/

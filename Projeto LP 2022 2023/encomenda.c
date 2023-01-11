@@ -17,34 +17,38 @@
 #include <stdio.h>
 #include <string.h>
 
-void registarEncomenda(Encomendas *Encomendas, Clientes *listaClientes){
-    Encomenda encomenda;
-    int idCliente;
+void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoList produtos){
+    listarClientes(listaClientes);
     
-    encomenda.id = Encomendas->totalEncomendas + 1;
+    int idCliente, idProduto;
     
-    idCliente = obterInt("Insira o id do cliente: ");
+    idCliente = obterInt("Id Cliente: ");
     
-    if(procurarCliente(*listaClientes, idCliente) == -1){
-        puts("Cliente não encontrado");
-        return;
+    if(procurarCliente(listaClientes, idCliente) == -1){
+        printf("Cliente não existe!!\n");
+    }else{
+        printListaProdutos(produtos);
+    
+        idProduto = obterInt("Que produto deseja comprar(escreva só o último numero do produto): ");
+    
+        if(idProduto > produtos.totalProdutos || idProduto <= 0){
+            printf("Produto não existe!!");
+        
+        }else{
+            Encomendas->encomendas[Encomendas->totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
+            Encomendas->encomendas[Encomendas->totalEncomendas].totalPagar = Encomendas->encomendas[Encomendas->totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
+            Encomendas->encomendas[Encomendas->totalEncomendas].data.dia = obterInt("Dia: ");
+            Encomendas->encomendas[Encomendas->totalEncomendas].data.mes = obterInt("Mes: ");
+            Encomendas->encomendas[Encomendas->totalEncomendas].data.ano = obterInt("Ano: ");
+         
+            Encomendas->totalEncomendas++;
+        }
+        
     }
+} 
     
-    encomenda.idCliente = idCliente;
-    strcpy(encomenda.nomeCliete, listaClientes->clientes[listaClientes->total].nome);
     
-    printf("Insira o nome do produto: ");
-    fgets(encomenda.nomeProduto, 50, stdin);
-    
-    encomenda.quantidade = obterInt("Insira a quantidade: ");
-    
-    encomenda.data.dia = obterInt("Insira o dia: ");
-    encomenda.data.mes = obterInt("Insira o mes: ");
-    encomenda.data.ano = obterInt("Insira o ano: ");
-    
-    Encomendas->encomendas[Encomendas->totalEncomendas] = encomenda;
-    Encomendas->totalEncomendas++;
-}
+ 
 
 
 void imprimirEncomendas(Encomendas *listaEncomendas){

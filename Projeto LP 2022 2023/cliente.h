@@ -44,7 +44,7 @@ int adicionarCliente(Clientes *clientes);
 
 void imprimirCliente(Cliente cliente);
 
-void listarClientes(Clientes *clientes);
+void listarClientes(Clientes clientes);
 
 void atualizarDadosCliente(Cliente *cliente);
 

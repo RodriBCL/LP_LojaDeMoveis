@@ -98,7 +98,7 @@ void menuAdmin(Clientes *clientes){
             editarCliente(clientes);
             break;
         case 4:
-            listarClientes(clientes);
+            listarClientes(*clientes);
             break;
         case 5:
 /*

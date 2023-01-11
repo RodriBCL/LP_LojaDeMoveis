@@ -14,6 +14,7 @@
 #define ENCOMENDA_H
 
 #include "cliente.h"
+#include "produto.h"
 
 typedef struct{
     int dia;
@@ -24,9 +25,11 @@ typedef struct{
 typedef struct{
     int id;
     int idCliente;
+    int idProduto;
     char nomeCliete[50];
     char nomeProduto[50];
     int quantidade;
+    float totalPagar;
     Data data;
 }Encomenda;
 
@@ -35,7 +38,7 @@ typedef struct{
     int totalEncomendas;
 }Encomendas;
 
-void registarEncomenda(Encomendas *Encomendas, Clientes *listaClientes);
+void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoList produtos);
 
 void imprimirEncomendas(Encomendas *listaEncomendas);
 
