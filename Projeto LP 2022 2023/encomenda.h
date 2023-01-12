@@ -23,11 +23,10 @@ typedef struct{
 }Data;
 
 typedef struct{
-    int id;
     int idCliente;
     int idProduto;
-    char nomeCliete[50];
-    char nomeProduto[50];
+    char *nomeCliete;
+    char *nomeProduto;
     int quantidade;
     float totalPagar;
     Data data;
@@ -38,10 +37,10 @@ typedef struct{
     int totalEncomendas;
 }Encomendas;
 
-void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoList produtos);
+void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos);
 
-void imprimirEncomendas(Encomendas *listaEncomendas);
+void imprimirEncomendas(Encomendas listaEncomendas);
 
-void imprimirEncomendaCliente(Encomendas *listaEncomendas, Clientes *listaClientes);
+void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes);
 
 #endif /* ENCOMENDA_H */

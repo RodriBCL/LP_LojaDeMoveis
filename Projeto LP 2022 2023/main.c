@@ -30,9 +30,14 @@ int main(int argc, char** argv) {
     Encomendas encomenda;
    
     produto.totalProdutos = 0;
+    
     inserirCliente(&clientes);
+    listarClientes(clientes);
+/*
     readListaProdutos(&produto);
     registarEncomenda(&encomenda, clientes, produto);
+    imprimirEncomendaCliente(encomenda, clientes);
+*/
     
     
     

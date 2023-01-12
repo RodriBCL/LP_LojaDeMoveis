@@ -17,7 +17,14 @@
 #include <stdio.h>
 #include <string.h>
 
-void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoList produtos){
+void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos){
+    
+    if((*encomendas).totalEncomendas == 0){
+        (*encomendas).encomendas = (Encomendas*)malloc(sizeof(Encomendas));
+    }else{
+        (*encomendas).encomendas = (Encomendas*)realloc((*encomendas).encomendas, (*encomendas).totalEncomendas + 1 * sizeof(Encomendas));
+    }
+    
     listarClientes(listaClientes);
     
     int idCliente, idProduto;
@@ -35,13 +42,22 @@ void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoLi
             printf("Produto não existe!!");
         
         }else{
-            Encomendas->encomendas[Encomendas->totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
-            Encomendas->encomendas[Encomendas->totalEncomendas].totalPagar = Encomendas->encomendas[Encomendas->totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
-            Encomendas->encomendas[Encomendas->totalEncomendas].data.dia = obterInt("Dia: ");
-            Encomendas->encomendas[Encomendas->totalEncomendas].data.mes = obterInt("Mes: ");
-            Encomendas->encomendas[Encomendas->totalEncomendas].data.ano = obterInt("Ano: ");
+            encomendas->encomendas[encomendas->totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
+            encomendas->encomendas[encomendas->totalEncomendas].totalPagar = encomendas->encomendas[encomendas->totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
+            
+            encomendas->encomendas[encomendas->totalEncomendas].data.dia = obterInt("Dia: ");
+            encomendas->encomendas[encomendas->totalEncomendas].data.mes = obterInt("Mes: ");
+            encomendas->encomendas[encomendas->totalEncomendas].data.ano = obterInt("Ano: ");
+            
+            encomendas->encomendas[encomendas->totalEncomendas].idCliente = idCliente;
+            
+            encomendas->encomendas->nomeProduto = (Encomendas*)malloc(sizeof(Encomendas));
+            encomendas->encomendas->nomeCliete = (Encomendas*)malloc(sizeof(Encomendas));
+            
+            encomendas->encomendas[encomendas->totalEncomendas].nomeProduto = produtos.produtos[idProduto - 1].nome;
+            encomendas->encomendas[encomendas->totalEncomendas].nomeCliete = listaClientes.clientes[idCliente - 1].nome;
          
-            Encomendas->totalEncomendas++;
+            encomendas->totalEncomendas++;
         }
         
     }
@@ -51,42 +67,46 @@ void registarEncomenda(Encomendas *Encomendas, Clientes listaClientes, ProdutoLi
  
 
 
-void imprimirEncomendas(Encomendas *listaEncomendas){
+void imprimirEncomendas(Encomendas listaEncomendas){
     int i;
-    for(i = 0; i < listaEncomendas->totalEncomendas; i++){
-        printf("Encomenda numero: %d----Cliente: %s----Id: %d----Produto: %s----Data: %d/%d/%d", listaEncomendas->encomendas[i].id, 
-                                                                                            listaEncomendas->encomendas[i].nomeCliete, 
-                                                                                            listaEncomendas->encomendas[i].idCliente, 
-                                                                                            listaEncomendas->encomendas[i].nomeProduto, 
-                                                                                            listaEncomendas->encomendas[i].data.dia, 
-                                                                                            listaEncomendas->encomendas[i].data.mes, 
-                                                                                            listaEncomendas->encomendas[i].data.ano);
+    for(i = 0; i < listaEncomendas.totalEncomendas; i++){
+        printf("Id: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d",  listaEncomendas.encomendas[i].idCliente, 
+                                                                                                        listaEncomendas.encomendas[i].nomeCliete, 
+                                                                                                        listaEncomendas.encomendas[i].nomeProduto, 
+                                                                                                        listaEncomendas.encomendas[i].totalPagar,
+                                                                                                        listaEncomendas.encomendas[i].quantidade,
+                                                                                                        listaEncomendas.encomendas[i].data.dia, 
+                                                                                                        listaEncomendas.encomendas[i].data.mes, 
+                                                                                                        listaEncomendas.encomendas[i].data.ano);
     }
 }
 
 
-void imprimirEncomendaCliente(Encomendas *listaEncomendas, Clientes *listaClientes){
+
+void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes){
     int idCliente;
     int i;
     
     idCliente = obterInt("Id: ");
     
-    if(procurarCliente(*listaClientes, idCliente) == -1){
+    if(procurarCliente(listaClientes, idCliente) == -1){
         puts("Cliente não encontrado");
         return;
     }
     
-    for(i = 0; i < listaEncomendas->totalEncomendas; i++){
-        if(listaEncomendas->encomendas[i].idCliente == idCliente){
-            printf("Encomenda numero: %d----Cliente: %s----Id: %d----Produto: %s----Data: %d/%d/%d", listaEncomendas->encomendas[i].id, 
-                                                                                                listaEncomendas->encomendas[i].nomeCliete, 
-                                                                                                listaEncomendas->encomendas[i].idCliente, 
-                                                                                                listaEncomendas->encomendas[i].nomeProduto, 
-                                                                                                listaEncomendas->encomendas[i].data.dia, 
-                                                                                                listaEncomendas->encomendas[i].data.mes, 
-                                                                                                listaEncomendas->encomendas[i].data.ano);
+    for(i = 0; i < listaEncomendas.totalEncomendas; i++){
+        if(listaEncomendas.encomendas[i].idCliente == idCliente){
+            printf("Id: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d",  listaEncomendas.encomendas[i].idCliente, 
+                                                                                                        listaEncomendas.encomendas[i].nomeCliete, 
+                                                                                                        listaEncomendas.encomendas[i].nomeProduto, 
+                                                                                                        listaEncomendas.encomendas[i].totalPagar,
+                                                                                                        listaEncomendas.encomendas[i].quantidade,
+                                                                                                        listaEncomendas.encomendas[i].data.dia, 
+                                                                                                        listaEncomendas.encomendas[i].data.mes, 
+                                                                                                        listaEncomendas.encomendas[i].data.ano);
         }else{
             puts("Cliente não tem encomendas");
         }
     }
 }
+
