@@ -1,16 +1,16 @@
 Id: 1
 Nome: 1
-Nif: 
-Morada:  
-Telefone: 
-Email: 
-Pais: 
+Nif: 1
+Morada: 1
+Telefone: 1
+Email: 1
+Pais: 1
 
-Id: 0
-Nome: 
-Nif: 
-Morada: 
-Telefone: 
-Email: 
-Pais: 
+Id: 2
+Nome: 1
+Nif: 1
+Morada: 1
+Telefone: 1
+Email: 1
+Pais: 1
 

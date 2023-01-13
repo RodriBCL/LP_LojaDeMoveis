@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <assert.h>
 
 
 int procurarCliente(Clientes clientes, int id){
@@ -32,9 +33,9 @@ int procurarCliente(Clientes clientes, int id){
 int adicionarCliente(Clientes *clientes){
 
     if((*clientes).total == 0){
-        (*clientes).clientes = (Cliente*)malloc(sizeof(Clientes));
+        (*clientes).clientes = (Cliente*)malloc(sizeof(Cliente));
     }else{
-        (*clientes).clientes = (Cliente*)realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof(Clientes));
+        (*clientes).clientes = (Cliente*)realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof(Cliente));
     }
 
     
@@ -70,11 +71,33 @@ int adicionarCliente(Clientes *clientes){
          (*clientes).clientes[(*clientes).total].pais = malloc((strlen(buffer) +1 ) * sizeof(char));
          strcpy((*clientes).clientes[(*clientes).total].pais, buffer);
         
-        return clientes->total++;
+        return (*clientes).total++;
     }
     return -1;
 }
 
+
+void libertarMemcliente(Clientes *clientes){
+    int i;
+    
+    if(clientes->total > 0){
+     
+        for(i = 0; i < clientes->total; i++){
+            
+            free(clientes->clientes[i].nome);
+            free(clientes->clientes[i].nif);   
+            free(clientes->clientes[i].morada);   
+            free(clientes->clientes[i].telefone);   
+            free(clientes->clientes[i].email);   
+            free(clientes->clientes[i].pais); 
+            
+        }
+        free(clientes->clientes);
+        
+    }else{
+        printf("Não existem clientes criados!!\n");
+    }
+}
 
 
 void imprimirCliente(Cliente cliente){
@@ -99,12 +122,34 @@ void listarClientes(Clientes clientes){
 
 
 void atualizarDadosCliente(Cliente *cliente){
-     lerString((*cliente).nome, SIZE_NOME, "Nome: ");
-     lerString((*cliente).nif, SIZE_NIF, "Nif: ");        
-     lerString((*cliente).morada, SIZE_MORADA, "Morada: ");        
-     lerString((*cliente).telefone, SIZE_TELEFONE, "Telefone: ");        
-     lerString((*cliente).email, SIZE_EMAIL, "Email: ");        
-     lerString((*cliente).pais, SIZE_PAIS, "País: ");
+     
+    char buffer[SIZE_BUFFER];
+    
+         lerString(buffer, SIZE_BUFFER, "Nome: ");
+         cliente->nome = realloc(cliente->nome, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->nome, buffer);
+         
+         lerString(buffer, SIZE_BUFFER, "Nif: ");
+         cliente->nif = realloc(cliente->nif, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->nif, buffer);
+         
+         lerString(buffer, SIZE_BUFFER, "Morada: ");
+         cliente->morada = realloc(cliente->morada, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->morada, buffer);
+         
+         lerString(buffer, SIZE_BUFFER, "Telefone: ");
+         cliente->telefone = realloc(cliente->telefone, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->telefone, buffer);
+         
+         lerString(buffer, SIZE_BUFFER, "Email: ");
+         cliente->email = realloc(cliente->email, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->email, buffer);
+         
+         lerString(buffer, SIZE_BUFFER, "Pai­s: ");
+         cliente->pais= realloc(cliente->pais, (strlen(buffer) + 1) * sizeof(char));
+         strcpy(cliente->pais, buffer);
+         
+         
 }
 
 
@@ -170,19 +215,82 @@ void writeClientes(Clientes clientes){
         printf("Erro ao abrir o ficheiro!!\n");
         return;
     }
-    
+    fprintf("id;nome;nif;morada;telefone;email;pais\n");
     for(int i = 0; i < clientes.total; i++){
-        fprintf(fp, "Id: %d\n", clientes.clientes[i].id);
-        fprintf(fp, "Nome: %s\n", clientes.clientes[i].nome);
-        fprintf(fp, "Nif: %s\n", clientes.clientes[i].nif);
-        fprintf(fp, "Morada: %s\n", clientes.clientes[i].morada);
-        fprintf(fp, "Telefone: %s\n", clientes.clientes[i].telefone);
-        fprintf(fp, "Email: %s\n", clientes.clientes[i].email);
-        fprintf(fp, "Pais: %s", clientes.clientes[i].pais);
-        fprintf(fp, "\n\n");
+        fprintf(fp,"%d;%s;%s;%s;%s;%s;%s\n" 
+                                         ,clientes.clientes[i].id
+                                         ,clientes.clientes[i].nome
+                                         ,clientes.clientes[i].nif
+                                         ,clientes.clientes[i].morada
+                                         ,clientes.clientes[i].telefone
+                                         ,clientes.clientes[i].email
+                                         ,clientes.clientes[i].pais);        
+        
     }
    fclose(fp); 
 }
 
 
 
+void readClientes(Clientes *clientes){
+    FILE *fp;
+    
+    Cliente cliente;
+    char **dados;
+    size_t len = 500;
+    ssize_t lido = 0;
+    char *linha = NULL;
+    
+    int clientenum = 0;
+    
+
+    fp = fopen("Lista_Clientes.csv", "r");
+
+    if(fp == NULL){
+        puts("Erro ao abrir o ficheiro");
+        } 
+        return;
+        int i = 0;
+        
+         if((*clientes).total == 0){
+        (*clientes).clientes = (Cliente*)malloc(sizeof(Cliente));
+         }else{
+        (*clientes).clientes = (Cliente*)realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof(Cliente));
+         }
+        char buffer[1024];
+        while (fgets(buffer, 1024, fp)){
+                
+                dados =(char*) malloc(sizeof(char*) * 8);
+                dados[0] = NULL;
+                dados[1] = NULL;
+                dados[2] = NULL;
+                dados[3] = NULL;
+                dados[4] = NULL;
+                dados[5] = NULL;
+                dados[6] = NULL;
+
+                char *column = strtok(buffer, ";");
+                int k = 0;
+                
+           while (column)
+        {
+            dados[k++] = column;
+            column = strtok(NULL, ";");
+        }
+		if(i != 0){
+        
+            if(dados[6] != NULL){
+                (*clientes).clientes[(*clientes).total].nome = malloc((strlen(dados) + 1) * sizeof(char));
+    
+    
+          
+    }else{
+                
+    }
+              
+    } 
+      i++;
+        free(dados);
+    }
+    fclose(fp);
+    }

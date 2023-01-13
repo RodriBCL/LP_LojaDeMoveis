@@ -16,13 +16,14 @@
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos){
     
     if((*encomendas).totalEncomendas == 0){
-        (*encomendas).encomendas = (Encomendas*)malloc(sizeof(Encomendas));
+        (*encomendas).encomendas = (Encomenda*)malloc(sizeof(Encomenda));
     }else{
-        (*encomendas).encomendas = (Encomendas*)realloc((*encomendas).encomendas, (*encomendas).totalEncomendas + 1 * sizeof(Encomendas));
+        (*encomendas).encomendas = (Encomenda*)realloc((*encomendas).encomendas, (*encomendas).totalEncomendas + 1 * sizeof(Encomenda));
     }
     
     listarClientes(listaClientes);
@@ -51,9 +52,8 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
             
             encomendas->encomendas[encomendas->totalEncomendas].idCliente = idCliente;
             
-            encomendas->encomendas->nomeProduto = (Encomendas*)malloc(sizeof(Encomendas));
-            encomendas->encomendas->nomeCliete = (Encomendas*)malloc(sizeof(Encomendas));
-            
+            encomendas->encomendas->nomeProduto = (Encomenda*)malloc(sizeof(Encomenda));//TD FDD
+            encomendas->encomendas->nomeCliete = (Encomenda*)malloc(sizeof(Encomenda));//TD FDD
             encomendas->encomendas[encomendas->totalEncomendas].nomeProduto = produtos.produtos[idProduto - 1].nome;
             encomendas->encomendas[encomendas->totalEncomendas].nomeCliete = listaClientes.clientes[idCliente - 1].nome;
          

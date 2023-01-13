@@ -35,11 +35,11 @@ void readListaProdutos(ProdutoList *lista){
         return;
     }
     int i = 0;
-    (*lista).produtos = malloc(sizeof(Produto));
+    (*lista).produtos =(Produto*) malloc(sizeof(Produto));
     char buffer[1024];
     while (fgets(buffer, 1024, fp))
     {
-        dados = malloc(sizeof(char*) * 10);
+        dados =(char*) malloc(sizeof(char*) * 10);
     	dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -63,14 +63,14 @@ void readListaProdutos(ProdutoList *lista){
                 produto++;
                 componentes = 0;
                 (*lista).produtos = realloc((*lista).produtos, sizeof(Produto) * produto);
-                (*lista).produtos[produto - 1].id = malloc(sizeof(char) * strlen(dados[0]));
+                (*lista).produtos[produto - 1].id =(char*) malloc(sizeof(char) * strlen(dados[0]));
                 strcpy((*lista).produtos[produto - 1].id, dados[0]);
-                (*lista).produtos[produto - 1].nome = malloc(sizeof(char) * strlen(dados[1]));
+                (*lista).produtos[produto - 1].nome =(char*) malloc(sizeof(char) * strlen(dados[1]));
                 strcpy((*lista).produtos[produto - 1].nome, dados[1]);
-                (*lista).produtos[produto - 1].dimensoes = malloc(sizeof(char) * strlen(dados[2]));
+                (*lista).produtos[produto - 1].dimensoes =(char*) malloc(sizeof(char) * strlen(dados[2]));
                 strcpy((*lista).produtos[produto - 1].dimensoes, dados[2]);
                 (*lista).produtos[produto - 1].preco = atof(dados[3]);
-                (*lista).produtos[produto - 1].componentesUsados = malloc(sizeof(Componentes) * (componentes + 1));
+                (*lista).produtos[produto - 1].componentesUsados =(Componentes*) malloc(sizeof(Componentes) * (componentes + 1));
                 (*lista).produtos[produto - 1].n_componentes = 0;
             }else{
                 dados[4] = dados[0];
@@ -81,13 +81,13 @@ void readListaProdutos(ProdutoList *lista){
             componentes++;
             (*lista).produtos[produto - 1].n_componentes++;
             (*lista).produtos[produto - 1].componentesUsados = (Componentes *)realloc((*lista).produtos[produto - 1].componentesUsados, sizeof(Componentes) * (componentes + 1));
-            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].codMaterial = malloc(sizeof(char) * strlen(dados[4]));
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].codMaterial =(char*) malloc(sizeof(char) * strlen(dados[4]));
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].codMaterial, dados[4]);
-            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao = malloc(sizeof(char) * strlen(dados[5]));
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao =(char*) malloc(sizeof(char) * strlen(dados[5]));
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao, dados[5]);
             (*lista).produtos[produto - 1].componentesUsados[componentes - 1].quantidade = atoi(dados[6]);
             //necessario remover quebra de linha do dados[7]
-            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade = malloc(sizeof(char) * strlen(dados[7]));
+            (*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade =(char*) malloc(sizeof(char) * strlen(dados[7]));
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade, dados[7]);		
         }
         i++;

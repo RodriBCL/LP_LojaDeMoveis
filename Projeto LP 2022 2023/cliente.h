@@ -13,6 +13,12 @@
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
+#define SIZE_NOME 100
+#define SIZE_NIF 10
+#define SIZE_MORADA 100
+#define SIZE_TELEFONE 10
+#define SIZE_EMAIL 100
+#define SIZE_PAIS 100
 #define SIZE_BUFFER 100
 
 typedef struct 
@@ -37,7 +43,7 @@ int procurarCliente(Clientes clientes, int id);
 
 int adicionarCliente(Clientes *clientes);
 
-void libertarmemcliente(Clientes *clientes);
+void libertarMemcliente(Clientes *clientes);
 
 void imprimirCliente(Cliente cliente);
 
@@ -52,5 +58,9 @@ void apagarDadosCliente(Cliente *cliente);
 void eliminarCliente(Clientes *clientes);
 
 void inserirCliente(Clientes *clientes);
+
+void writeClientes(Clientes clientes);
+
+void readClientes(Clientes *clientes);
 
 #endif /* CLIENTE_H */
