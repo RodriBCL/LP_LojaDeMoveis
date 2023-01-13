@@ -34,7 +34,7 @@ int main(int argc, char** argv) {
     encomenda.totalEncomendas = 0;
     
     inserirCliente(&clientes);
-    inserirCliente(&clientes);
+    editarCliente(&clientes);
     listarClientes(clientes);
     writeClientes(clientes);
    
