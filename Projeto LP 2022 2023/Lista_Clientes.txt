@@ -1,0 +1,16 @@
+Id: 1
+Nome: 1
+Nif: 
+Morada:  
+Telefone: 
+Email: 
+Pais: 
+
+Id: 0
+Nome: 
+Nif: 
+Morada: 
+Telefone: 
+Email: 
+Pais: 
+

@@ -30,9 +30,14 @@ int main(int argc, char** argv) {
     Encomendas encomenda;
    
     produto.totalProdutos = 0;
+    clientes.total = 0;
+    encomenda.totalEncomendas = 0;
     
     inserirCliente(&clientes);
+    inserirCliente(&clientes);
     listarClientes(clientes);
+    writeClientes(clientes);
+   
 /*
     readListaProdutos(&produto);
     registarEncomenda(&encomenda, clientes, produto);
@@ -43,21 +48,6 @@ int main(int argc, char** argv) {
     
 /*
     menu(&clientes);
-*/
-
-
-/*
-    Clientes clientes;
-    
-    inserirCliente(&clientes);
-    inserirCliente(&clientes);
-    printf("Prints:\n");
-    listarClientes(clientes);
-    editarCliente(&clientes);
-    eliminarCliente(&clientes);
-    printf("Novos prints:\n");
-    listarClientes(clientes);
-    
 */
 
     return (EXIT_SUCCESS);

@@ -43,23 +43,38 @@ int adicionarCliente(Clientes *clientes){
     if(procurarCliente(*clientes, id) == -1){
          
         (*clientes).clientes[(*clientes).total].id = id;
-         
-        lerString((*clientes).clientes[(*clientes).total].nome, SIZE_NOME, "Nome: ");
-         
-        lerString((*clientes).clientes[(*clientes).total].nif, SIZE_NIF, "Nif: ");
-         
-        lerString((*clientes).clientes[(*clientes).total].morada, SIZE_MORADA, "Morada: ");
-         
-        lerString((*clientes).clientes[(*clientes).total].telefone, SIZE_TELEFONE, "Telefone: ");
-         
-        lerString((*clientes).clientes[(*clientes).total].email, SIZE_EMAIL, "Email: ");
-         
-        lerString((*clientes).clientes[(*clientes).total].pais, SIZE_PAIS, "País: ");
+        
+         char buffer[SIZE_BUFFER];
+        
+         lerString(buffer, SIZE_BUFFER, "Nome: ");
+         (*clientes).clientes[(*clientes).total].nome = malloc((strlen(buffer) + 1) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].nome, buffer);
+
+         lerString(buffer, SIZE_BUFFER, "Nif: ");
+         (*clientes).clientes[(*clientes).total].nif = malloc((strlen(buffer) + 1) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].nif, buffer);
+              
+         lerString(buffer, SIZE_BUFFER, "Morada: ");
+         (*clientes).clientes[(*clientes).total].morada = malloc((strlen(buffer) + 1) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].morada, buffer);
+               
+         lerString(buffer, SIZE_BUFFER, "Telefone: ");
+         (*clientes).clientes[(*clientes).total].telefone = malloc((strlen(buffer) + 1) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].telefone, buffer);
+             
+         lerString(buffer, SIZE_BUFFER, "Email: ");
+         (*clientes).clientes[(*clientes).total].email = malloc((strlen(buffer) +1 ) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].email, buffer);
+       
+         lerString(buffer, SIZE_BUFFER, "Pai­s: ");
+         (*clientes).clientes[(*clientes).total].pais = malloc((strlen(buffer) +1 ) * sizeof(char));
+         strcpy((*clientes).clientes[(*clientes).total].pais, buffer);
         
         return clientes->total++;
     }
     return -1;
 }
+
 
 
 void imprimirCliente(Cliente cliente){
@@ -134,8 +149,6 @@ void eliminarCliente(Clientes *clientes){
 }
 
 
-
-
 void inserirCliente(Clientes *clientes){
     if(clientes->total < 100){
         if(adicionarCliente(clientes) == -1){
@@ -146,6 +159,29 @@ void inserirCliente(Clientes *clientes){
         printf("Erro a lista de clietes está cheia\n");
         printf("%d", clientes->total);
     }
+}
+
+//Não esta a escrever no ficheiro
+void writeClientes(Clientes clientes){
+    FILE *fp;
+    
+    fp = fopen("Lista_Clientes.txt", "w");
+    if(fp == NULL){
+        printf("Erro ao abrir o ficheiro!!\n");
+        return;
+    }
+    
+    for(int i = 0; i < clientes.total; i++){
+        fprintf(fp, "Id: %d\n", clientes.clientes[i].id);
+        fprintf(fp, "Nome: %s\n", clientes.clientes[i].nome);
+        fprintf(fp, "Nif: %s\n", clientes.clientes[i].nif);
+        fprintf(fp, "Morada: %s\n", clientes.clientes[i].morada);
+        fprintf(fp, "Telefone: %s\n", clientes.clientes[i].telefone);
+        fprintf(fp, "Email: %s\n", clientes.clientes[i].email);
+        fprintf(fp, "Pais: %s", clientes.clientes[i].pais);
+        fprintf(fp, "\n\n");
+    }
+   fclose(fp); 
 }
 
 

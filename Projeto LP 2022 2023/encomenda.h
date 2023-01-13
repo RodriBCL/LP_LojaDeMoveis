@@ -43,4 +43,6 @@ void imprimirEncomendas(Encomendas listaEncomendas);
 
 void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes);
 
+void writeEncomendas(Encomendas encomendas);
+
 #endif /* ENCOMENDA_H */

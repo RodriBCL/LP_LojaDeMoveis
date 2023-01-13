@@ -110,3 +110,24 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
     }
 }
 
+
+void writeEncomendas(Encomendas encomendas){
+    FILE *fp;
+    
+    fp = fopen("Lista_Encomendas.txt", "w");
+    if(fp == NULL){
+        printf("Erro ao abrir um ficheiro!!\n");
+        return;
+    }
+    
+    for(int i = 0; i < encomendas.totalEncomendas; i++){
+        fprintf(fp, "Id: %d\n", encomendas.encomendas[i].idCliente);
+        fprintf(fp, "Cliente: %s\n", encomendas.encomendas[i].nomeCliete);
+        fprintf(fp, "Poduto: %s\n", encomendas.encomendas[i].nomeProduto);
+        fprintf(fp, "Peço: %f\n", encomendas.encomendas[i].totalPagar);
+        fprintf(fp, "Quantidade: %d\n", encomendas.encomendas[i].quantidade);
+        fprintf(fp, "Data: %d-%d-%d\n", encomendas.encomendas[i].data.dia, encomendas.encomendas[i].data.mes, encomendas.encomendas[i].data.mes);
+        fprintf(fp, "\n\n");
+    }
+    fclose(fp);
+}
