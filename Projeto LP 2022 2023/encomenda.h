@@ -16,26 +16,26 @@
 #include "cliente.h"
 #include "produto.h"
 
-typedef struct{
+typedef struct {
     int dia;
     int mes;
     int ano;
-}Data;
+} Data;
 
-typedef struct{
+typedef struct {
     int idCliente;
     int idProduto;
-    char *nomeCliete;
+    char *nomeCliente;
     char *nomeProduto;
     int quantidade;
     float totalPagar;
     Data data;
-}Encomenda;
+} Encomenda;
 
-typedef struct{
+typedef struct {
     Encomenda *encomendas;
     int totalEncomendas;
-}Encomendas;
+} Encomendas;
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos);
 
@@ -44,5 +44,9 @@ void imprimirEncomendas(Encomendas listaEncomendas);
 void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes);
 
 void writeEncomendas(Encomendas encomendas);
+
+void readEncomendas(Encomendas *encomendas);
+
+int procurarEncomenda(Encomendas encomendas, int id);
 
 #endif /* ENCOMENDA_H */

@@ -11,6 +11,7 @@
  */
 
 #include "cliente.h"
+#include "encomenda.h"
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
@@ -157,28 +158,25 @@ void editarCliente(Clientes *clientes) {
     }
 }
 
-void apagarDadosCliente(Cliente *cliente) {
-    cliente->id = 0;
-    strcpy(cliente->nome, "");
-    strcpy(cliente->nif, "");
-    strcpy(cliente->morada, "");
-    strcpy(cliente->telefone, "");
-    strcpy(cliente->email, "");
-    strcpy(cliente->pais, "");
+void apagarDadosCliente(Cliente *cliente) {    
+        cliente->id = 0;
+        strcpy(cliente->nome, "");
+        strcpy(cliente->nif, "");
+        strcpy(cliente->morada, "");
+        strcpy(cliente->telefone, "");
+        strcpy(cliente->email, "");
+        strcpy(cliente->pais, "");    
 }
 
 void eliminarCliente(Clientes *clientes) {
-    int i;
+    int i, k;
     int id = procurarCliente(*clientes, obterInt("Id: "));
 
     if (id != -1) {
         for (i = id; i < clientes->total - 1; i++) {
             clientes->clientes[i] = clientes->clientes[i + 1];
         }
-        apagarDadosCliente(&clientes->clientes[i]);
-
-        clientes->total--;
-
+        apagarDadosCliente(&clientes->clientes[i]);     
     } else {
         printf("Cliente não existe!!\n");
     }
@@ -224,13 +222,12 @@ void writeClientes(Clientes clientes) {
 void readClientes(Clientes *clientes) {
     FILE *fp;
     char **dados;
-
     fp = fopen("Lista_Clientes.csv", "r");
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
-    }
     return;
+    }
     int i = 0;
 
     if ((*clientes).total == 0) {
@@ -240,6 +237,7 @@ void readClientes(Clientes *clientes) {
     }
     char buffer[1024];
     while (fgets(buffer, 1024, fp)) {
+    
 
         dados = (char**) malloc(sizeof (char*) * 7);
         dados[0] = NULL;

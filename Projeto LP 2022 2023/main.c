@@ -33,10 +33,13 @@ int main(int argc, char** argv) {
     clientes.total = 0;
     encomenda.totalEncomendas = 0;
     
+    readClientes(&clientes);
     inserirCliente(&clientes);
-    editarCliente(&clientes);
     listarClientes(clientes);
     writeClientes(clientes);
+    
+    libertarMemcliente(&clientes);
+    
    
 /*
     readListaProdutos(&produto);
