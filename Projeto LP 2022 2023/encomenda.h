@@ -13,7 +13,6 @@
 #ifndef ENCOMENDA_H
 #define ENCOMENDA_H
 
-#include "cliente.h"
 #include "produto.h"
 
 typedef struct {
@@ -37,11 +36,13 @@ typedef struct {
     int totalEncomendas;
 } Encomendas;
 
+#include "cliente.h"
+
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos);
 
 void imprimirEncomendas(Encomendas listaEncomendas);
 
-void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes);
+void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes, int id);
 
 void writeEncomendas(Encomendas encomendas);
 

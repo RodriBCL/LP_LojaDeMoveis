@@ -10,6 +10,7 @@
  * Created on 7 de dezembro de 2022, 20:12
  */
 
+
 #ifndef CLIENTE_H
 #define CLIENTE_H
 
@@ -30,6 +31,7 @@ typedef struct
     char *telefone;
     char *email;
     char *pais;
+    int estado;
 } Cliente;
 
 
@@ -38,6 +40,8 @@ typedef struct
     Cliente *clientes;
     int total;
 } Clientes;
+
+#include "encomenda.h"
 
 int procurarCliente(Clientes clientes, int id);
 
@@ -53,9 +57,9 @@ void atualizarDadosCliente(Cliente *cliente);
 
 void editarCliente(Clientes *clientes);
 
-void apagarDadosCliente(Cliente *cliente);
+void apagarDadosCliente(Cliente *cliente, Encomendas encomenda);
 
-void eliminarCliente(Clientes *clientes);
+void eliminarCliente(Clientes *clientes, Encomendas encomenda);
 
 void inserirCliente(Clientes *clientes);
 

@@ -13,10 +13,12 @@
 #ifndef MENU_H
 #define MENU_H
 #include "cliente.h"
+#include "encomenda.h"
+#include "produto.h"
 
-void menu(Clientes *clientes);
-void menuAdmin(Clientes *clientes);
-void menuCliente(Clientes *clientes);
+void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto);
+void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto);
+void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto);
 void sairPrograma();
 
 

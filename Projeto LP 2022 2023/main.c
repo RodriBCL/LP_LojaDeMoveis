@@ -37,6 +37,7 @@ int main(int argc, char** argv) {
     inserirCliente(&clientes);
     listarClientes(clientes);
     writeClientes(clientes);
+    registarEncomenda(&encomenda, clientes, produto);
     
     libertarMemcliente(&clientes);
     

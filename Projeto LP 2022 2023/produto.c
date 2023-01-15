@@ -35,7 +35,7 @@ void readListaProdutos(ProdutoList *lista) {
     (*lista).produtos = (Produto*) malloc(sizeof (Produto));
     char buffer[1024];
     while (fgets(buffer, 1024, fp)) {
-        dados = (char*) malloc(sizeof (char*) * 8);
+        dados = (char**) malloc(sizeof (char*) * 8);
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;

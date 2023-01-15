@@ -10,9 +10,9 @@
  * Created on 7 de dezembro de 2022, 20:12
  */
 
+#include "cliente.h"
 #include "encomenda.h"
 #include "produto.h"
-#include "cliente.h"
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
@@ -31,9 +31,15 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
     int idCliente, idProduto;
 
     idCliente = obterInt("Id Cliente: ");
-
-    if (procurarCliente(listaClientes, idCliente) == -1) {
+    
+    int indiceCliente = procurarCliente(listaClientes, idCliente);
+    
+    if (indiceCliente == -1) {
         printf("Cliente não existe!!\n");
+
+    } else if (listaClientes.clientes[indiceCliente].estado == 0) {
+        printf("Cliente está desativado\n");
+        
     } else {
         printListaProdutos(produtos);
 
@@ -59,9 +65,11 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
 
             encomendas->totalEncomendas++;
+           
+            imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
         }
-
     }
+    
 }
 
 void imprimirEncomendas(Encomendas listaEncomendas) {
@@ -78,11 +86,15 @@ void imprimirEncomendas(Encomendas listaEncomendas) {
     }
 }
 
-void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes) {
+void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes, int id) {
     int idCliente;
     int i;
-
+    
+    if(id == -1){
     idCliente = obterInt("Id: ");
+    }else{
+        idCliente = id;
+    }
 
     if (procurarCliente(listaClientes, idCliente) == -1) {
         puts("Cliente não encontrado");

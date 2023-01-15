@@ -10,8 +10,8 @@
  * Created on 7 de dezembro de 2022, 20:12
  */
 
-#include "cliente.h"
 #include "encomenda.h"
+#include "cliente.h"
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
@@ -43,6 +43,7 @@ int adicionarCliente(Clientes *clientes) {
     if (procurarCliente(*clientes, id) == -1) {
 
         (*clientes).clientes[(*clientes).total].id = id;
+        (*clientes).clientes[(*clientes).total].estado = 1;
 
         char buffer[SIZE_BUFFER];
 
@@ -102,6 +103,11 @@ void imprimirCliente(Cliente cliente) {
             cliente.nif, cliente.morada,
             cliente.telefone, cliente.email,
             cliente.pais);
+    if (cliente.estado == 1) {
+        printf("Estado: ativo\n");
+    } else if (cliente.estado == 0) {
+        printf("Estado: desativo\n");
+    }
 }
 
 void listarClientes(Clientes clientes) {
@@ -158,17 +164,24 @@ void editarCliente(Clientes *clientes) {
     }
 }
 
-void apagarDadosCliente(Cliente *cliente) {    
-        cliente->id = 0;
-        strcpy(cliente->nome, "");
-        strcpy(cliente->nif, "");
-        strcpy(cliente->morada, "");
-        strcpy(cliente->telefone, "");
-        strcpy(cliente->email, "");
-        strcpy(cliente->pais, "");    
+void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
+
+    for (int i = 0; i < encomenda.totalEncomendas; i++) {
+        if (cliente->id == encomenda.encomendas[i].idCliente) {
+            cliente->estado = 0;
+            return;
+        }
+    }
+    cliente->id = 0;
+    strcpy(cliente->nome, "");
+    strcpy(cliente->nif, "");
+    strcpy(cliente->morada, "");
+    strcpy(cliente->telefone, "");
+    strcpy(cliente->email, "");
+    strcpy(cliente->pais, "");
 }
 
-void eliminarCliente(Clientes *clientes) {
+void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
     int id = procurarCliente(*clientes, obterInt("Id: "));
 
@@ -176,7 +189,7 @@ void eliminarCliente(Clientes *clientes) {
         for (i = id; i < clientes->total - 1; i++) {
             clientes->clientes[i] = clientes->clientes[i + 1];
         }
-        apagarDadosCliente(&clientes->clientes[i]);     
+        apagarDadosCliente(&clientes->clientes[i], encomenda);
     } else {
         printf("Cliente não existe!!\n");
     }
@@ -204,16 +217,17 @@ void writeClientes(Clientes clientes) {
         printf("Erro ao abrir o ficheiro!!\n");
         return;
     }
-    fprintf(fp, "id;nome;nif;morada;telefone;email;pais\n");
+    fprintf(fp, "id;nome;nif;morada;telefone;email;pais;estado\n");
     for (int i = 0; i < clientes.total; i++) {
-        fprintf(fp, "%d;%s;%s;%s;%s;%s;%s\n"
+        fprintf(fp, "%d;%s;%s;%s;%s;%s;%s;%d\n"
                 , clientes.clientes[i].id
                 , clientes.clientes[i].nome
                 , clientes.clientes[i].nif
                 , clientes.clientes[i].morada
                 , clientes.clientes[i].telefone
                 , clientes.clientes[i].email
-                , clientes.clientes[i].pais);
+                , clientes.clientes[i].pais
+                , clientes.clientes[i].estado);
 
     }
     fclose(fp);
@@ -226,7 +240,7 @@ void readClientes(Clientes *clientes) {
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
-    return;
+        return;
     }
     int i = 0;
 
@@ -237,9 +251,9 @@ void readClientes(Clientes *clientes) {
     }
     char buffer[1024];
     while (fgets(buffer, 1024, fp)) {
-    
 
-        dados = (char**) malloc(sizeof (char*) * 7);
+
+        dados = (char**) malloc(sizeof (char*) * 8);
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -247,6 +261,7 @@ void readClientes(Clientes *clientes) {
         dados[4] = NULL;
         dados[5] = NULL;
         dados[6] = NULL;
+        dados[7] = NULL;
 
         char *column = strtok(buffer, ";");
         int k = 0;
@@ -257,7 +272,7 @@ void readClientes(Clientes *clientes) {
         }
         if (i != 0) {
 
-            if (dados[6] != NULL) {
+            if (dados[7] != NULL) {
 
                 (*clientes).clientes[(*clientes).total].id = atoi(dados[0]);
                 (*clientes).clientes[(*clientes).total].nome = malloc((strlen(dados[1]) + 1) * sizeof (char));
@@ -272,6 +287,7 @@ void readClientes(Clientes *clientes) {
                 strcpy((*clientes).clientes[(*clientes).total].email, dados[5]);
                 (*clientes).clientes[(*clientes).total].pais = malloc((strlen(dados[6]) + 1) * sizeof (char));
                 strcpy((*clientes).clientes[(*clientes).total].pais, dados[6]);
+                (*clientes).clientes[(*clientes).total].estado = atoi(dados[7]);
                 (*clientes).total++;
             }
 

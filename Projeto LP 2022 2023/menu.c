@@ -19,7 +19,7 @@
 
 #define MENU "+--------------------------+"
 
-void menu(Clientes *clientes){
+void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     int escolha;
 
     puts(MENU);
@@ -41,10 +41,10 @@ void menu(Clientes *clientes){
 
     switch(escolha){
         case 1:
-            menuAdmin(clientes);
+            menuAdmin(clientes, encomenda, produto);
             break;
         case 2:
-            menuCliente(clientes);
+            menuCliente(clientes, encomenda, produto);
             break;
         case 0:
             sairPrograma();
@@ -55,13 +55,13 @@ void menu(Clientes *clientes){
             fflush(stdin);
             getchar();
             system("clear");
-            menu(clientes);
+            menu(clientes, encomenda, produto);
             break;
     };
 }
 
 
-void menuAdmin(Clientes *clientes){
+void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     int escolha;
     
     puts(MENU);
@@ -92,7 +92,7 @@ void menuAdmin(Clientes *clientes){
            inserirCliente(clientes);
             break;
         case 2:
-            eliminarCliente(clientes);
+            eliminarCliente(clientes, *encomenda);
             break;
         case 3:
             editarCliente(clientes);
@@ -112,7 +112,7 @@ void menuAdmin(Clientes *clientes){
             //eliminar produto
             break;
         case 0:
-            menu(clientes);
+            menu(clientes, encomenda, produto);
             break;
         default:
             printf("Opção inválida\n");
@@ -120,15 +120,15 @@ void menuAdmin(Clientes *clientes){
             fflush(stdin);
             getchar();
             system("clear");
-            menu(clientes);
+            menu(clientes, encomenda, produto);
             break;
     };
-    menuAdmin(clientes);
+    menuAdmin(clientes, encomenda, produto);
 }
 
 
 
-void menuCliente(Clientes *clientes){
+void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     int escolha;
 
     puts(MENU);
@@ -151,16 +151,16 @@ void menuCliente(Clientes *clientes){
     switch(escolha){
         case 1:
 /*
-            registarEncomenda(&encomendas, &clientes);
+            registarEncomenda(encomenda, *clientes, *produto);
 */
             break;
         case 2:
 /*
-            imprimirEncomendaCliente(&encomendas, &clientes);
+            imprimirEncomendaCliente(*encomenda, *clientes);
 */
             break;
         case 0:
-            menu(clientes);
+            menu(clientes, encomenda, produto);
             break;
         default:
             printf("Opção inválida\n");
@@ -168,10 +168,10 @@ void menuCliente(Clientes *clientes){
             fflush(stdin);
             getchar();
             system("clear");
-            menu(clientes);
+            menu(clientes, encomenda, produto);
             break;
     };
-    menuCliente(clientes);
+    menuCliente(clientes, encomenda, produto);
 }
 
 
