@@ -132,7 +132,7 @@ int i;
     }
     fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
     for ( i = 0; i < encomendas.totalEncomendas; i++) {
-        fprintf(fp, "\n%d;%d;%s;%s;%d;%f;%d;%d;%d",
+        fprintf(fp, "\n%d;%d;%s;%s;%f;%d;%d;%d;%d",
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
                 encomendas.encomendas[i].nomeCliente,

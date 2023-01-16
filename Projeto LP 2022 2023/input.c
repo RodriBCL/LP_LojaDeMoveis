@@ -35,7 +35,7 @@ int obterInt(char *msg){
 
 
 float obterFloat(float minValor, float maxValor, char *msg){
-    double valor;
+    float valor;
     
     printf("%s",msg);
     

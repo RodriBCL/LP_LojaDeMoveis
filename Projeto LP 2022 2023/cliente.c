@@ -3,10 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/cFiles/file_header.c to edit this template
  */
 
-/* 
+/*
  * File:   cliente.c
  * Author: rodri
- * 
+ *
  * Created on 7 de dezembro de 2022, 20:12
  */
 
@@ -233,18 +233,17 @@ void readClientes(Clientes *clientes) {
     }
     int i = 0;
 
-    if ((*clientes).total == 0) {
-        (*clientes).clientes = (Cliente*) malloc(sizeof (Cliente));
-    } else {
-        (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
-    }
+
     char buffer[1024];
     dados = (char**) malloc(sizeof (char*) * 8);
 
     while (fgets(buffer, 1024, fp)) {
 
-
-
+	if ((*clientes).total == 0) {
+        (*clientes).clientes = (Cliente *) malloc(sizeof (Cliente));
+    } else {
+        (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
+    }
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
