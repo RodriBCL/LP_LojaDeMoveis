@@ -17,6 +17,7 @@
 #include "cliente.h"
 #include "encomenda.h"
 #include "produto.h"
+#include "input.h"
 
 #define MENU "+--------------------------+"
 
@@ -24,35 +25,55 @@
  * 
  */
 int main(int argc, char** argv) {
-    
+
     Clientes clientes;
     ProdutoList produto;
     Encomendas encomenda;
-   
-    produto.totalProdutos = 0;
-    clientes.total = 0;
-    encomenda.totalEncomendas = 0;
+/*
     
-    readClientes(&clientes);
-    inserirCliente(&clientes);
-    listarClientes(clientes);
-    writeClientes(clientes);
-    registarEncomenda(&encomenda, clientes, produto);
+*/
+        produto.totalProdutos = 0;
+        clientes.total = 0;
+        encomenda.totalEncomendas = 0;
     
-    libertarMemcliente(&clientes);
+
+
+        readListaProdutos(&produto);
+        readClientes(&clientes);
+
+        //adicionarCliente(&clientes);
+
+        listarClientes(clientes);
+        //writeClientes(clientes);
+        
+        registarEncomenda(&encomenda, clientes, produto);
     
-   
+       //libertarMemcliente(&clientes);
+
+        
+    
+     
+
+    /*
+        readListaProdutos(&produto);
+        registarEncomenda(&encomenda, clientes, produto);
+        imprimirEncomendaCliente(encomenda, clientes);
+     */
+
+
+
+
 /*
     readListaProdutos(&produto);
-    registarEncomenda(&encomenda, clientes, produto);
-    imprimirEncomendaCliente(encomenda, clientes);
+    readClientes(&clientes);
+
+    menu(&clientes, &encomenda, &produto);
+    
+    writeClientes(clientes);
 */
-    
-    
-    
-/*
-    menu(&clientes);
-*/
+
+
+
 
     return (EXIT_SUCCESS);
 }

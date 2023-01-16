@@ -16,6 +16,8 @@
 #include <string.h>
 #include "cliente.h"
 #include "encomenda.h"
+#include "input.h"
+#include "produto.h"
 
 #define MENU "+--------------------------+"
 
@@ -89,7 +91,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
 
     switch(escolha){
         case 1:
-           inserirCliente(clientes);
+           adicionarCliente(clientes);
             break;
         case 2:
             eliminarCliente(clientes, *encomenda);
@@ -129,7 +131,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
 
 
 void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
-    int escolha;
+    int escolha, idCliente;
 
     puts(MENU);
     printf("  Gestão de loja de moveis  \n");
@@ -150,14 +152,11 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
 
     switch(escolha){
         case 1:
-/*
             registarEncomenda(encomenda, *clientes, *produto);
-*/
             break;
         case 2:
-/*
-            imprimirEncomendaCliente(*encomenda, *clientes);
-*/
+            //idCliente = obterInt("Id Cliente: ");
+            imprimirEncomendaCliente(*encomenda, *clientes, idCliente);
             break;
         case 0:
             menu(clientes, encomenda, produto);

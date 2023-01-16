@@ -10,8 +10,8 @@
  * Created on 7 de dezembro de 2022, 20:12
  */
 
-#include "cliente.h"
 #include "encomenda.h"
+#include "cliente.h"
 #include "produto.h"
 #include "input.h"
 #include <stdio.h>
@@ -28,18 +28,18 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
     listarClientes(listaClientes);
 
-    int idCliente, idProduto;
+    int idCliente, idProduto, puta;
 
     idCliente = obterInt("Id Cliente: ");
-    
+
     int indiceCliente = procurarCliente(listaClientes, idCliente);
-    
+
     if (indiceCliente == -1) {
         printf("Cliente não existe!!\n");
 
     } else if (listaClientes.clientes[indiceCliente].estado == 0) {
         printf("Cliente está desativado\n");
-        
+
     } else {
         printListaProdutos(produtos);
 
@@ -49,27 +49,30 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
             printf("Produto não existe!!");
 
         } else {
-            encomendas->encomendas[encomendas->totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
-            encomendas->encomendas[encomendas->totalEncomendas].totalPagar = encomendas->encomendas[encomendas->totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
 
-            encomendas->encomendas[encomendas->totalEncomendas].data.dia = obterInt("Dia: ");
-            encomendas->encomendas[encomendas->totalEncomendas].data.mes = obterInt("Mes: ");
-            encomendas->encomendas[encomendas->totalEncomendas].data.ano = obterInt("Ano: ");
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
 
-            encomendas->encomendas[encomendas->totalEncomendas].idCliente = idCliente;
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
+
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = malloc((strlen(listaClientes.clientes[idCliente - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[idCliente - 1].nome);
-
+            
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
-
-            encomendas->totalEncomendas++;
            
+            encomendas->totalEncomendas++;
+
             imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
+            printf("Deseja finalizar a compra? ");
+            
         }
     }
-    
+
 }
 
 void imprimirEncomendas(Encomendas listaEncomendas) {
@@ -88,11 +91,11 @@ void imprimirEncomendas(Encomendas listaEncomendas) {
 
 void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes, int id) {
     int idCliente;
-    int i;
-    
-    if(id == -1){
-    idCliente = obterInt("Id: ");
-    }else{
+    int i, k;
+
+    if (id == -1) {
+        idCliente = obterInt("Id: ");
+    } else {
         idCliente = id;
     }
 
@@ -111,9 +114,11 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
                     listaEncomendas.encomendas[i].data.dia,
                     listaEncomendas.encomendas[i].data.mes,
                     listaEncomendas.encomendas[i].data.ano);
-        } else {
-            puts("Cliente não tem encomendas");
+            k++;
         }
+    }
+    if (k == 0) {
+        puts("Cliente não tem encomendas");
     }
 }
 
@@ -125,9 +130,9 @@ void writeEncomendas(Encomendas encomendas) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
-    fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;datadia;datames;dataano\n");
+    fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
     for (int i = 0; i < encomendas.totalEncomendas; i++) {
-        fprintf(fp, "%d;%d;%s;%s;%d;%f;%d;%d;%d\n",
+        fprintf(fp, "\n%d;%d;%s;%s;%d;%f;%d;%d;%d",
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
                 encomendas.encomendas[i].nomeCliente,

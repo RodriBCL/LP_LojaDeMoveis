@@ -10,8 +10,8 @@
  * Created on 7 de dezembro de 2022, 20:12
  */
 
-#include "encomenda.h"
 #include "cliente.h"
+#include "encomenda.h"
 #include "input.h"
 #include <stdio.h>
 #include <string.h>
@@ -29,7 +29,7 @@ int procurarCliente(Clientes clientes, int id) {
     return -1;
 }
 
-int adicionarCliente(Clientes *clientes) {
+void adicionarCliente(Clientes *clientes) {
 
     if ((*clientes).total == 0) {
         (*clientes).clientes = (Cliente*) malloc(sizeof (Cliente));
@@ -71,9 +71,8 @@ int adicionarCliente(Clientes *clientes) {
         (*clientes).clientes[(*clientes).total].pais = malloc((strlen(buffer) + 1) * sizeof (char));
         strcpy((*clientes).clientes[(*clientes).total].pais, buffer);
 
-        return (*clientes).total++;
+        (*clientes).total++;
     }
-    return -1;
 }
 
 void libertarMemcliente(Clientes *clientes) {
@@ -99,7 +98,7 @@ void libertarMemcliente(Clientes *clientes) {
 }
 
 void imprimirCliente(Cliente cliente) {
-    printf("Id:%d\nNome:%s\nNif:%s\nMorada:%s\nTelefone:%s\nEmai:%s\nPaís:%s\n", cliente.id, cliente.nome,
+    printf("\nId:%d\nNome:%s\nNif:%s\nMorada:%s\nTelefone:%s\nEmai:%s\nPaís:%s\n", cliente.id, cliente.nome,
             cliente.nif, cliente.morada,
             cliente.telefone, cliente.email,
             cliente.pais);
@@ -179,6 +178,7 @@ void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
     strcpy(cliente->telefone, "");
     strcpy(cliente->email, "");
     strcpy(cliente->pais, "");
+    cliente->estado = 0;
 }
 
 void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
@@ -195,17 +195,6 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     }
 }
 
-void inserirCliente(Clientes *clientes) {
-    if (clientes->total < 100) {
-        if (adicionarCliente(clientes) == -1) {
-            printf("O cliente já existe\n");
-        }
-
-    } else {
-        printf("Erro a lista de clietes está cheia\n");
-        printf("%d", clientes->total);
-    }
-}
 
 //Não esta a escrever no ficheiro
 
@@ -217,9 +206,9 @@ void writeClientes(Clientes clientes) {
         printf("Erro ao abrir o ficheiro!!\n");
         return;
     }
-    fprintf(fp, "id;nome;nif;morada;telefone;email;pais;estado\n");
+    fprintf(fp, "id;nome;nif;morada;telefone;email;pais;estado");
     for (int i = 0; i < clientes.total; i++) {
-        fprintf(fp, "%d;%s;%s;%s;%s;%s;%s;%d\n"
+        fprintf(fp, "\n%d;%s;%s;%s;%s;%s;%s;%d"
                 , clientes.clientes[i].id
                 , clientes.clientes[i].nome
                 , clientes.clientes[i].nif
@@ -250,10 +239,12 @@ void readClientes(Clientes *clientes) {
         (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
     }
     char buffer[1024];
+    dados = (char**) malloc(sizeof (char*) * 8);
+
     while (fgets(buffer, 1024, fp)) {
 
 
-        dados = (char**) malloc(sizeof (char*) * 8);
+
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -293,7 +284,8 @@ void readClientes(Clientes *clientes) {
 
         }
         i++;
-        free(dados);
+
     }
+    free(dados);
     fclose(fp);
 }

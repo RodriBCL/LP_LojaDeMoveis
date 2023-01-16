@@ -34,11 +34,11 @@ void readListaProdutos(ProdutoList *lista) {
     int i = 0;
     (*lista).produtos = (Produto*) malloc(sizeof (Produto));
     char buffer[1024];
+    dados = (char**) malloc(sizeof (char*) * 8);
     while (fgets(buffer, 1024, fp)) {
-        dados = (char**) malloc(sizeof (char*) * 8);
+        
         dados[0] = NULL;
         dados[1] = NULL;
-        dados[2] = NULL;
         dados[3] = NULL;
         dados[4] = NULL;
         dados[5] = NULL;
@@ -84,8 +84,9 @@ void readListaProdutos(ProdutoList *lista) {
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade, dados[7]);
         }
         i++;
-        free(dados);
+        
     }
+    free(dados);
     fclose(fp);
 }
 
