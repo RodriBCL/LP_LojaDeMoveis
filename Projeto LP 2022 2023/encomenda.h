@@ -13,7 +13,7 @@
 #ifndef ENCOMENDA_H
 #define ENCOMENDA_H
 
-#include "produto.h"
+
 
 typedef struct {
     int dia;
@@ -37,6 +37,7 @@ typedef struct {
 } Encomendas;
 
 #include "cliente.h"
+#include "produto.h"
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos);
 

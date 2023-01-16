@@ -61,15 +61,15 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = malloc((strlen(listaClientes.clientes[idCliente - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[idCliente - 1].nome);
-            
+
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
-           
+
             encomendas->totalEncomendas++;
 
             imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
             printf("Deseja finalizar a compra? ");
-            
+
         }
     }
 
@@ -124,14 +124,14 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
 
 void writeEncomendas(Encomendas encomendas) {
     FILE *fp;
-int i;
+    int i;
     fp = fopen("Lista_Encomendas.csv", "w");
     if (fp == NULL) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
     fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
-    for ( i = 0; i < encomendas.totalEncomendas; i++) {
+    for (i = 0; i < encomendas.totalEncomendas; i++) {
         fprintf(fp, "\n%d;%d;%s;%s;%f;%d;%d;%d;%d",
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
@@ -159,13 +159,11 @@ void readEncomendas(Encomendas *encomendas) {
 
     int i = 0;
 
-    if ((*encomendas).totalEncomendas == 0) {
-        (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
-    } else {
-        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).totalEncomendas + 1) * sizeof (Encomenda));
-    }
+
     char buffer[1024];
     while (fgets(buffer, 1024, fp)) {
+
+
 
         dados = (char**) malloc(sizeof (char*) * 9);
         dados[0] = NULL;
@@ -189,6 +187,13 @@ void readEncomendas(Encomendas *encomendas) {
         if (i != 0) {
 
             if (dados[6] != NULL) {
+
+                if ((*encomendas).totalEncomendas == 0) {
+                    (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
+                } else {
+                    (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).totalEncomendas + 1) * sizeof (Encomenda));
+                }
+
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = atoi(dados[0]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto = atoi(dados[1]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = malloc((strlen(dados[2]) + 1) * sizeof (char));

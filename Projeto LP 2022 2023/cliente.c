@@ -31,16 +31,17 @@ int procurarCliente(Clientes clientes, int id) {
 
 void adicionarCliente(Clientes *clientes) {
 
-    if ((*clientes).total == 0) {
-        (*clientes).clientes = (Cliente*) malloc(sizeof (Cliente));
-    } else {
-        (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
-    }
-
-
     int id = obterInt("Id: ");
 
     if (procurarCliente(*clientes, id) == -1) {
+
+        if ((*clientes).total == 0) {
+            (*clientes).clientes = (Cliente*) malloc(sizeof (Cliente));
+        } else {
+            (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
+        }
+
+
 
         (*clientes).clientes[(*clientes).total].id = id;
         (*clientes).clientes[(*clientes).total].estado = 1;
@@ -164,13 +165,8 @@ void editarCliente(Clientes *clientes) {
 }
 
 void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
-int i;
-    for (i = 0; i < encomenda.totalEncomendas; i++) {
-        if (cliente->id == encomenda.encomendas[i].idCliente) {
-            cliente->estado = 0;
-            return;
-        }
-    }
+    int i;
+
     cliente->id = 0;
     strcpy(cliente->nome, "");
     strcpy(cliente->nif, "");
@@ -185,11 +181,21 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
     int id = procurarCliente(*clientes, obterInt("Id: "));
 
+
     if (id != -1) {
+        if (encomenda.totalEncomendas > 0) {
+            for (i = 0; i < encomenda.totalEncomendas; i++) {
+                if (clientes->clientes[id].id == encomenda.encomendas[i].idCliente) {
+                    clientes->clientes[id].estado = 0;
+                    return;
+                }
+            }
+        }
+
         for (i = id; i < clientes->total - 1; i++) {
             clientes->clientes[i] = clientes->clientes[i + 1];
         }
-        apagarDadosCliente(&clientes->clientes[i], encomenda);
+        apagarDadosCliente(&clientes->clientes[clientes->total - 1], encomenda);
     } else {
         printf("Cliente não existe!!\n");
     }
@@ -200,14 +206,14 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
 
 void writeClientes(Clientes clientes) {
     FILE *fp;
-int i;
+    int i;
     fp = fopen("Lista_Clientes.csv", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o ficheiro!!\n");
         return;
     }
     fprintf(fp, "id;nome;nif;morada;telefone;email;pais;estado");
-    for ( i = 0; i < clientes.total; i++) {
+    for (i = 0; i < clientes.total; i++) {
         fprintf(fp, "\n%d;%s;%s;%s;%s;%s;%s;%d"
                 , clientes.clientes[i].id
                 , clientes.clientes[i].nome
@@ -239,11 +245,7 @@ void readClientes(Clientes *clientes) {
 
     while (fgets(buffer, 1024, fp)) {
 
-	if ((*clientes).total == 0) {
-        (*clientes).clientes = (Cliente *) malloc(sizeof (Cliente));
-    } else {
-        (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
-    }
+
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -263,6 +265,12 @@ void readClientes(Clientes *clientes) {
         if (i != 0) {
 
             if (dados[7] != NULL) {
+
+                if ((*clientes).total == 0) {
+                    (*clientes).clientes = (Cliente *) malloc(sizeof (Cliente));
+                } else {
+                    (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
+                }
 
                 (*clientes).clientes[(*clientes).total].id = atoi(dados[0]);
                 (*clientes).clientes[(*clientes).total].nome = malloc((strlen(dados[1]) + 1) * sizeof (char));

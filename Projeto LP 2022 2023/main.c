@@ -41,12 +41,12 @@ int main(int argc, char** argv) {
         readListaProdutos(&produto);
         readClientes(&clientes);
 
-        //adicionarCliente(&clientes);
-
+        adicionarCliente(&clientes);
+        eliminarCliente(&clientes, encomenda);
         listarClientes(clientes);
-        //writeClientes(clientes);
+        writeClientes(clientes);
         
-        registarEncomenda(&encomenda, clientes, produto);
+       // registarEncomenda(&encomenda, clientes, produto);
     
        //libertarMemcliente(&clientes);
 
