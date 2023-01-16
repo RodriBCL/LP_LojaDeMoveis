@@ -37,12 +37,12 @@ int obterInt(char *msg){
 float obterFloat(float minValor, float maxValor, char *msg){
     double valor;
     
-    printf(msg);
+    printf("%s",msg);
     
     while(scanf("%f", &valor) != 1 || valor < minValor || valor > maxValor){
         puts(VALOR_INVALIDO);
         cleanInputBuffer();
-        printf(msg);
+        printf("%s",msg);
     }
     cleanInputBuffer();
     return valor;
@@ -52,12 +52,12 @@ float obterFloat(float minValor, float maxValor, char *msg){
 double obterDouble(double minValor, double maxValor, char *msg){
     double valor;
     
-    printf(msg);
+    printf("%s",msg);
     
     while(scanf("%lf", &valor) != 1 || valor < minValor || valor > maxValor){
         puts(VALOR_INVALIDO);
         cleanInputBuffer();
-        printf(msg);
+        printf("%s",msg);
     }
     cleanInputBuffer();
     return valor;
@@ -67,7 +67,7 @@ double obterDouble(double minValor, double maxValor, char *msg){
 char obterChar(char *msg){
     char valor;
     
-    printf(msg);
+    printf("%s",msg);
     valor = getchar();
     cleanInputBuffer();
     return valor;
@@ -76,7 +76,7 @@ char obterChar(char *msg){
 
 void lerString(char *string, unsigned int tamanho, char *msg){
     fflush(stdin);
-    printf(msg);
+    printf("%s",msg);
     if(fgets(string, tamanho, stdin) != NULL){
         unsigned int len = strlen(string) - 1;
         if(string[len] == '\n'){

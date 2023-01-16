@@ -164,8 +164,8 @@ void editarCliente(Clientes *clientes) {
 }
 
 void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
-
-    for (int i = 0; i < encomenda.totalEncomendas; i++) {
+int i;
+    for (i = 0; i < encomenda.totalEncomendas; i++) {
         if (cliente->id == encomenda.encomendas[i].idCliente) {
             cliente->estado = 0;
             return;
@@ -200,14 +200,14 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
 
 void writeClientes(Clientes clientes) {
     FILE *fp;
-
+int i;
     fp = fopen("Lista_Clientes.csv", "w");
     if (fp == NULL) {
         printf("Erro ao abrir o ficheiro!!\n");
         return;
     }
     fprintf(fp, "id;nome;nif;morada;telefone;email;pais;estado");
-    for (int i = 0; i < clientes.total; i++) {
+    for ( i = 0; i < clientes.total; i++) {
         fprintf(fp, "\n%d;%s;%s;%s;%s;%s;%s;%d"
                 , clientes.clientes[i].id
                 , clientes.clientes[i].nome

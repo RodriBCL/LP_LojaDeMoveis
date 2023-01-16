@@ -124,14 +124,14 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
 
 void writeEncomendas(Encomendas encomendas) {
     FILE *fp;
-
+int i;
     fp = fopen("Lista_Encomendas.csv", "w");
     if (fp == NULL) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
     fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
-    for (int i = 0; i < encomendas.totalEncomendas; i++) {
+    for ( i = 0; i < encomendas.totalEncomendas; i++) {
         fprintf(fp, "\n%d;%d;%s;%s;%d;%f;%d;%d;%d",
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
