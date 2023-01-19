@@ -31,7 +31,7 @@ int procurarCliente(Clientes clientes, int id) {
 
 void adicionarCliente(Clientes *clientes) {
 
-    int id = obterInt("Id: ");
+    int id = obterInt("Id Cliente: ");
 
     if (procurarCliente(*clientes, id) == -1) {
 
@@ -73,6 +73,8 @@ void adicionarCliente(Clientes *clientes) {
         strcpy((*clientes).clientes[(*clientes).total].pais, buffer);
 
         (*clientes).total++;
+    } else {
+        printf("O cliente já existe!!");
     }
 }
 
@@ -123,38 +125,70 @@ void listarClientes(Clientes clientes) {
 }
 
 void atualizarDadosCliente(Cliente *cliente) {
-
+    int escolha;
     char buffer[SIZE_BUFFER];
 
-    lerString(buffer, SIZE_BUFFER, "Nome: ");
-    cliente->nome = realloc(cliente->nome, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->nome, buffer);
+    do {
+        printf("1- Nome\n");
+        printf("2- Nif\n");
+        printf("3- Morada\n");
+        printf("4- Telefone\n");
+        printf("5- Email\n");
+        printf("6- Pais\n");
+        printf("0- Voltar\n");
+        escolha = obterInt("\nEscolha uma opção!\n");
+        switch (escolha) {
+            case 0:
+                fflush(stdin);
+                system("clear");
+                break;
+            case 1:
+                lerString(buffer, SIZE_BUFFER, "Nome: ");
+                cliente->nome = realloc(cliente->nome, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->nome, buffer);
+                break;
+            case 2:
+                lerString(buffer, SIZE_BUFFER, "Nif: ");
+                cliente->nif = realloc(cliente->nif, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->nif, buffer);
+                break;
 
-    lerString(buffer, SIZE_BUFFER, "Nif: ");
-    cliente->nif = realloc(cliente->nif, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->nif, buffer);
+            case 3:
+                lerString(buffer, SIZE_BUFFER, "Morada: ");
+                cliente->morada = realloc(cliente->morada, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->morada, buffer);
+                break;
 
-    lerString(buffer, SIZE_BUFFER, "Morada: ");
-    cliente->morada = realloc(cliente->morada, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->morada, buffer);
+            case 4:
+                lerString(buffer, SIZE_BUFFER, "Telefone: ");
+                cliente->telefone = realloc(cliente->telefone, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->telefone, buffer);
+                break;
 
-    lerString(buffer, SIZE_BUFFER, "Telefone: ");
-    cliente->telefone = realloc(cliente->telefone, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->telefone, buffer);
+            case 5:
+                lerString(buffer, SIZE_BUFFER, "Email: ");
+                cliente->email = realloc(cliente->email, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->email, buffer);
+                break;
 
-    lerString(buffer, SIZE_BUFFER, "Email: ");
-    cliente->email = realloc(cliente->email, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->email, buffer);
-
-    lerString(buffer, SIZE_BUFFER, "Pais: ");
-    cliente->pais = realloc(cliente->pais, (strlen(buffer) + 1) * sizeof (char));
-    strcpy(cliente->pais, buffer);
-
+            case 6:
+                lerString(buffer, SIZE_BUFFER, "Pais: ");
+                cliente->pais = realloc(cliente->pais, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(cliente->pais, buffer);
+                break;
+            default:
+                printf("Opção inválida\n");
+                printf("Prima ENTER para voltar ao menu\n");
+                fflush(stdin);
+                system("clear");
+                break;
+        }
+    } while (escolha != 0);
 
 }
 
-void editarCliente(Clientes *clientes) {
-    int id = procurarCliente(*clientes, obterInt("Id: "));
+void editarCliente(Clientes * clientes) {
+    int id = procurarCliente(*clientes, obterInt("Id Cliente: "));
 
     if (id != -1) {
         atualizarDadosCliente(&(*clientes).clientes[id]);
@@ -164,7 +198,7 @@ void editarCliente(Clientes *clientes) {
     }
 }
 
-void apagarDadosCliente(Cliente *cliente) {
+void apagarDadosCliente(Cliente * cliente) {
 
     cliente->id = 0;
     strcpy(cliente->nome, "");
@@ -178,7 +212,7 @@ void apagarDadosCliente(Cliente *cliente) {
 
 void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
-    int id = procurarCliente(*clientes, obterInt("Id: "));
+    int id = procurarCliente(*clientes, obterInt("Id Cliente: "));
 
 
     if (id != -1) {
@@ -204,7 +238,7 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
 
 
 
-        apagarDadosCliente(&clientes->clientes[clientes->total - 1], encomenda);
+        apagarDadosCliente(&clientes->clientes[clientes->total - 1]);
 
         clientes->total--;
 
@@ -240,7 +274,7 @@ void writeClientes(Clientes clientes) {
     fclose(fp);
 }
 
-void readClientes(Clientes *clientes) {
+void readClientes(Clientes * clientes) {
     FILE *fp;
     char **dados;
     fp = fopen("Lista_Clientes.csv", "r");

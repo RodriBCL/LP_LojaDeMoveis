@@ -35,6 +35,9 @@ typedef struct{
     int totalProdutos;
 }ProdutoList;
 
+#include "encomenda.h"
+
+
 int procurarProduto(ProdutoList lista, int id);
 
 void readListaProdutos(ProdutoList *lista);
@@ -42,5 +45,10 @@ void readListaProdutos(ProdutoList *lista);
 void printListaProdutos(ProdutoList lista);
 
 void writeListaProdutos(ProdutoList lista);
+
+void apagarDadosProduto(Produto *produto);
+
+void eleminarProduto(ProdutoList *produtos, Encomendas encomendas);
+
 
 #endif /* PRODUTO_H */

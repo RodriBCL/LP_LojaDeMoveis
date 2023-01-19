@@ -122,6 +122,24 @@ void writeListaProdutos(ProdutoList lista) {
     fclose(fp);
 }
 
+void apagarDadosProduto(Produto *produto) {
+
+    produto->estado = 0;
+    produto->n_componentes = 0;
+    produto->preco = 0;
+    strcpy(produto->dimensoes, "");
+    strcpy(produto->nome, "");
+    strcpy(produto->id, "");
+    
+    produto->componentesUsados->quantidade = 0;
+    strcpy(produto->componentesUsados->codMaterial, "");
+    strcpy(produto->componentesUsados->descricao, "");
+    strcpy(produto->componentesUsados->unidade, "");
+
+
+
+}
+
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     int i, k;
     int id = procurarEncomenda(encomendas, obterInt("Id Encomenda: "));
@@ -131,8 +149,8 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
 
         if (encomendas.totalEncomendas > 0) {
             for (i = 0; i < encomendas.totalEncomendas; i++) {
-                if (produtos.produtos[id].id == encomendas.encomendas[i].idProduto) {
-                    produtos.produtos[id].estado = 0;
+                if (produtos->produtos[id].id == encomendas.encomendas[i].idProduto) {
+                    produtos->produtos[id].estado = 0;
                     return;
                 }
             }
@@ -151,7 +169,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
 
 
 
-            apagarDadosCliente(&produtos->produtos[produtos->totalProdutos - 1]);
+            apagarDadosProduto(&produtos->produtos[produtos->totalProdutos - 1]);
 
             produtos->totalProdutos--;
 
