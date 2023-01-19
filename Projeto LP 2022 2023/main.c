@@ -30,9 +30,17 @@ int main(int argc, char** argv) {
     ProdutoList produto;
     Encomendas encomenda;
 
+
+
+
+
     produto.totalProdutos = 0;
     clientes.total = 0;
     encomenda.totalEncomendas = 0;
+
+
+
+
 
     readListaProdutos(&produto);
     readClientes(&clientes);
