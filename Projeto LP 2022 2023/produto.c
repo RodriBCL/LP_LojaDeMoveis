@@ -142,7 +142,7 @@ void apagarDadosProduto(Produto *produto) {
 
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     int i, k;
-    int id = procurarEncomenda(encomendas, obterInt("Id Encomenda: "));
+    int id = procurarProduto(*produtos, obterInt("Id Poduto: "));
 
 
     if (id != -1) {
@@ -174,7 +174,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
             produtos->totalProdutos--;
 
         } else {
-            printf("Cliente não existe!!\n");
+            printf("Produto não existe!!\n");
         }
     }
 }

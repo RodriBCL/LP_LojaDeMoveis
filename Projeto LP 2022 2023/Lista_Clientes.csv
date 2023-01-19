@@ -1,4 +1,9 @@
 id;nome;nif;morada;telefone;email;pais;estado
-1;1;1;1;1;1;1;1
-4;3;4;3;4;4;4;1
-3;3;3;3;3;3;3;1
+123;Rodrigo;123456789;ua do ladario;911736553;rodrigobamde@gmail.com;Portugal;1
+4;Manu;9337384824;rua do arco;915732684;manuturimano@gmail.com;portugal;1
+1;Mara;24823948234;vizela;921345678;maraleitinho@gmail.com;portugal;1
+3;David;12385735;amarante city;911234567;davidkiwi@gmail.com;portugal;1
+7;Guilherme;123434534;Maia ;968754321;guilhermecamelo@gmail.com;portugal;1
+9;Duarte;123142342423;Felgueiras city;912348765;duarteaugusto@gmail.com;portugal;1
+5;Rui;123231234435;longe com a merda;931245679;ruisopinhademaca@gmail.com;portugal;1
+8;Torres;123234345;Felgueiras city;930876521;ricardotorres@gmail.com;portugal;1

@@ -31,7 +31,10 @@ int procurarCliente(Clientes clientes, int id) {
 
 void adicionarCliente(Clientes *clientes) {
 
-    int id = obterInt("Id Cliente: ");
+   listarClientes(*clientes);
+    
+    printf("Crirar Cliente:\n");
+    int id = obterInt("Insira o Id do cliente que pertende criar: ");
 
     if (procurarCliente(*clientes, id) == -1) {
 
@@ -188,7 +191,10 @@ void atualizarDadosCliente(Cliente *cliente) {
 }
 
 void editarCliente(Clientes * clientes) {
-    int id = procurarCliente(*clientes, obterInt("Id Cliente: "));
+    listarClientes(*clientes);
+    
+    printf("Editar dados do cliente:\n");
+    int id = procurarCliente(*clientes, obterInt("Insira o Id do cliente que pertende alterar: "));
 
     if (id != -1) {
         atualizarDadosCliente(&(*clientes).clientes[id]);
@@ -212,7 +218,10 @@ void apagarDadosCliente(Cliente * cliente) {
 
 void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
-    int id = procurarCliente(*clientes, obterInt("Id Cliente: "));
+    listarClientes(*clientes);
+    
+    printf("Eliminar Cliente:\n");
+    int id = procurarCliente(*clientes, obterInt("Insira o Id que pertende eliminar: "));
 
 
     if (id != -1) {

@@ -29,7 +29,8 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
     listarClientes(listaClientes);
 
     int idCliente, idProduto;
-
+    
+    printf("Encomenda nº %d:\n", encomendas->totalEncomendas + 1);
     idCliente = obterInt("Id Cliente: ");
 
     int indiceCliente = procurarCliente(listaClientes, idCliente);
@@ -50,7 +51,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
         } else {
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quanto deseja comprar: ");
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
             (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
@@ -78,7 +79,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 void imprimirEncomendas(Encomendas listaEncomendas) {
     int i;
     for (i = 0; i < listaEncomendas.totalEncomendas; i++) {
-        printf("ID Encomenda: %d----ID Cliente: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d\n",
+        printf("Encomenda nº: %d\nID Cliente: %d----Cliente: %s\nProduto: %s---Preço: %f---Qunatidade: %d\nData: %d/%d/%d\n",
                 listaEncomendas.encomendas[i].id,
                 listaEncomendas.encomendas[i].idCliente,
                 listaEncomendas.encomendas[i].nomeCliente,
@@ -108,7 +109,7 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
 
     for (i = 0; i < listaEncomendas.totalEncomendas; i++) {
         if (listaEncomendas.encomendas[i].idCliente == idCliente) {
-            printf("ID Encomenda: %d----ID Cliente: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d",
+            printf("Encomenda nº: %d\nID Cliente: %d----Cliente: %s\nProduto: %s---Preço: %f---Qunatidade: %d\nData: %d/%d/%d\n",
                     listaEncomendas.encomendas[i].id,
                     listaEncomendas.encomendas[i].idCliente,
                     listaEncomendas.encomendas[i].nomeCliente,
@@ -220,6 +221,23 @@ void readEncomendas(Encomendas *encomendas) {
         free(dados);
     }
     fclose(fp);
+}
+
+void freeEncomendas(Encomendas *encomendas){
+    int i;
+    
+    if(encomendas->totalEncomendas > 0){
+        for(i = 0; i < encomendas->totalEncomendas; i++){
+            
+            free(encomendas->encomendas[i].nomeCliente);
+            free(encomendas->encomendas[i].nomeProduto);
+            
+        }
+        free(encomendas->encomendas);
+        
+    }else{
+        printf("Não existem encomendas criadas\n");
+    }
 }
 
 void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {

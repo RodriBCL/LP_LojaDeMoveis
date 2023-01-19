@@ -52,4 +52,6 @@ void readEncomendas(Encomendas *encomendas);
 
 void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes);
 
+void freeEncomendas(Encomendas *encomendas);
+
 #endif /* ENCOMENDA_H */

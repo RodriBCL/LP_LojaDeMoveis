@@ -26,33 +26,19 @@
  */
 int main(int argc, char** argv) {
 
-
-
     Clientes clientes;
     ProdutoList produto;
     Encomendas encomenda;
-    
 
-    
-     
     produto.totalProdutos = 0;
     clientes.total = 0;
     encomenda.totalEncomendas = 0;
 
-
-  
     readListaProdutos(&produto);
     readClientes(&clientes);
+    readEncomendas(&encomenda);
 
     menu(&clientes, &encomenda, &produto);
-
-
-    
-
-
-
-
-
 
     return (EXIT_SUCCESS);
 }
