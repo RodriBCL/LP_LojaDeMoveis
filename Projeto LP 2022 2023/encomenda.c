@@ -23,12 +23,12 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
     if ((*encomendas).totalEncomendas == 0) {
         (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
     } else {
-        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, (*encomendas).totalEncomendas + 1 * sizeof (Encomenda));
+        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).totalEncomendas + 1) * sizeof (Encomenda));
     }
 
     listarClientes(listaClientes);
 
-    int idCliente, idProduto, puta;
+    int idCliente, idProduto;
 
     idCliente = obterInt("Id Cliente: ");
 
@@ -38,7 +38,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
         printf("Cliente não existe!!\n");
 
     } else if (listaClientes.clientes[indiceCliente].estado == 0) {
-        printf("Cliente está desativado\n");
+        printf("Cliente está desativado!!\n");
 
     } else {
         printListaProdutos(produtos);
@@ -59,14 +59,15 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = malloc((strlen(listaClientes.clientes[idCliente - 1].nome) + 1) * sizeof (char));
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente =(char*) malloc((strlen(listaClientes.clientes[idCliente - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[idCliente - 1].nome);
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto =(char*) malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
-
+            
             encomendas->totalEncomendas++;
-
+            encomendas->encomendas->id = encomendas->totalEncomendas;
+            
             imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
 
         }
@@ -77,7 +78,9 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 void imprimirEncomendas(Encomendas listaEncomendas) {
     int i;
     for (i = 0; i < listaEncomendas.totalEncomendas; i++) {
-        printf("Id: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d", listaEncomendas.encomendas[i].idCliente,
+        printf("ID Encomenda: %d----ID Cliente: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d\n", 
+                listaEncomendas.encomendas[i].id, 
+                listaEncomendas.encomendas[i].idCliente,
                 listaEncomendas.encomendas[i].nomeCliente,
                 listaEncomendas.encomendas[i].nomeProduto,
                 listaEncomendas.encomendas[i].totalPagar,
@@ -105,7 +108,9 @@ void imprimirEncomendaCliente(Encomendas listaEncomendas, Clientes listaClientes
 
     for (i = 0; i < listaEncomendas.totalEncomendas; i++) {
         if (listaEncomendas.encomendas[i].idCliente == idCliente) {
-            printf("Id: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d", listaEncomendas.encomendas[i].idCliente,
+            printf("ID Encomenda----ID Cliente: %d----Cliente: %s----Produto: %s---Preço: %f---Qunatidade: %d----Data: %d/%d/%d", 
+                    listaEncomendas.encomendas[i].id,
+                    listaEncomendas.encomendas[i].idCliente,
                     listaEncomendas.encomendas[i].nomeCliente,
                     listaEncomendas.encomendas[i].nomeProduto,
                     listaEncomendas.encomendas[i].totalPagar,
@@ -129,9 +134,10 @@ void writeEncomendas(Encomendas encomendas) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
-    fprintf(fp, "idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
+    fprintf(fp, "idEncomenda;idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
     for (i = 0; i < encomendas.totalEncomendas; i++) {
-        fprintf(fp, "\n%d;%d;%s;%s;%f;%d;%d;%d;%d",
+        fprintf(fp, "\n%d;%d;%d;%s;%s;%f;%d;%d;%d;%d",
+                encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
                 encomendas.encomendas[i].nomeCliente,
@@ -164,7 +170,7 @@ void readEncomendas(Encomendas *encomendas) {
 
 
 
-        dados = (char**) malloc(sizeof (char*) * 9);
+        dados = (char**) malloc(sizeof (char*) * 10);
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -174,6 +180,7 @@ void readEncomendas(Encomendas *encomendas) {
         dados[6] = NULL;
         dados[7] = NULL;
         dados[8] = NULL;
+        dados[9] = NULL;
 
 
         char *column = strtok(buffer, ";");
@@ -185,7 +192,7 @@ void readEncomendas(Encomendas *encomendas) {
         }
         if (i != 0) {
 
-            if (dados[6] != NULL) {
+            if (dados[9] != NULL) {
 
                 if ((*encomendas).totalEncomendas == 0) {
                     (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
@@ -204,6 +211,8 @@ void readEncomendas(Encomendas *encomendas) {
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = atoi(dados[6]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = atoi(dados[7]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = atoi(dados[8]);
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].id = atoi(dados[9]);
+                
             }
 
         }
@@ -213,16 +222,44 @@ void readEncomendas(Encomendas *encomendas) {
     fclose(fp);
 }
 
+void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
+    int i, k, j;
+    int repeticoes[encomendas.totalEncomendas];
+    int listaOrganizada[encomendas.totalEncomendas];
+
+    for (i = 0; i < encomendas.totalEncomendas; i++) {
+        repeticoes[(encomendas.encomendas[i].idCliente)-1]++;
+    }
+    for (i = 0, k = 0, j = 0; i < encomendas.totalEncomendas; i++) {
+
+        for (i = 0; i < encomendas.totalEncomendas - 1; i++) {
+            if (repeticoes[i] < k) {
+                k = repeticoes[i];
+                j = i+1;
+            }
+        }
+        repeticoes[j] = 0;
+        listaOrganizada[i - 1] = j;
+    }
+    for (i = 0; i < encomendas.totalEncomendas - 1; i++) {
+        k = procurarCliente(listaClientes, listaOrganizada[i]);
+        if (k != -1) {
+            imprimirCliente(listaClientes.clientes[k]);
+        }
+        printf("\na\n");
+    }
+}
+
+
 int procurarEncomenda(Encomendas encomendas, int id) {
     int i;
 
     for (i = 0; i < encomendas.totalEncomendas; i++) {
-        if (encomendas.encomendas[i].idProduto == id) {
+        if (encomendas.encomendas[i].id == id) {
             return i;
         }
     }
     return -1;
 }
-
 
 

@@ -51,7 +51,7 @@ void atualizarDadosCliente(Cliente *cliente);
 
 void editarCliente(Clientes *clientes);
 
-void apagarDadosCliente(Cliente *cliente, Encomendas encomenda);
+void apagarDadosCliente(Cliente *cliente);
 
 void eliminarCliente(Clientes *clientes, Encomendas encomenda);
 

@@ -22,6 +22,7 @@ typedef struct {
 } Data;
 
 typedef struct {
+    int id;
     int idCliente;
     int idProduto;
     char *nomeCliente;
@@ -49,6 +50,6 @@ void writeEncomendas(Encomendas encomendas);
 
 void readEncomendas(Encomendas *encomendas);
 
-int procurarEncomenda(Encomendas encomendas, int id);
+void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes);
 
 #endif /* ENCOMENDA_H */

@@ -68,7 +68,7 @@ void adicionarCliente(Clientes *clientes) {
         (*clientes).clientes[(*clientes).total].email = malloc((strlen(buffer) + 1) * sizeof (char));
         strcpy((*clientes).clientes[(*clientes).total].email, buffer);
 
-        lerString(buffer, SIZE_BUFFER, "Pai­s: ");
+        lerString(buffer, SIZE_BUFFER, "Pais: ");
         (*clientes).clientes[(*clientes).total].pais = malloc((strlen(buffer) + 1) * sizeof (char));
         strcpy((*clientes).clientes[(*clientes).total].pais, buffer);
 
@@ -146,7 +146,7 @@ void atualizarDadosCliente(Cliente *cliente) {
     cliente->email = realloc(cliente->email, (strlen(buffer) + 1) * sizeof (char));
     strcpy(cliente->email, buffer);
 
-    lerString(buffer, SIZE_BUFFER, "Pai­s: ");
+    lerString(buffer, SIZE_BUFFER, "Pais: ");
     cliente->pais = realloc(cliente->pais, (strlen(buffer) + 1) * sizeof (char));
     strcpy(cliente->pais, buffer);
 
@@ -164,7 +164,7 @@ void editarCliente(Clientes *clientes) {
     }
 }
 
-void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
+void apagarDadosCliente(Cliente *cliente) {
 
     cliente->id = 0;
     strcpy(cliente->nome, "");

@@ -11,6 +11,7 @@
  */
 
 #include "produto.h"
+#include "encomenda.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -121,16 +122,53 @@ void writeListaProdutos(ProdutoList lista) {
     fclose(fp);
 }
 
+void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
+    int i, k;
+    int id = procurarEncomenda(encomendas, obterInt("Id Encomenda: "));
 
-/*
-int procurarProduto(ProdutoList produtos, int id){
 
-    for(int i = 0; i < produtos.totalProdutos; i++){
-        if(id == produtos.produtos[i].id){
+    if (id != -1) {
+
+        if (encomendas.totalEncomendas > 0) {
+            for (i = 0; i < encomendas.totalEncomendas; i++) {
+                if (produtos.produtos[id].id == encomendas.encomendas[i].idProduto) {
+                    produtos.produtos[id].estado = 0;
+                    return;
+                }
+            }
+
+            strcpy(produtos->produtos[id].nome, produtos->produtos[produtos->totalProdutos - 1].nome);
+            strcpy(produtos->produtos[id].id, produtos->produtos[produtos->totalProdutos - 1].id);
+            strcpy(produtos->produtos[id].dimensoes, produtos->produtos[produtos->totalProdutos - 1].dimensoes);
+            produtos->produtos[id].n_componentes = produtos->produtos[produtos->totalProdutos - 1].n_componentes;
+            produtos->produtos[id].estado = produtos->produtos[produtos->totalProdutos - 1].estado;
+
+            strcpy(produtos->produtos[id].componentesUsados->codMaterial, produtos->produtos[produtos->totalProdutos - 1].componentesUsados->codMaterial);
+            strcpy(produtos->produtos[id].componentesUsados->descricao, produtos->produtos[produtos->totalProdutos - 1].componentesUsados->descricao);
+            strcpy(produtos->produtos[id].componentesUsados->unidade, produtos->produtos[produtos->totalProdutos - 1].componentesUsados->unidade);
+            produtos->produtos[id].componentesUsados->quantidade = produtos->produtos[produtos->totalProdutos - 1].componentesUsados->quantidade;
+
+
+
+
+            apagarDadosCliente(&produtos->produtos[produtos->totalProdutos - 1]);
+
+            produtos->totalProdutos--;
+
+        } else {
+            printf("Cliente não existe!!\n");
+        }
+    }
+}
+
+int procurarProduto(ProdutoList produtos, int id) {
+
+    for (int i = 0; i < produtos.totalProdutos; i++) {
+        if (id == produtos.produtos[i].id) {
             return id;
         }
     }
     return -1;
 }
 
- */
+

@@ -26,52 +26,28 @@
  */
 int main(int argc, char** argv) {
 
+
+
     Clientes clientes;
     ProdutoList produto;
     Encomendas encomenda;
-    /*
     
-     */
+
+    
+     
     produto.totalProdutos = 0;
     clientes.total = 0;
     encomenda.totalEncomendas = 0;
 
-    /*
 
-
-            readListaProdutos(&produto);
-            readClientes(&clientes);
-
-            adicionarCliente(&clientes);
-            listarClientes(clientes);
-            eliminarCliente(&clientes, encomenda);
-            listarClientes(clientes);
-            writeClientes(clientes);
-        
-           registarEncomenda(&encomenda, clientes, produto);
-    
-           libertarMemcliente(&clientes);
-
-        
-     */
-
-
-
-    /*
-        readListaProdutos(&produto);
-        registarEncomenda(&encomenda, clientes, produto);
-        imprimirEncomendaCliente(encomenda, clientes);
-     */
-
-
-
-
-            
-
+  
     readListaProdutos(&produto);
     readClientes(&clientes);
 
     menu(&clientes, &encomenda, &produto);
+
+
+    
 
 
 

@@ -27,6 +27,7 @@ typedef struct{
     float preco;
     int n_componentes;
     Componentes *componentesUsados;
+    int estado;
 }Produto;
 
 typedef struct{
@@ -34,7 +35,7 @@ typedef struct{
     int totalProdutos;
 }ProdutoList;
 
-int procurarProduto(ProdutoList *lista, int id);
+int procurarProduto(ProdutoList lista, int id);
 
 void readListaProdutos(ProdutoList *lista);
 

@@ -50,7 +50,9 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
             break;
         case 0:
             writeClientes(*clientes);
+            //free encomendas & write encomenas
             libertarMemcliente(clientes);
+            //o mesmo para os produtos
             sairPrograma();
             break;
         default:
@@ -108,7 +110,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
             printListaProdutos(*produto);
             break;
         case 6:
-            //editar produto
+            ListarClientePorEncomenda(*encomenda, *clientes);
             break;
         case 7:
             //eliminar produto
