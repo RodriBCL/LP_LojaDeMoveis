@@ -29,30 +29,33 @@ int main(int argc, char** argv) {
     Clientes clientes;
     ProdutoList produto;
     Encomendas encomenda;
-/*
+    /*
     
-*/
-        produto.totalProdutos = 0;
-        clientes.total = 0;
-        encomenda.totalEncomendas = 0;
-    
+     */
+    produto.totalProdutos = 0;
+    clientes.total = 0;
+    encomenda.totalEncomendas = 0;
+
+    /*
 
 
-        readListaProdutos(&produto);
-        readClientes(&clientes);
+            readListaProdutos(&produto);
+            readClientes(&clientes);
 
-        adicionarCliente(&clientes);
-        eliminarCliente(&clientes, encomenda);
-        listarClientes(clientes);
-        writeClientes(clientes);
+            adicionarCliente(&clientes);
+            listarClientes(clientes);
+            eliminarCliente(&clientes, encomenda);
+            listarClientes(clientes);
+            writeClientes(clientes);
         
-       // registarEncomenda(&encomenda, clientes, produto);
+           registarEncomenda(&encomenda, clientes, produto);
     
-       //libertarMemcliente(&clientes);
+           libertarMemcliente(&clientes);
 
         
-    
-     
+     */
+
+
 
     /*
         readListaProdutos(&produto);
@@ -63,14 +66,14 @@ int main(int argc, char** argv) {
 
 
 
-/*
+            
+
     readListaProdutos(&produto);
     readClientes(&clientes);
 
     menu(&clientes, &encomenda, &produto);
-    
-    writeClientes(clientes);
-*/
+
+
 
 
 

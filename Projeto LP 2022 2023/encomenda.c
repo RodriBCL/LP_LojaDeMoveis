@@ -68,7 +68,6 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
             encomendas->totalEncomendas++;
 
             imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
-            printf("Deseja finalizar a compra? ");
 
         }
     }

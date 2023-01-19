@@ -49,6 +49,8 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
             menuCliente(clientes, encomenda, produto);
             break;
         case 0:
+            writeClientes(*clientes);
+            libertarMemcliente(clientes);
             sairPrograma();
             break;
         default:
@@ -103,9 +105,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
             listarClientes(*clientes);
             break;
         case 5:
-/*
-            imprimirEncomendas(&encomendas);
-*/
+            printListaProdutos(*produto);
             break;
         case 6:
             //editar produto
@@ -155,7 +155,7 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
             registarEncomenda(encomenda, *clientes, *produto);
             break;
         case 2:
-            //idCliente = obterInt("Id Cliente: ");
+            idCliente = obterInt("Id Cliente: ");
             imprimirEncomendaCliente(*encomenda, *clientes, idCliente);
             break;
         case 0:
@@ -177,8 +177,7 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
 
 void sairPrograma(){
     printf("Obrigado por utilizar o programa\n");
-    printf("Prima ENTER para sair\n");
     fflush(stdin);
-    getchar();
+    getchar();  
     exit(0);
 }

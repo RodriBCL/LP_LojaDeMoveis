@@ -165,7 +165,6 @@ void editarCliente(Clientes *clientes) {
 }
 
 void apagarDadosCliente(Cliente *cliente, Encomendas encomenda) {
-    int i;
 
     cliente->id = 0;
     strcpy(cliente->nome, "");
@@ -183,6 +182,7 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
 
 
     if (id != -1) {
+
         if (encomenda.totalEncomendas > 0) {
             for (i = 0; i < encomenda.totalEncomendas; i++) {
                 if (clientes->clientes[id].id == encomenda.encomendas[i].idCliente) {
@@ -192,10 +192,22 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
             }
         }
 
-        for (i = id; i < clientes->total - 1; i++) {
-            clientes->clientes[i] = clientes->clientes[i + 1];
-        }
+
+        strcpy(clientes->clientes[id].nome, clientes->clientes[clientes->total - 1].nome);
+        strcpy(clientes->clientes[id].email, clientes->clientes[clientes->total - 1].email);
+        strcpy(clientes->clientes[id].morada, clientes->clientes[clientes->total - 1].morada);
+        strcpy(clientes->clientes[id].telefone, clientes->clientes[clientes->total - 1].telefone);
+        strcpy(clientes->clientes[id].pais, clientes->clientes[clientes->total - 1].pais);
+        strcpy(clientes->clientes[id].nif, clientes->clientes[clientes->total - 1].nif);
+        clientes->clientes[id].id = clientes->clientes[clientes->total - 1].id;
+        clientes->clientes[id].estado = clientes->clientes[clientes->total - 1].estado;
+
+
+
         apagarDadosCliente(&clientes->clientes[clientes->total - 1], encomenda);
+
+        clientes->total--;
+
     } else {
         printf("Cliente não existe!!\n");
     }
