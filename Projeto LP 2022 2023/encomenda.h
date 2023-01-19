@@ -54,4 +54,6 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes);
 
 void freeEncomendas(Encomendas *encomendas);
 
+void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas);
+
 #endif /* ENCOMENDA_H */

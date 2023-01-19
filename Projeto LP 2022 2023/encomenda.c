@@ -288,3 +288,34 @@ int procurarEncomenda(Encomendas encomendas, int id) {
 }
 
 
+void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas){
+    int contadorProduto[produtos.totalProdutos];
+    int posicaoProdutoMaisEncomendado = 0;
+    int vezesEncomendadas = 0;
+    int posicaoPrduto;
+    int i;
+    
+    for(i = 0; i < produtos.totalProdutos; i++){
+        contadorProduto[i] = 0;
+    }
+   
+    for(i = 0; i < encomendas.totalEncomendas; i++){
+        posicaoPrduto = encomendas.encomendas[i].idProduto - 1;
+        contadorProduto[posicaoPrduto] += encomendas.encomendas[i].quantidade;
+    }
+
+    for(i = 0; i < produtos.totalProdutos; i++){
+        if(contadorProduto[i] > vezesEncomendadas){
+            vezesEncomendadas = contadorProduto[i];
+            posicaoProdutoMaisEncomendado = i;
+        }
+    }
+    
+    printf("Produto mais encomendado: %s\n", produtos.produtos[posicaoProdutoMaisEncomendado].nome);
+    printf("Quantidade: %d\n", vezesEncomendadas);
+    printf("Preço: %f\n", produtos.produtos[posicaoProdutoMaisEncomendado].preco);
+    
+}
+
+
+

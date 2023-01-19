@@ -97,6 +97,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     printf("6- Listar clientes por compra\n");
     printf("7- Eliminar Produto\n");
     printf("8- Listar encomendas\n");
+    printf("9- Listar produto mais encomendado\n");
     printf("0- Voltar\n");
 
     puts(MENU);
@@ -128,6 +129,9 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
             break;
         case 8:
             imprimirEncomendas(*encomenda);
+            break;
+        case 9:
+            printProdutoMaisEncomendado(*produto, *encomenda);
             break;
         case 0:
             menu(clientes, encomenda, produto);
