@@ -322,3 +322,48 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
 
 
 
+void apagarDadosEncomenda(Encomenda *encomenda){
+    encomenda.id = 0;
+    encomenda.idCliente = 0;
+    encomenda->idProduto = 0;
+    encomenda->quantidade = 0;
+    encomenda->totalPagar = 0;
+    encomenda->data.dia = 0;
+    encomenda->data.mes = 0;
+    encomenda->data.ano = 0;
+    strcpy(encomenda->nomeCliente, "");
+    strcpy(encomenda->nomeProduto, "");
+}
+
+void apagarEncomenda(Encomendas *encomendas){
+    int i, k;
+    imprimirEncomendas(*encomendas);
+
+    printf("Eliminar Encomenda:\n");
+    int id = procurarEncomenda(*encomendas, obterInt("Insira o Id da encomenda que pertende eliminar: "));
+    
+    if (id != -1) {
+        
+        strcpy(encomendas->encomendas[id].nomeCliente, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeCliente);
+        strcpy(encomendas->encomendas[id].nomeProduto, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeProduto);
+        encomendas->encomendas[id].id = encomendas->encomendas[encomendas->totalEncomendas - 1].id;
+        encomendas->encomendas[id].idCliente = encomendas->encomendas[encomendas->totalEncomendas - 1].idCliente;
+        encomendas->encomendas[id].idProduto = encomendas->encomendas[encomendas->totalEncomendas - 1].idProduto;
+        encomendas->encomendas[id].quantidade = encomendas->encomendas[encomendas->totalEncomendas - 1].quantidade;
+        encomendas->encomendas[id].totalPagar = encomendas->encomendas[encomendas->totalEncomendas - 1].totalPagar;
+        encomendas->encomendas[id].data.dia = encomendas->encomendas[encomendas->totalEncomendas - 1].data.dia;
+        encomendas->encomendas[id].data.mes = encomendas->encomendas[encomendas->totalEncomendas - 1].data.mes;
+        encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.ano;
+
+
+        apagarDadosEncomenda(&encomendas->encomendas[encomendas->totalEncomendas - 1]);
+
+        encomendas->totalEncomendas--;
+
+    } else {
+        printf("Encomenda não existe!!\n");
+    
+    }
+}
+
+
