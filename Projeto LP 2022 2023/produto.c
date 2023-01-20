@@ -131,7 +131,7 @@ void apagarDadosProduto(Produto *produto) {
     strcpy(produto->dimensoes, "");
     strcpy(produto->nome, "");
     strcpy(produto->id, "");
-    
+
     produto->componentesUsados->quantidade = 0;
     strcpy(produto->componentesUsados->codMaterial, "");
     strcpy(produto->componentesUsados->descricao, "");
@@ -190,4 +190,30 @@ int procurarProduto(ProdutoList produtos, int id) {
     return -1;
 }
 
+void freeProdutos(ProdutoList *produtos) {
+    int i, j;
+
+    if (produtos->totalProdutos > 0) {
+
+        for (i = 0; i < produtos->totalProdutos; i++) {
+
+            free(produtos->produtos[i].nome);
+            free(produtos->produtos[i].dimensoes);
+            free(produtos->produtos[i].id);
+
+            for (j = 0; j < produtos->produtos[i].n_componentes; j++) {
+
+                free(produtos->produtos[i].componentesUsados->codMaterial);
+                free(produtos->produtos[i].componentesUsados->descricao);
+                free(produtos->produtos[i].componentesUsados->unidade);
+            }
+            free(produtos->produtos[i].componentesUsados);
+        }
+
+        free(produtos->produtos);
+
+    } else {
+        printf("Não existem produtos criados!!\n");
+    }
+}
 

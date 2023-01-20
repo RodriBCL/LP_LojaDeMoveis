@@ -158,23 +158,21 @@ void writeEncomendas(Encomendas encomendas) {
 void readEncomendas(Encomendas *encomendas) {
     FILE *fp;
     char **dados;
-
-    fp = fopen("Lista_Clientes.csv", "r");
+    fp = fopen("Lista_Encomendas.csv", "r");
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
         return;
     }
-
     int i = 0;
 
 
     char buffer[1024];
+    dados = (char**) malloc(sizeof (char*) * 10);
+    
     while (fgets(buffer, 1024, fp)) {
 
-
-
-        dados = (char**) malloc(sizeof (char*) * 10);
+        
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -216,14 +214,14 @@ void readEncomendas(Encomendas *encomendas) {
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = atoi(dados[8]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = atoi(dados[9]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].id = atoi(dados[0]);
+                
                 (*encomendas).totalEncomendas++;
-
             }
 
         }
         i++;
-        free(dados);
-    }
+    }       
+    free(dados);
     fclose(fp);
 }
 

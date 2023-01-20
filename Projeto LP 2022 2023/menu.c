@@ -66,7 +66,7 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
             writeListaProdutos(*produto);
             freeEncomendas(encomenda);
             libertarMemcliente(clientes);
-            //o mesmo para os produtos
+            freeProdutos(produto);
             sairPrograma();
             break;
         default:

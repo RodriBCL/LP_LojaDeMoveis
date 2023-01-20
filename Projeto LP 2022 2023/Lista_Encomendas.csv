@@ -1,7 +1,4 @@
 idEncomenda;idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno
-1;1;1;Mara;Movel WC ;99.000000;1;1;1;1
-2;4;1;Manu;Movel WC ;99.000000;1;1;1;1
-3;4;1;Manu;Movel WC ;99.000000;1;1;1;1
-4;4;1;Manu;Movel WC ;99.000000;1;1;1;1
-5;5;1;Rui;Movel WC ;99.000000;1;1;1;1
-6;5;1;Rui;Movel WC ;99.000000;1;1;1;1
+1;123;1;Rodrigo;Movel WC ;2.000000;198;20;1;2023
+2;8;3;Torres;Mesa de Cabeçeira ;3.000000;447;12;1;2023
+3;4;2;Manu;Cómoda 3 Gavetas ;7.000000;2093;13;1;2023
