@@ -35,6 +35,7 @@ typedef struct {
 typedef struct {
     Encomenda *encomendas;
     int totalEncomendas;
+    int maxEncomendas;
 } Encomendas;
 
 #include "cliente.h"

@@ -20,10 +20,9 @@
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos) {
 
-    if ((*encomendas).totalEncomendas == 0) {
-        (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
-    } else {
-        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).totalEncomendas + 1) * sizeof (Encomenda));
+    if ((*encomendas).totalEncomendas == (*encomendas).maxEncomendas) {
+        (*encomendas).maxEncomendas += 3;
+        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).maxEncomendas) * sizeof (Cliente));
     }
 
     listarClientes(listaClientes);
@@ -169,10 +168,10 @@ void readEncomendas(Encomendas *encomendas) {
 
     char buffer[1024];
     dados = (char**) malloc(sizeof (char*) * 10);
-    
+
     while (fgets(buffer, 1024, fp)) {
 
-        
+
         dados[0] = NULL;
         dados[1] = NULL;
         dados[2] = NULL;
@@ -196,10 +195,9 @@ void readEncomendas(Encomendas *encomendas) {
 
             if (dados[9] != NULL) {
 
-                if ((*encomendas).totalEncomendas == 0) {
-                    (*encomendas).encomendas = (Encomenda*) malloc(sizeof (Encomenda));
-                } else {
-                    (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).totalEncomendas + 1) * sizeof (Encomenda));
+                if ((*encomendas).totalEncomendas == (*encomendas).maxEncomendas) {
+                    (*encomendas).maxEncomendas += 3;
+                    (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).maxEncomendas) * sizeof (Cliente));
                 }
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = atoi(dados[1]);
@@ -214,13 +212,13 @@ void readEncomendas(Encomendas *encomendas) {
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = atoi(dados[8]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = atoi(dados[9]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].id = atoi(dados[0]);
-                
+
                 (*encomendas).totalEncomendas++;
             }
 
         }
         i++;
-    }       
+    }
     free(dados);
     fclose(fp);
 }
@@ -256,9 +254,9 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
 
     for (i = 0; i < encomendas.totalEncomendas; i++) {
         for (j = 0; j < listaClientes.total; j++) {
-           if( encomendas.encomendas[i].idCliente == listaClientes.clientes[j].id ){
-               repeticoes[j][0]++; 
-           }
+            if (encomendas.encomendas[i].idCliente == listaClientes.clientes[j].id) {
+                repeticoes[j][0]++;
+            }
         }
     }
     for (i = 0; i < listaClientes.total - 1; i++) {

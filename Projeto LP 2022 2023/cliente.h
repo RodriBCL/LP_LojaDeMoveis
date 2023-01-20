@@ -33,6 +33,7 @@ typedef struct
 {
     Cliente *clientes;
     int total;
+    int maxClientes;
 } Clientes;
 
 #include "encomenda.h"

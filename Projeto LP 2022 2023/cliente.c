@@ -31,17 +31,16 @@ int procurarCliente(Clientes clientes, int id) {
 
 void adicionarCliente(Clientes *clientes) {
 
-   listarClientes(*clientes);
-    
+    listarClientes(*clientes);
+
     printf("Crirar Cliente:\n");
     int id = obterInt("Insira o Id do cliente que pertende criar: ");
 
     if (procurarCliente(*clientes, id) == -1) {
 
-        if ((*clientes).total == 0) {
-            (*clientes).clientes = (Cliente*) malloc(sizeof (Cliente));
-        } else {
-            (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
+        if ((*clientes).total == (*clientes).maxClientes) {
+            (*clientes).maxClientes += 3;
+            (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).maxClientes) * sizeof (Cliente));
         }
 
 
@@ -192,7 +191,7 @@ void atualizarDadosCliente(Cliente *cliente) {
 
 void editarCliente(Clientes * clientes) {
     listarClientes(*clientes);
-    
+
     printf("Editar dados do cliente:\n");
     int id = procurarCliente(*clientes, obterInt("Insira o Id do cliente que pertende alterar: "));
 
@@ -219,7 +218,7 @@ void apagarDadosCliente(Cliente * cliente) {
 void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
     listarClientes(*clientes);
-    
+
     printf("Eliminar Cliente:\n");
     int id = procurarCliente(*clientes, obterInt("Insira o Id que pertende eliminar: "));
 
@@ -321,10 +320,10 @@ void readClientes(Clientes * clientes) {
 
             if (dados[7] != NULL) {
 
-                if ((*clientes).total == 0) {
-                    (*clientes).clientes = (Cliente *) malloc(sizeof (Cliente));
-                } else {
-                    (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).total + 1) * sizeof (Cliente));
+                //Perigo!!!!!!!!
+                if ((*clientes).total == (*clientes).maxClientes) {
+                    (*clientes).maxClientes += 3;
+                    (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).maxClientes) * sizeof (Cliente));
                 }
 
                 (*clientes).clientes[(*clientes).total].id = atoi(dados[0]);

@@ -33,6 +33,7 @@ typedef struct{
 typedef struct{
     Produto *produtos;
     int totalProdutos;
+    int maxProdutos;
 }ProdutoList;
 
 #include "encomenda.h"
