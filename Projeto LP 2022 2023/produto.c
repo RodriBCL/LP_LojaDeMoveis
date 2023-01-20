@@ -12,6 +12,7 @@
 
 #include "produto.h"
 #include "encomenda.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -149,7 +150,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
 
         if (encomendas.totalEncomendas > 0) {
             for (i = 0; i < encomendas.totalEncomendas; i++) {
-                if (produtos->produtos[id].id == encomendas.encomendas[i].idProduto) {
+                if (*produtos->produtos[id].id == encomendas.encomendas[i].idProduto) {
                     produtos->produtos[id].estado = 0;
                     return;
                 }
@@ -182,7 +183,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
 int procurarProduto(ProdutoList produtos, int id) {
 
     for (int i = 0; i < produtos.totalProdutos; i++) {
-        if (id == produtos.produtos[i].id) {
+        if (id == *produtos.produtos[i].id) {
             return id;
         }
     }

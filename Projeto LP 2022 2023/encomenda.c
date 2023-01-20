@@ -60,15 +60,17 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
+            (*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto = idProduto;
+
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
 
             (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
             strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
-            
+
             encomendas->totalEncomendas++;
 
-            (*encomendas).encomendas[((*encomendas).totalEncomendas)-1].id = encomendas->totalEncomendas;
+            (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
 
             imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
 
@@ -247,16 +249,22 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
     int repeticoes[listaClientes.total][2];
 
     for (i = 0; i < listaClientes.total - 1; i++) {
+        repeticoes[i][0] = 0;
+    }
+
+    for (i = 0; i < listaClientes.total - 1; i++) {
         repeticoes[i][1] = listaClientes.clientes[i].id;
     }
 
     for (i = 0; i < encomendas.totalEncomendas; i++) {
-        repeticoes[(encomendas.encomendas[i].idCliente) - 1][0]++;
-
+        for (j = 0; j < listaClientes.total; j++) {
+           if( encomendas.encomendas[i].idCliente == listaClientes.clientes[j].id ){
+               repeticoes[j][0]++; 
+           }
+        }
     }
-
     for (i = 0; i < listaClientes.total - 1; i++) {
-        for (j = 0; j < 2 - i - 1; j++) {
+        for (j = 0; j < listaClientes.total - i - 1; j++) {
             if (repeticoes[j][0] < repeticoes[j + 1][0]) {
                 temp = repeticoes[j][0];
                 repeticoes[j][0] = repeticoes[j + 1][0];
@@ -274,7 +282,6 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
         if (temp != -1) {
             imprimirCliente(listaClientes.clientes[temp]);
         }
-        printf("%d", repeticoes[i][1]);
     }
 }
 
@@ -289,34 +296,32 @@ int procurarEncomenda(Encomendas encomendas, int id) {
     return -1;
 }
 
-
-void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas){
+void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
     int contadorProduto[produtos.totalProdutos];
     int posicaoProdutoMaisEncomendado = 0;
     int vezesEncomendadas = 0;
-    int posicaoPrduto;
     int i;
-    
-    for(i = 0; i < produtos.totalProdutos; i++){
+
+    for (i = 0; i < produtos.totalProdutos; i++) {
         contadorProduto[i] = 0;
     }
-   
-    for(i = 0; i < encomendas.totalEncomendas; i++){
-        posicaoPrduto = encomendas.encomendas[i].idProduto - 1;
-        contadorProduto[posicaoPrduto] += encomendas.encomendas[i].quantidade;
+
+    for (i = 0; i < encomendas.totalEncomendas; i++) {
+
+        contadorProduto[(encomendas.encomendas[i].idProduto) - 1] += encomendas.encomendas[i].quantidade;
+
     }
 
-    for(i = 0; i < produtos.totalProdutos; i++){
-        if(contadorProduto[i] > vezesEncomendadas){
+    for (i = 0; i < produtos.totalProdutos; i++) {
+        if (contadorProduto[i] > vezesEncomendadas) {
             vezesEncomendadas = contadorProduto[i];
             posicaoProdutoMaisEncomendado = i;
         }
     }
-    
+
     printf("Produto mais encomendado: %s\n", produtos.produtos[posicaoProdutoMaisEncomendado].nome);
     printf("Quantidade: %d\n", vezesEncomendadas);
-    printf("Preço: %f\n", produtos.produtos[posicaoProdutoMaisEncomendado].preco);
-    
+
 }
 
 
