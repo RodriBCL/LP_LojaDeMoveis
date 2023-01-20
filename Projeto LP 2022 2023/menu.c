@@ -47,13 +47,13 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     switch (escolha) {
         case 1:
             logMsg("Menu Admin");
-            int cod = obterInt("Insira o codigo de administração: ");
-            if (cod == CODE) {
+            //int cod = obterInt("Insira o codigo de administração: ");
+            //if (cod == CODE) {
                 menuAdmin(clientes, encomenda, produto);
-            } else {
-                printf("Codigo incorreto...\n");
-                menu(clientes, encomenda, produto);
-            }
+            //} else {
+              //  printf("Codigo incorreto...\n");
+                //menu(clientes, encomenda, produto);
+            //}
             break;
         case 2:
             logMsg("Menu Cliente");
@@ -61,12 +61,15 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
             break;
         case 0:
             logMsg("Sair do programa");
+
             writeClientes(*clientes);
             writeEncomendas(*encomenda);
             writeListaProdutos(*produto);
+            
             freeEncomendas(encomenda);
             libertarMemcliente(clientes);
             freeProdutos(produto);
+            
             sairPrograma();
             break;
         default:

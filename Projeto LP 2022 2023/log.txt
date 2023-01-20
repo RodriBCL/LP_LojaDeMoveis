@@ -1355,3 +1355,32 @@
 2023-01-20 10:43:01 - Listar encomendas
 2023-01-20 10:43:26 - Voltar
 2023-01-20 10:43:28 - Sair do programa
+2023-01-20 10:50:19 - Sair do programa
+2023-01-20 10:50:32 - Sair do programa
+2023-01-20 10:50:53 - Sair do programa
+2023-01-20 10:52:16 - Sair do programa
+2023-01-20 10:52:54 - Sair do programa
+2023-01-20 10:53:57 - Sair do programa
+2023-01-20 10:54:52 - Sair do programa
+2023-01-20 10:58:13 - Sair do programa
+2023-01-20 11:02:35 - Sair do programa
+2023-01-20 11:02:53 - Sair do programa
+2023-01-20 11:03:21 - Sair do programa
+2023-01-20 11:03:55 - Sair do programa
+2023-01-20 11:06:58 - Sair do programa
+2023-01-20 11:07:53 - Sair do programa
+2023-01-20 11:09:01 - Menu Cliente
+2023-01-20 11:09:17 - Registar Encomenda
+2023-01-20 11:09:20 - Voltar
+2023-01-20 11:09:21 - Sair do programa
+2023-01-20 11:09:31 - Menu Admin
+2023-01-20 11:09:37 - Listar encomendas
+2023-01-20 11:12:43 - Voltar
+2023-01-20 11:12:44 - Sair do programa
+2023-01-20 11:15:55 - Sair do programa
+2023-01-20 11:16:37 - Sair do programa
+2023-01-20 11:19:48 - Sair do programa
+2023-01-20 11:21:12 - Menu Admin
+2023-01-20 11:21:14 - Listar Produtos
+2023-01-20 11:21:42 - Voltar
+2023-01-20 11:21:42 - Sair do programa

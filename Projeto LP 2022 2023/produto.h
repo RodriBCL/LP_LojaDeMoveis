@@ -50,5 +50,7 @@ void apagarDadosProduto(Produto *produto);
 
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas);
 
+void freeProdutos(ProdutoList *produtos);
+
 
 #endif /* PRODUTO_H */

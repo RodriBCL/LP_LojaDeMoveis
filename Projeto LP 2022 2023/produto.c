@@ -27,7 +27,7 @@ void readListaProdutos(ProdutoList *lista) {
     int produto = 0;
     int componentes = 0;
 
-    fp = fopen("Tabela_Ficha_Tecnica.csv", "r");
+    fp = fopen("Tabela_Ficha_Tecnica1.csv", "r");
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
@@ -105,7 +105,7 @@ void printListaProdutos(ProdutoList lista) {
 
 void writeListaProdutos(ProdutoList lista) {
     FILE *fp;
-    //mudar nome do ficheiro
+   
     fp = fopen("Tabela_Ficha_Tecnica1.csv", "w");
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
@@ -116,8 +116,11 @@ void writeListaProdutos(ProdutoList lista) {
     for (i = 0; i < lista.totalProdutos; i++) {
         fprintf(fp, "%s;%s;%s;%f;%s;%s;%d;%s", lista.produtos[i].id, lista.produtos[i].nome, lista.produtos[i].dimensoes, lista.produtos[i].preco, lista.produtos[i].componentesUsados[0].codMaterial, lista.produtos[i].componentesUsados[0].descricao, lista.produtos[i].componentesUsados[0].quantidade, lista.produtos[i].componentesUsados[0].unidade);
         for (j = 1; j < lista.produtos[i].n_componentes; j++) {
-            //necessario adicionar \n no fim do fprintf depois de remover o \n dos dados que vão para a lista
-            fprintf(fp, "%s;%d;%s;%s", lista.produtos[i].componentesUsados[j].codMaterial, lista.produtos[i].componentesUsados[j].quantidade, lista.produtos[i].componentesUsados[j].descricao, lista.produtos[i].componentesUsados[j].unidade);
+            fprintf(fp, ";;;;%s;%s;%d;%s", 
+                    lista.produtos[i].componentesUsados[j].codMaterial,
+                    lista.produtos[i].componentesUsados[j].descricao, 
+                    lista.produtos[i].componentesUsados[j].quantidade, 
+                    lista.produtos[i].componentesUsados[j].unidade);
         }
     }
     fclose(fp);
@@ -125,12 +128,18 @@ void writeListaProdutos(ProdutoList lista) {
 
 void apagarDadosProduto(Produto *produto) {
 
+    int i;
+    
     produto->estado = 0;
     produto->n_componentes = 0;
     produto->preco = 0;
     strcpy(produto->dimensoes, "");
     strcpy(produto->nome, "");
     strcpy(produto->id, "");
+    
+    for(i = 0; i < produto->n_componentes; i++){
+        
+    }
 
     produto->componentesUsados->quantidade = 0;
     strcpy(produto->componentesUsados->codMaterial, "");
@@ -146,11 +155,11 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     int id = procurarProduto(*produtos, obterInt("Id Poduto: "));
 
 
-    if (id != -1) {
+    if (id != "NULL") {
 
         if (encomendas.totalEncomendas > 0) {
             for (i = 0; i < encomendas.totalEncomendas; i++) {
-                if (*produtos->produtos[id].id == encomendas.encomendas[i].idProduto) {
+                if(strcmp((*produtos).produtos[i].id, id) == 0) {
                     produtos->produtos[id].estado = 0;
                     return;
                 }
@@ -180,14 +189,15 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     }
 }
 
-int procurarProduto(ProdutoList produtos, int id) {
-
-    for (int i = 0; i < produtos.totalProdutos; i++) {
-        if (id == *produtos.produtos[i].id) {
+char *procurarProduto(ProdutoList produtos, char *id) {
+    int i;
+    
+    for (i = 0; i < produtos.totalProdutos; i++) {
+        if (strcmp(id, *produtos.produtos[i].id) == 0) {
             return id;
         }
     }
-    return -1;
+    return "NULL";
 }
 
 void freeProdutos(ProdutoList *produtos) {
@@ -203,9 +213,10 @@ void freeProdutos(ProdutoList *produtos) {
 
             for (j = 0; j < produtos->produtos[i].n_componentes; j++) {
 
-                free(produtos->produtos[i].componentesUsados->codMaterial);
-                free(produtos->produtos[i].componentesUsados->descricao);
-                free(produtos->produtos[i].componentesUsados->unidade);
+                free(produtos->produtos[i].componentesUsados[j].codMaterial);
+                free(produtos->produtos[i].componentesUsados[j].descricao);
+                free(produtos->produtos[i].componentesUsados[j].unidade);
+                
             }
             free(produtos->produtos[i].componentesUsados);
         }
@@ -216,4 +227,5 @@ void freeProdutos(ProdutoList *produtos) {
         printf("Não existem produtos criados!!\n");
     }
 }
+
 
