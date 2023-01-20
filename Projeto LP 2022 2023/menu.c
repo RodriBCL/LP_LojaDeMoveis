@@ -18,11 +18,12 @@
 #include "encomenda.h"
 #include "input.h"
 #include "produto.h"
+#include "log.h"
 
 #define MENU "+--------------------------+"
 #define CODE 3500
 
-void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
+void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
 
     printf("\n");
@@ -43,20 +44,23 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     scanf("%d", &escolha);
     system("clear");
 
-    switch(escolha){
+    switch (escolha) {
         case 1:
+            logMsg("Menu Admin");
             int cod = obterInt("Insira o codigo de administração: ");
-            if(cod == CODE){
-               menuAdmin(clientes, encomenda, produto); 
-            }else{
+            if (cod == CODE) {
+                menuAdmin(clientes, encomenda, produto);
+            } else {
                 printf("Codigo incorreto...\n");
                 menu(clientes, encomenda, produto);
             }
             break;
         case 2:
+            logMsg("Menu Cliente");
             menuCliente(clientes, encomenda, produto);
             break;
         case 0:
+            logMsg("Sair do programa");
             writeClientes(*clientes);
             writeEncomendas(*encomenda);
             writeListaProdutos(*produto);
@@ -76,10 +80,9 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     };
 }
 
-
-void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
+void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
-    
+
     printf("\n");
     puts(MENU);
     printf("  Gestão de loja de moveis  \n");
@@ -103,38 +106,49 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     puts(MENU);
     printf("Escolha uma opção: ");
     scanf("%d", &escolha);
-    
 
-    switch(escolha){
+
+    switch (escolha) {
         case 1:
-           adicionarCliente(clientes);
+            adicionarCliente(clientes);
+            logMsg("Criar Clinte");
             break;
         case 2:
             eliminarCliente(clientes, *encomenda);
+            logMsg("Remover Cliente");
             break;
         case 3:
             editarCliente(clientes);
+            logMsg("Alterar Cliente");
             break;
         case 4:
             listarClientes(*clientes);
+            logMsg("Listar de Clientes");
             break;
         case 5:
             printListaProdutos(*produto);
+            logMsg("Listar Produtos");
             break;
         case 6:
             ListarClientePorEncomenda(*encomenda, *clientes);
+            logMsg("Listar clientes por compra");
             break;
         case 7:
             eleminarProduto(produto, *encomenda);
+            logMsg("Eliminar Produto");
             break;
         case 8:
             imprimirEncomendas(*encomenda);
+            logMsg("Listar encomendas");
             break;
         case 9:
             printProdutoMaisEncomendado(*produto, *encomenda);
+            logMsg("Listar produto mais encomendado");
             break;
         case 0:
+            logMsg("Voltar");
             menu(clientes, encomenda, produto);
+
             break;
         default:
             printf("Opção inválida\n");
@@ -148,9 +162,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
     menuAdmin(clientes, encomenda, produto);
 }
 
-
-
-void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto){
+void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha, idCliente;
 
     printf("\n");
@@ -171,16 +183,19 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
     scanf("%d", &escolha);
     system("clear");
 
-    switch(escolha){
+    switch (escolha) {
         case 1:
             registarEncomenda(encomenda, *clientes, *produto);
+            logMsg("Registar Encomenda");
             break;
         case 2:
             listarClientes(*clientes);
             idCliente = obterInt("Id Cliente: ");
             imprimirEncomendaCliente(*encomenda, *clientes, idCliente);
+            logMsg("Listar Encomendas");
             break;
         case 0:
+            logMsg("Voltar");
             menu(clientes, encomenda, produto);
             break;
         default:
@@ -195,12 +210,10 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
     menuCliente(clientes, encomenda, produto);
 }
 
-
-
-void sairPrograma(){
+void sairPrograma() {
     printf("Guardar alterações....\n");
     printf("Obrigado por utilizar o programa\n");
     fflush(stdin);
-    getchar();  
+    getchar();
     exit(0);
 }

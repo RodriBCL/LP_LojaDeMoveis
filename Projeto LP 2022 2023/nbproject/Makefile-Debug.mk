@@ -38,6 +38,7 @@ OBJECTFILES= \
 	${OBJECTDIR}/cliente.o \
 	${OBJECTDIR}/encomenda.o \
 	${OBJECTDIR}/input.o \
+	${OBJECTDIR}/log.o \
 	${OBJECTDIR}/main.o \
 	${OBJECTDIR}/menu.o \
 	${OBJECTDIR}/produto.o
@@ -81,6 +82,11 @@ ${OBJECTDIR}/input.o: input.c
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/input.o input.c
+
+${OBJECTDIR}/log.o: log.c
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.c) -g -std=c99 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/log.o log.c
 
 ${OBJECTDIR}/main.o: main.c
 	${MKDIR} -p ${OBJECTDIR}

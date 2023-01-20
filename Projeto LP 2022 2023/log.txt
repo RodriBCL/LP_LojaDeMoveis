@@ -1,0 +1,5 @@
+2023-01-20 00:07:12 - Criar Clinte
+2023-01-20 00:07:15 - Listar de Clientes
+2023-01-20 00:07:16 - Listar de Clientes
+2023-01-20 00:07:16 - Listar de Clientes
+2023-01-20 00:16:22 - Sair do programa
