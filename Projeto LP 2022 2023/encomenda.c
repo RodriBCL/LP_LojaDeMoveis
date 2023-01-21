@@ -29,7 +29,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
     listarClientes(listaClientes);
 
-    int idCliente,indiceProduto=procurarProdutoIndice(produtos,idProduto);
+    int idCliente, indiceProduto = procurarProdutoIndice(produtos, idProduto);
 
     printf("Encomenda nº %d:\n", encomendas->totalEncomendas + 1);
     idCliente = obterInt("Id Cliente: ");
@@ -47,8 +47,8 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
         lerString(idProduto, 7, "Id do produto que deseja comprar: ");
 
         for (i = 0; i < produtos.totalProdutos; i++) {
-            if (strcmp(idProduto , produtos.produtos[i].id) == 0){
-            
+            if (strcmp(idProduto, produtos.produtos[i].id) == 0) {
+
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[indiceProduto - 1].preco;
@@ -59,7 +59,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
-                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto , idProduto);
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto, idProduto);
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
                 strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
@@ -73,8 +73,10 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
                 imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
                 
+                //resistar aqui a semana
+                
                 return;
-            
+
             } else {
                 printf("Produto não existe!!");
             }
@@ -141,9 +143,9 @@ void writeEncomendas(Encomendas encomendas) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
-    fprintf(fp, "idEncomenda;idCliente;idProduto;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
+    fprintf(fp, "idEncomenda;idCliente;idProduto;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno;dataSemana");
     for (i = 0; i < encomendas.totalEncomendas; i++) {
-        fprintf(fp, "\n%d;%d;%s;%s;%s;%f;%d;%d;%d;%d",
+        fprintf(fp, "\n%d;%d;%s;%s;%s;%f;%d;%d;%d;%d;%d",
                 encomendas.encomendas[i].id,
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
@@ -153,7 +155,8 @@ void writeEncomendas(Encomendas encomendas) {
                 encomendas.encomendas[i].quantidade,
                 encomendas.encomendas[i].data.dia,
                 encomendas.encomendas[i].data.mes,
-                encomendas.encomendas[i].data.ano);
+                encomendas.encomendas[i].data.ano,
+                encomendas.encomendas[i].data.semana);
     }
     fclose(fp);
 }
@@ -171,7 +174,7 @@ void readEncomendas(Encomendas *encomendas) {
 
 
     char buffer[1024];
-    dados = (char**) malloc(sizeof (char*) * 10);
+    dados = (char**) malloc(sizeof (char*) * 11);
 
     while (fgets(buffer, 1024, fp)) {
 
@@ -186,6 +189,7 @@ void readEncomendas(Encomendas *encomendas) {
         dados[7] = NULL;
         dados[8] = NULL;
         dados[9] = NULL;
+        dados[10] = NULL;
 
 
         char *column = strtok(buffer, ";");
@@ -216,6 +220,7 @@ void readEncomendas(Encomendas *encomendas) {
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = atoi(dados[8]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = atoi(dados[9]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].id = atoi(dados[0]);
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.semana = atoi(dados[10]);
 
                 (*encomendas).totalEncomendas++;
             }
@@ -280,6 +285,8 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
     for (i = 0; i < listaClientes.total; i++) {
         temp = procurarCliente(listaClientes, repeticoes[i][1]);
         if (temp != -1) {
+            printf("Posição:%d",i);
+            printf("\nNúmero de encomendas:%d", repeticoes[i][0]);
             imprimirCliente(listaClientes.clientes[temp]);
         }
     }
@@ -308,7 +315,7 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
 
     for (i = 0; i < encomendas.totalEncomendas; i++) {
 
-        contadorProduto[(procurarProdutoIndice(produtos ,encomendas.encomendas[i].idProduto)) - 1] += encomendas.encomendas[i].quantidade;
+        contadorProduto[(procurarProdutoIndice(produtos, encomendas.encomendas[i].idProduto)) - 1] += encomendas.encomendas[i].quantidade;
 
     }
 
@@ -343,6 +350,7 @@ void apagarEncomenda(Encomendas *encomendas) {
         encomendas->encomendas[id].data.dia = encomendas->encomendas[encomendas->totalEncomendas - 1].data.dia;
         encomendas->encomendas[id].data.mes = encomendas->encomendas[encomendas->totalEncomendas - 1].data.mes;
         encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.ano;
+        encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.semana;
 
         //Dar free nos apontadores da encomenda
         encomendas->totalEncomendas--;
@@ -353,4 +361,29 @@ void apagarEncomenda(Encomendas *encomendas) {
     }
 }
 
+void printMesMaisEncomendas(Encomendas encomendas) {
+    int encomendasMes[12];
+    int i;
+    int maisEncomendasMes = 0, maisEncomendas = 0;
 
+    for (i = 0; i < 12; i++) {
+        encomendasMes[i] = 0;
+    }
+
+    for (i = 0; i < encomendas.totalEncomendas; i++) {
+        encomendasMes[(encomendas.encomendas[i].data.mes) - 1]++;
+    }
+
+    for (i = 0; i < 12; i++) {
+        if (encomendasMes[i] > maisEncomendas) {
+            maisEncomendas = encomendasMes[i];
+            maisEncomendasMes = i;
+        }
+    }
+
+    char *meses[12] = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+
+    printf("Mês com mais encomendas: %s\n", meses[maisEncomendasMes]);
+    printf("Numero de encomendas: %d\n", maisEncomendas);
+}

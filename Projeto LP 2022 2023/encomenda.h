@@ -19,6 +19,7 @@ typedef struct {
     int dia;
     int mes;
     int ano;
+    int semana;
 } Data;
 
 typedef struct {
@@ -56,5 +57,7 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes);
 void freeEncomendas(Encomendas *encomendas);
 
 void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas);
+
+void printMesMaisEncomendas(Encomendas encomendas);
 
 #endif /* ENCOMENDA_H */

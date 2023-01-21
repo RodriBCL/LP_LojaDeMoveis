@@ -340,3 +340,33 @@ void readClientes(Clientes * clientes) {
     free(dados);
     fclose(fp);
 }
+
+void clienteMaisGastador(Clientes clientes, Encomendas encomendas){
+    int i;
+    float totalGasto[clientes.total], maisGasto = 0;
+    int maisGastador = 0; 
+
+    for(i = 0; i < clientes.total; i++){
+        totalGasto[i] = 0;
+    }
+
+    for(i = 0; i < encomendas.totalEncomendas; i++){
+         totalGasto[(encomendas.encomendas[i].idCliente) - 1] += encomendas.encomendas[i].totalPagar;
+    }
+
+    for(i = 0; i < clientes.total; i++){
+        if(totalGasto[i] > maisGasto){
+            maisGasto = totalGasto[i];
+            maisGastador = i;
+        }
+    }
+
+    printf("Cliente que mais gastou: %s\n", clientes.clientes[maisGastador].nome);
+    printf("Total gasto: %f\n", maisGasto);
+    printf("Id: %d\n", clientes.clientes[maisGastador].id);
+    printf("Morada: %s\n", clientes.clientes[maisGastador].morada);
+    printf("Email: %s\n", clientes.clientes[maisGastador].email);
+    printf("Telefone: %s\n", clientes.clientes[maisGastador].telefone);
+    printf("Pais: %s\n", clientes.clientes[maisGastador].pais);
+
+}

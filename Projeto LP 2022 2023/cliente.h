@@ -58,4 +58,6 @@ void writeClientes(Clientes clientes);
 
 void readClientes(Clientes *clientes);
 
+void clienteMaisGastador(Clientes clientes, Encomendas encomendas);
+
 #endif /* CLIENTE_H */
