@@ -1,2 +1,1 @@
-idEncomenda;idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno
-1;123;1;Rodrigo;Movel WC ;2.000000;198;3;2;2020
+idEncomenda;idCliente;idProduto;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno

@@ -38,10 +38,10 @@ int main(int argc, char** argv) {
     clientes.maxClientes = 10;
     encomenda.maxEncomendas = 10;
     
-    (*encomenda).encomendas = (Encomenda*) malloc(sizeof (Encomenda) * encomenda.maxEncomendas);
-    (*clientes).clientes = (Cliente *) malloc(sizeof (Cliente) * clientes.maxClientes);
-    (*produto).produtos = (Produto *) malloc(sizeof (Produto) * produto.maxProdutos);
-     
+    encomenda.encomendas = (Encomenda*) malloc(sizeof (Encomenda) * (encomenda).maxEncomendas);
+    clientes.clientes = (Cliente*) malloc(sizeof (Cliente) * (clientes).maxClientes);
+    produto.produtos = (Produto*) malloc(sizeof (Produto) * (produto).maxProdutos);
+    
 
     readListaProdutos(&produto);
     readClientes(&clientes);

@@ -24,7 +24,7 @@ typedef struct {
 typedef struct {
     int id;
     int idCliente;
-    int idProduto;
+    char *idProduto;
     char *nomeCliente;
     char *nomeProduto;
     int quantidade;

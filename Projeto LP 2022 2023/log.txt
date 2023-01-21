@@ -1384,3 +1384,5 @@
 2023-01-20 11:21:14 - Listar Produtos
 2023-01-20 11:21:42 - Voltar
 2023-01-20 11:21:42 - Sair do programa
+2023-01-21 00:40:17 - Sair do programa
+2023-01-21 00:40:38 - Sair do programa

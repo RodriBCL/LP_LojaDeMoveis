@@ -203,18 +203,6 @@ void editarCliente(Clientes * clientes) {
     }
 }
 
-void apagarDadosCliente(Cliente * cliente) {
-
-    cliente->id = 0;
-    strcpy(cliente->nome, "");
-    strcpy(cliente->nif, "");
-    strcpy(cliente->morada, "");
-    strcpy(cliente->telefone, "");
-    strcpy(cliente->email, "");
-    strcpy(cliente->pais, "");
-    cliente->estado = 0;
-}
-
 void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
     int i, k;
     listarClientes(*clientes);
@@ -233,8 +221,7 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
                 }
             }
         }
-
-
+        
         strcpy(clientes->clientes[id].nome, clientes->clientes[clientes->total - 1].nome);
         strcpy(clientes->clientes[id].email, clientes->clientes[clientes->total - 1].email);
         strcpy(clientes->clientes[id].morada, clientes->clientes[clientes->total - 1].morada);
@@ -243,10 +230,13 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
         strcpy(clientes->clientes[id].nif, clientes->clientes[clientes->total - 1].nif);
         clientes->clientes[id].id = clientes->clientes[clientes->total - 1].id;
         clientes->clientes[id].estado = clientes->clientes[clientes->total - 1].estado;
-
-
-
-        apagarDadosCliente(&clientes->clientes[clientes->total - 1]);
+        
+            free(clientes->clientes[clientes->total - 1].nome);
+            free(clientes->clientes[clientes->total - 1].nif);
+            free(clientes->clientes[clientes->total - 1].morada);
+            free(clientes->clientes[clientes->total - 1].telefone);
+            free(clientes->clientes[clientes->total - 1].email);
+            free(clientes->clientes[clientes->total - 1].pais);
 
         clientes->total--;
 

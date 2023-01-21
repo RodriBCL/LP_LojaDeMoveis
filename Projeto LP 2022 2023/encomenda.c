@@ -19,6 +19,8 @@
 #include <stdlib.h>
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos) {
+    char idProduto[7];
+    int i;
 
     if ((*encomendas).totalEncomendas == (*encomendas).maxEncomendas) {
         (*encomendas).maxEncomendas += 3;
@@ -27,7 +29,7 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
     listarClientes(listaClientes);
 
-    int idCliente, idProduto;
+    int idCliente,indiceProduto=procurarProdutoIndice(produtos,idProduto);
 
     printf("Encomenda nº %d:\n", encomendas->totalEncomendas + 1);
     idCliente = obterInt("Id Cliente: ");
@@ -42,40 +44,42 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
     } else {
         printListaProdutos(produtos);
+        lerString(idProduto, 7, "Id do produto que deseja comprar: ");
 
-        idProduto = obterInt("Que produto deseja comprar(escreva só o último numero do produto): ");
+        for (i = 0; i < produtos.totalProdutos; i++) {
+            if (strcmp(idProduto , produtos.produtos[i].id) == 0){
+            
 
-        if (idProduto > produtos.totalProdutos || idProduto <= 0) {
-            printf("Produto não existe!!");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[indiceProduto - 1].preco;
 
-        } else {
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[idProduto - 1].preco;
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto , idProduto);
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto = idProduto;
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[indiceProduto - 1].nome) + 1) * sizeof (char));
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[indiceProduto - 1].nome);
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
-            strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
+                encomendas->totalEncomendas++;
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[idProduto - 1].nome) + 1) * sizeof (char));
-            strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[idProduto - 1].nome);
+                (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
 
-            encomendas->totalEncomendas++;
-
-            (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
-
-            imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
-
+                imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
+                
+                return;
+            
+            } else {
+                printf("Produto não existe!!");
+            }
         }
     }
-
 }
 
 void imprimirEncomendas(Encomendas listaEncomendas) {
@@ -137,9 +141,9 @@ void writeEncomendas(Encomendas encomendas) {
         printf("Erro ao abrir um ficheiro!!\n");
         return;
     }
-    fprintf(fp, "idEncomenda;idCliente;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
+    fprintf(fp, "idEncomenda;idCliente;idProduto;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno");
     for (i = 0; i < encomendas.totalEncomendas; i++) {
-        fprintf(fp, "\n%d;%d;%d;%s;%s;%f;%d;%d;%d;%d",
+        fprintf(fp, "\n%d;%d;%s;%s;%s;%f;%d;%d;%d;%d",
                 encomendas.encomendas[i].id,
                 encomendas.encomendas[i].idCliente,
                 encomendas.encomendas[i].idProduto,
@@ -201,7 +205,7 @@ void readEncomendas(Encomendas *encomendas) {
                 }
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = atoi(dados[1]);
-                (*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto = atoi(dados[2]);
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto, dados[2]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(dados[3]) + 1) * sizeof (char));
                 strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, dados[3]);
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(dados[4]) + 1) * sizeof (char));
@@ -304,7 +308,7 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
 
     for (i = 0; i < encomendas.totalEncomendas; i++) {
 
-        contadorProduto[(encomendas.encomendas[i].idProduto) - 1] += encomendas.encomendas[i].quantidade;
+        contadorProduto[(procurarProdutoIndice(produtos ,encomendas.encomendas[i].idProduto)) - 1] += encomendas.encomendas[i].quantidade;
 
     }
 
@@ -320,30 +324,15 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
 
 }
 
-
-
-void apagarDadosEncomenda(Encomenda *encomenda){
-    encomenda.id = 0;
-    encomenda.idCliente = 0;
-    encomenda->idProduto = 0;
-    encomenda->quantidade = 0;
-    encomenda->totalPagar = 0;
-    encomenda->data.dia = 0;
-    encomenda->data.mes = 0;
-    encomenda->data.ano = 0;
-    strcpy(encomenda->nomeCliente, "");
-    strcpy(encomenda->nomeProduto, "");
-}
-
-void apagarEncomenda(Encomendas *encomendas){
+void apagarEncomenda(Encomendas *encomendas) {
     int i, k;
     imprimirEncomendas(*encomendas);
 
     printf("Eliminar Encomenda:\n");
     int id = procurarEncomenda(*encomendas, obterInt("Insira o Id da encomenda que pertende eliminar: "));
-    
+
     if (id != -1) {
-        
+
         strcpy(encomendas->encomendas[id].nomeCliente, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeCliente);
         strcpy(encomendas->encomendas[id].nomeProduto, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeProduto);
         encomendas->encomendas[id].id = encomendas->encomendas[encomendas->totalEncomendas - 1].id;
@@ -355,14 +344,12 @@ void apagarEncomenda(Encomendas *encomendas){
         encomendas->encomendas[id].data.mes = encomendas->encomendas[encomendas->totalEncomendas - 1].data.mes;
         encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.ano;
 
-
-        apagarDadosEncomenda(&encomendas->encomendas[encomendas->totalEncomendas - 1]);
-
+        //Dar free nos apontadores da encomenda
         encomendas->totalEncomendas--;
 
     } else {
         printf("Encomenda não existe!!\n");
-    
+
     }
 }
 

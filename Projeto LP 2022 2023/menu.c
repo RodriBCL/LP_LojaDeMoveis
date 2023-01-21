@@ -25,6 +25,7 @@
 
 void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
+    
 
     printf("\n");
     puts(MENU);

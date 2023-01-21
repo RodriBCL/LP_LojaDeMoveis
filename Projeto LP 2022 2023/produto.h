@@ -39,15 +39,15 @@ typedef struct{
 #include "encomenda.h"
 
 
-int procurarProduto(ProdutoList lista, int id);
+char* procurarProduto(ProdutoList produtos, char *idProduto);
+
+int procurarProdutoIndice(ProdutoList produtos, char *id);
 
 void readListaProdutos(ProdutoList *lista);
 
 void printListaProdutos(ProdutoList lista);
 
 void writeListaProdutos(ProdutoList lista);
-
-void apagarDadosProduto(Produto *produto);
 
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas);
 
