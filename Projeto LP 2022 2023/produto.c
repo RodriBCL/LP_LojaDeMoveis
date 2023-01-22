@@ -27,7 +27,7 @@ void readListaProdutos(ProdutoList *lista) {
     int produto = 0;
     int componentes = 0;
 
-    fp = fopen("Tabela_Ficha_Tecnica1.csv", "r");
+    fp = fopen("Tabela_Ficha_Tecnica.csv", "r");
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");
@@ -132,15 +132,17 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     char idChar[7];
     
     printListaProdutos(*produtos);
-    lerString(idChar, 7, "Id do produto que pretende apagar: ");
+    cleanInputBuffer();
+    lerString(&idChar[0], 7, "Id do produto que pretende apagar: ");
     
-    int id = procurarProdutoIndice(*produtos, idChar);
+    int id = procurarProdutoIndice(*produtos, &idChar[0]);
+    strcpy(&idChar[0],procurarProduto(*produtos,&idChar[0]));
 
-    if (strcmp(idChar, "NULL") == 0) {
+    if (strcmp(idChar, "NULL") != 0) {
 
         if (encomendas.totalEncomendas > 0) {
             for (i = 0; i < encomendas.totalEncomendas; i++) {
-                if (strcmp((*produtos).produtos[i].id, idChar) == 0) {
+                if (strcmp((*produtos).produtos[i].id, &idChar[0]) == 0) {
                     produtos->produtos[id].estado = 0;
                     return;
                 }

@@ -23,7 +23,7 @@ typedef struct {
 typedef struct {
     int id;
     int idCliente;
-    char *idProduto;
+    char idProduto[7];
     char *nomeCliente;
     char *nomeProduto;
     int quantidade;
@@ -58,7 +58,7 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas);
 
 void printMesMaisEncomendas(Encomendas encomendas);
 
-void listarComponentesPorSemana(Encomendas encomendas, int semana, ProdutoList produtos);
+void listarComponentesPorSemana(Encomendas encomendas, ProdutoList produtos);
 
 int codProdutoParaInt(char* codigo);
 

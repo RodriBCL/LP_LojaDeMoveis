@@ -25,6 +25,8 @@ void cleanInputBuffer(){
 int obterInt(char *msg){
     int valor;
     
+   
+    
     printf("%s", msg);
     scanf("%d", &valor);
     
