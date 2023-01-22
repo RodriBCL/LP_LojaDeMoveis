@@ -95,9 +95,11 @@ void printListaProdutos(ProdutoList lista) {
     int i, j;
     printf("Em loja exixtem %d produtos:\n", lista.totalProdutos);
     for (i = 0; i < lista.totalProdutos; i++) {
-        printf("\n--%s %s %s %f Numero de componentes: %d\n", lista.produtos[i].id, lista.produtos[i].nome, lista.produtos[i].dimensoes, lista.produtos[i].preco, lista.produtos[i].n_componentes);
-        for (j = 0; j < lista.produtos[i].n_componentes; j++) {
-            printf("-%s %d %s %s", lista.produtos[i].componentesUsados[j].codMaterial, lista.produtos[i].componentesUsados[j].quantidade, lista.produtos[i].componentesUsados[j].descricao, lista.produtos[i].componentesUsados[j].unidade);
+        if (lista.produtos[i].estado != 1) {
+            printf("\n--%s %s %s %f Numero de componentes: %d\n", lista.produtos[i].id, lista.produtos[i].nome, lista.produtos[i].dimensoes, lista.produtos[i].preco, lista.produtos[i].n_componentes);
+            for (j = 0; j < lista.produtos[i].n_componentes; j++) {
+                printf("-%s %d %s %s", lista.produtos[i].componentesUsados[j].codMaterial, lista.produtos[i].componentesUsados[j].quantidade, lista.produtos[i].componentesUsados[j].descricao, lista.produtos[i].componentesUsados[j].unidade);
+            }
         }
     }
 }
@@ -125,25 +127,23 @@ void writeListaProdutos(ProdutoList lista) {
     fclose(fp);
 }
 
-
-
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
-    int i, k;
+    int i, j;
     char idChar[7];
-    
+
     printListaProdutos(*produtos);
     cleanInputBuffer();
     lerString(&idChar[0], 7, "Id do produto que pretende apagar: ");
-    
+
     int id = procurarProdutoIndice(*produtos, &idChar[0]);
-    strcpy(&idChar[0],procurarProduto(*produtos,&idChar[0]));
+    strcpy(&idChar[0], procurarProduto(*produtos, &idChar[0]));
 
     if (strcmp(idChar, "NULL") != 0) {
 
         if (encomendas.totalEncomendas > 0) {
             for (i = 0; i < encomendas.totalEncomendas; i++) {
                 if (strcmp((*produtos).produtos[i].id, &idChar[0]) == 0) {
-                    produtos->produtos[id].estado = 0;
+                    produtos->produtos[id].estado = 1;
                     return;
                 }
             }
@@ -159,7 +159,18 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
             strcpy(produtos->produtos[id].componentesUsados->unidade, produtos->produtos[produtos->totalProdutos - 1].componentesUsados->unidade);
             produtos->produtos[id].componentesUsados->quantidade = produtos->produtos[produtos->totalProdutos - 1].componentesUsados->quantidade;
 
-            //Dar free nos apontadores do produto
+            free(produtos->produtos[produtos->totalProdutos - 1].nome);
+            free(produtos->produtos[produtos->totalProdutos - 1].dimensoes);
+            free(produtos->produtos[produtos->totalProdutos - 1].id);
+
+            for (j = 0; j < produtos->produtos[i].n_componentes; j++) {
+
+                free(produtos->produtos[produtos->totalProdutos - 1].componentesUsados[j].codMaterial);
+                free(produtos->produtos[produtos->totalProdutos - 1].componentesUsados[j].descricao);
+                free(produtos->produtos[produtos->totalProdutos - 1].componentesUsados[j].unidade);
+
+            }
+            free(produtos->produtos[produtos->totalProdutos - 1].componentesUsados);
 
             produtos->totalProdutos--;
 
@@ -168,7 +179,6 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
         }
     }
 }
-
 
 char* procurarProduto(ProdutoList produtos, char *id) {
     int i;
@@ -191,7 +201,6 @@ int procurarProdutoIndice(ProdutoList produtos, char *id) {
     }
     return -1;
 }
-
 
 void freeProdutos(ProdutoList *produtos) {
     int i, j;

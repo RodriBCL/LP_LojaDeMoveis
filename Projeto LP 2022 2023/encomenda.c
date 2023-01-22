@@ -46,59 +46,60 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
         printListaProdutos(produtos);
         lerString(idProduto, 7, "Id do produto que deseja comprar: ");
         indiceProduto = procurarProdutoIndice(produtos, &idProduto[0]);
-        if (strcmp(procurarProduto(produtos, idProduto), idProduto) == 0) {
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[indiceProduto].preco;
+        if (produtos.produtos[indiceProduto].estado != 1) {
+            if (strcmp(procurarProduto(produtos, idProduto), idProduto) == 0) {
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].totalPagar = (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade * produtos.produtos[indiceProduto].preco;
 
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
-
-
-
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
-
-            strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto, idProduto);
-
-
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
-
-            strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
-
-
-            (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[indiceProduto].nome) + 1) * sizeof (char));
-
-            strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[indiceProduto].nome);
-
-
-            encomendas->totalEncomendas++;
-
-            (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
-            //(*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = (encomendas->encomendas[(encomendas->totalEncomendas)-2].id)+1;
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.dia = obterInt("Dia: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
 
 
 
-            imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
 
-            struct tm data_tm;
-            char buffer[80];
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto, idProduto);
 
 
-            data_tm.tm_year = (*encomendas).encomendas->data.ano - 1900;
-            data_tm.tm_mon = (*encomendas).encomendas->data.mes - 1;
-            data_tm.tm_mday = (*encomendas).encomendas->data.dia;
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
 
-            mktime(&data_tm);
-            strftime(buffer, sizeof (buffer), "%U", &data_tm);
-            (*encomendas).encomendas->data.semana = atoi(buffer);
-            if ((*encomendas).encomendas->data.semana == 0) {
-                (*encomendas).encomendas->data.semana = 52;
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
+
+
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[indiceProduto].nome) + 1) * sizeof (char));
+
+                strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[indiceProduto].nome);
+
+
+                encomendas->totalEncomendas++;
+                if (encomendas->totalEncomendas == 0) {
+                    (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = 1;
+                } else {
+                    (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = (encomendas->encomendas[(encomendas->totalEncomendas) - 2].id) + 1;
+                }
+                imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
+
+                struct tm data_tm;
+                char buffer[80];
+
+
+                data_tm.tm_year = (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].data.ano - 1900;
+                data_tm.tm_mon = (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].data.mes - 1;
+                data_tm.tm_mday = (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].data.dia;
+
+                mktime(&data_tm);
+                strftime(buffer, sizeof (buffer), "%U", &data_tm);
+                (*encomendas).encomendas[(*encomendas).totalEncomendas - 1].data.semana = atoi(buffer);
+                if ((*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].data.semana == 0) {
+                    (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].data.semana = 52;
+                }
+
+                return;
+
+            } else {
+                printf("Produto não existe!!");
             }
-
-            return;
-
-        } else {
-            printf("Produto não existe!!");
         }
     }
 }
@@ -251,7 +252,7 @@ void readEncomendas(Encomendas * encomendas) {
     fclose(fp);
 }
 
-void freeEncomendas(Encomendas * encomendas) {
+void freeEncomendas(Encomendas *encomendas) {
     int i;
 
     if (encomendas->totalEncomendas > 0) {
@@ -350,7 +351,7 @@ void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas) {
 
 }
 
-void apagarEncomenda(Encomendas * encomendas) {
+void apagarEncomenda(Encomendas *encomendas) {
     int i, k;
     imprimirEncomendas(*encomendas);
 
@@ -372,7 +373,8 @@ void apagarEncomenda(Encomendas * encomendas) {
         encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.ano;
         encomendas->encomendas[id].data.ano = encomendas->encomendas[encomendas->totalEncomendas - 1].data.semana;
 
-        //Dar free nos apontadores da encomenda
+        free(encomendas->encomendas[encomendas->totalEncomendas - 1].nomeCliente);
+        free(encomendas->encomendas[encomendas->totalEncomendas - 1].nomeProduto);
         encomendas->totalEncomendas--;
 
     } else {
@@ -476,7 +478,9 @@ void listarComponentesPorSemana(Encomendas encomendas, ProdutoList produtos) {
 
 int codProdutoParaInt(char* codigo) {
     int idProduto;
-    codigo[0] = '0';
-    idProduto = atoi(codigo);
+    char cod[6];
+    strcpy(cod, codigo);
+    cod[0] = '0';
+    idProduto = atoi(cod);
     return idProduto;
 }

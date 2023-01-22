@@ -29,11 +29,11 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
 
 
 
-    
-/**
- * Este é o menu principal do programa de gestão de loja de móveis.
- * Ele permite ao usuário escolher entre acesso de administrador, acesso de cliente e sair do programa.
- */
+
+    /**
+     * Este é o menu principal do programa de gestão de loja de móveis.
+     * Ele permite ao usuário escolher entre acesso de administrador, acesso de cliente e sair do programa.
+     */
 
     printf("\n");
     puts(MENU);
@@ -52,11 +52,11 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     printf("Escolha uma opção: ");
     scanf("%d", &escolha);
     system("clear");
-  
-/**
- * Este é o switch case que gerencia as opções escolhidas pelo usuário no menu principal.
- * De acordo com o valor da variável "escolha", diferentes ações serão tomadas.
- */
+
+    /**
+     * Este é o switch case que gerencia as opções escolhidas pelo usuário no menu principal.
+     * De acordo com o valor da variável "escolha", diferentes ações serão tomadas.
+     */
     switch (escolha) {
         case 1:
             logMsg("Menu Admin");
@@ -126,6 +126,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     printf("10- Listar mês com mais encomendas\n");
     printf("11- Mostrar o cliente que mais gastou\n");
     printf("12- Mostrar componentes por semana\n");
+    printf("13- Apagar encomenda\n");
     printf("0- Voltar\n");
 
     puts(MENU);
@@ -133,10 +134,10 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     scanf("%d", &escolha);
 
 
-/**
- * Este é o comando switch que gerencia a escolha do usuário no menu do administrador. 
- * Dependendo do valor da variável "escolha", diferentes ações serão tomadas.
- */
+    /**
+     * Este é o comando switch que gerencia a escolha do usuário no menu do administrador. 
+     * Dependendo do valor da variável "escolha", diferentes ações serão tomadas.
+     */
     switch (escolha) {
         case 1:
             adicionarCliente(clientes);
@@ -185,6 +186,10 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
             listarComponentesPorSemana(*encomenda, *produto);
             logMsg("Mostrar componentes por semana");
             break;
+        case 13:
+            apagarEncomenda(encomenda);
+            logMsg("Apagar encomenda");
+            break;
         case 0:
             logMsg("Voltar");
             menu(clientes, encomenda, produto);
@@ -204,7 +209,7 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
 /**
  * Esta função exibe o menu para o cliente do programa de gerenciamento de loja de móveis.
  * O menu permite que o cliente realize várias ações, como registar uma nova encomenda e ver as encomendas registadas anteriormente.
- */ 
+ */
 void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha, idCliente;
 
