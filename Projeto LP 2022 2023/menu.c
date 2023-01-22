@@ -25,7 +25,7 @@
 
 void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
-    
+
 
     printf("\n");
     puts(MENU);
@@ -50,10 +50,10 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
             logMsg("Menu Admin");
             //int cod = obterInt("Insira o codigo de administração: ");
             //if (cod == CODE) {
-                menuAdmin(clientes, encomenda, produto);
+            menuAdmin(clientes, encomenda, produto);
             //} else {
-              //  printf("Codigo incorreto...\n");
-                //menu(clientes, encomenda, produto);
+            //  printf("Codigo incorreto...\n");
+            //menu(clientes, encomenda, produto);
             //}
             break;
         case 2:
@@ -66,11 +66,11 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
             writeClientes(*clientes);
             writeEncomendas(*encomenda);
             writeListaProdutos(*produto);
-            
+
             freeEncomendas(encomenda);
             libertarMemcliente(clientes);
             freeProdutos(produto);
-            
+
             sairPrograma();
             break;
         default:
@@ -105,6 +105,8 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     printf("7- Eliminar Produto\n");
     printf("8- Listar encomendas\n");
     printf("9- Listar produto mais encomendado\n");
+    printf("10- Listar mês com mais encomendas\n");
+    printf("11-Mostrar o cliente que mais gastou\n");
     printf("0- Voltar\n");
 
     puts(MENU);
@@ -149,10 +151,16 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
             printProdutoMaisEncomendado(*produto, *encomenda);
             logMsg("Listar produto mais encomendado");
             break;
+        case 10:
+            printMesMaisEncomendas(*encomenda);
+            logMsg("Listar mês com mais encomendas");
+            break;
+        case 11:
+            clienteMaisGastador(*clientes, *encomenda);
+            logMsg("Mostrar o cliente que mais gastou");
         case 0:
             logMsg("Voltar");
             menu(clientes, encomenda, produto);
-
             break;
         default:
             printf("Opção inválida\n");

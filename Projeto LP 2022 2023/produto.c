@@ -81,7 +81,6 @@ void readListaProdutos(ProdutoList *lista) {
             (*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao = (char*) malloc(sizeof (char) * (strlen(dados[5]) + 1));
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].descricao, dados[5]);
             (*lista).produtos[produto - 1].componentesUsados[componentes - 1].quantidade = atoi(dados[6]);
-            //necessario remover quebra de linha do dados[7]
             (*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade = (char*) malloc(sizeof (char) * (strlen(dados[7]) + 1));
             strcpy((*lista).produtos[produto - 1].componentesUsados[componentes - 1].unidade, dados[7]);
         }

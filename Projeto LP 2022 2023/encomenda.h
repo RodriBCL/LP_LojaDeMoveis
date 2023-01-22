@@ -13,8 +13,6 @@
 #ifndef ENCOMENDA_H
 #define ENCOMENDA_H
 
-
-
 typedef struct {
     int dia;
     int mes;
@@ -59,5 +57,9 @@ void freeEncomendas(Encomendas *encomendas);
 void printProdutoMaisEncomendado(ProdutoList produtos, Encomendas encomendas);
 
 void printMesMaisEncomendas(Encomendas encomendas);
+
+void listarComponentesPorSemana(Encomendas encomendas, int semana, ProdutoList produtos);
+
+int codProdutoParaInt(char* codigo);
 
 #endif /* ENCOMENDA_H */

@@ -45,7 +45,7 @@ int main(int argc, char** argv) {
 
     readListaProdutos(&produto);
     readClientes(&clientes);
-    readEncomendas(&encomenda);
+    //readEncomendas(&encomenda);
 
     menu(&clientes, &encomenda, &produto);
 

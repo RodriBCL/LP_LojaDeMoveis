@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos) {
     char idProduto[7];
@@ -31,7 +32,6 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
 
     int idCliente, indiceProduto = procurarProdutoIndice(produtos, idProduto);
 
-    printf("Encomenda nº %d:\n", encomendas->totalEncomendas + 1);
     idCliente = obterInt("Id Cliente: ");
 
     int indiceCliente = procurarCliente(listaClientes, idCliente);
@@ -72,9 +72,18 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
                 (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
 
                 imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
-                
-                //resistar aqui a semana
-                
+
+                struct tm data_tm;
+                char buffer[80];
+
+                data_tm.tm_year = (*encomendas).encomendas->data.ano - 1900;
+                data_tm.tm_mon = (*encomendas).encomendas->data.mes - 1; 
+                data_tm.tm_mday = (*encomendas).encomendas->data.dia;
+
+                mktime(&data_tm);
+                strftime(buffer, sizeof (buffer), "%V", &data_tm);
+                (*encomendas).encomendas->data.semana = atoi(buffer);
+
                 return;
 
             } else {
@@ -285,7 +294,7 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
     for (i = 0; i < listaClientes.total; i++) {
         temp = procurarCliente(listaClientes, repeticoes[i][1]);
         if (temp != -1) {
-            printf("Posição:%d",i);
+            printf("Posição:%d", i);
             printf("\nNúmero de encomendas:%d", repeticoes[i][0]);
             imprimirCliente(listaClientes.clientes[temp]);
         }
@@ -386,4 +395,57 @@ void printMesMaisEncomendas(Encomendas encomendas) {
 
     printf("Mês com mais encomendas: %s\n", meses[maisEncomendasMes]);
     printf("Numero de encomendas: %d\n", maisEncomendas);
+}
+
+void listarComponentesPorSemana(Encomendas encomendas, int semana, ProdutoList produtos) {
+    int i, j, quantidade, k, linasInicial = 20, l, linhas = 50, idProdutoint, componentesnum = 0, tamanho = 0;
+    char idInteiro[5];
+    char idProduto[6];
+
+    int** componentes = (int**) malloc(linhas * sizeof (int*));
+    for (int i = 0; i < linhas; i++) {
+        componentes[i] = (int*) malloc(2 * sizeof (int));
+    }
+
+    for (i = 0; i < encomendas.totalEncomendas; i++) {
+        if (encomendas.encomendas[i].data.semana == semana) {
+            for (j = 0; j < produtos.totalProdutos; j++) {
+                if (strcmp(encomendas.encomendas[i].nomeProduto, produtos.produtos[j].nome) == 0) {
+                    for (k = 0; k < produtos.produtos[j].n_componentes; k++) {
+                        quantidade = encomendas.encomendas[i].quantidade * produtos.produtos[j].componentesUsados[k].quantidade;
+                        for (l = 0; l < linhas; l++) {
+                            idProdutoint = codProdutoParaInt(produtos.produtos[j].componentesUsados[k].codMaterial);
+                            if (idProdutoint == componentes[l][1]) {
+                                componentes[l][0] += quantidade;
+                                componentesnum++;
+                            } else if (l == linhas - 1) {
+                                linhas += 3;
+                                componentes = (int**) realloc(componentes, linhas * sizeof (int*));
+                                componentes[l + 1][1] = idProdutoint;
+                                componentes[l + 1][0] += quantidade;
+                                componentesnum++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    printf("Componente----Quantidade\n");
+    for (i = 0; i < componentesnum; i++) {
+        sprintf(&idInteiro[0], "%d", componentes[i][1]);
+        tamanho = strlen(idInteiro);
+         strcpy(idProduto,"M0000");
+        for (k = tamanho; k > 0; k--) {
+            idProduto[5 - tamanho] = idInteiro [tamanho];
+        }
+        printf("%s       >     %d\n", idProduto, componentes[i][0]);
+    }
+}
+
+int codProdutoParaInt(char* codigo) {
+    int idProduto;
+    codigo[0] = '0';
+    idProduto = atoi(codigo);
+    return idProduto;
 }
