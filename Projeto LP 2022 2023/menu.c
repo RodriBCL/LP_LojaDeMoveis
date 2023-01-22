@@ -27,6 +27,14 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
 
 
+
+
+    
+/**
+ * Este é o menu principal do programa de gestão de loja de móveis.
+ * Ele permite ao usuário escolher entre acesso de administrador, acesso de cliente e sair do programa.
+ */
+
     printf("\n");
     puts(MENU);
     printf("  Gestão de loja de moveis  \n");
@@ -44,7 +52,11 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     printf("Escolha uma opção: ");
     scanf("%d", &escolha);
     system("clear");
-
+  
+/**
+ * Este é o switch case que gerencia as opções escolhidas pelo usuário no menu principal.
+ * De acordo com o valor da variável "escolha", diferentes ações serão tomadas.
+ */
     switch (escolha) {
         case 1:
             logMsg("Menu Admin");
@@ -84,6 +96,12 @@ void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     };
 }
 
+/**
+ * Esta função exibe o menu para o administrador do programa de gerenciamento de loja de móveis.
+ * O menu permite que o administrador realize várias ações, como criar novos clientes, remover clientes existentes,
+ * alterar as informações do cliente, listar clientes, listar produtos, listar clientes por compra, excluir produtos,
+ * listar encomendas e listar o produto mais encomendado.
+ */
 void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
 
@@ -115,6 +133,10 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     scanf("%d", &escolha);
 
 
+/**
+ * Este é o comando switch que gerencia a escolha do usuário no menu do administrador. 
+ * Dependendo do valor da variável "escolha", diferentes ações serão tomadas.
+ */
     switch (escolha) {
         case 1:
             adicionarCliente(clientes);
@@ -179,6 +201,10 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     menuAdmin(clientes, encomenda, produto);
 }
 
+/**
+ * Esta função exibe o menu para o cliente do programa de gerenciamento de loja de móveis.
+ * O menu permite que o cliente realize várias ações, como registar uma nova encomenda e ver as encomendas registadas anteriormente.
+ */ 
 void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha, idCliente;
 
@@ -227,6 +253,9 @@ void menuCliente(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto
     menuCliente(clientes, encomenda, produto);
 }
 
+/**
+ Esta função é responsável por encerrar o programa, guardando as alterações feitas pelo usuário.
+ */
 void sairPrograma() {
     printf("Guardar alterações....\n");
     printf("Obrigado por utilizar o programa\n");
