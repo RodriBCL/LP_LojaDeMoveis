@@ -26,14 +26,11 @@
 void menu(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) {
     int escolha;
 
-
-
-
-
-    /**
-     * Este é o menu principal do programa de gestão de loja de móveis.
-     * Ele permite ao usuário escolher entre acesso de administrador, acesso de cliente e sair do programa.
-     */
+    
+/**
+ * Este é o menu principal do programa de gestão de loja de móveis.
+ * Ele permite ao usuário escolher entre acesso de administrador, acesso de cliente e sair do programa.
+*/
 
     printf("\n");
     puts(MENU);
