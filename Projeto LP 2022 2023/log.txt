@@ -1391,3 +1391,78 @@
 2023-01-22 04:00:43 - Registar Encomenda
 2023-01-22 04:08:04 - Menu Cliente
 2023-01-22 04:08:09 - Listar Encomendas
+2023-01-22 11:49:01 - Sair do programa
+2023-01-22 11:49:14 - Sair do programa
+2023-01-22 12:03:52 - Menu Admin
+2023-01-22 12:03:55 - Listar de Clientes
+2023-01-22 12:04:01 - Listar Produtos
+2023-01-22 12:04:20 - Voltar
+2023-01-22 12:04:22 - Menu Cliente
+2023-01-22 12:04:28 - Registar Encomenda
+2023-01-22 12:09:30 - Menu Cliente
+2023-01-22 12:10:10 - Menu Admin
+2023-01-22 12:10:16 - Criar Clinte
+2023-01-22 12:11:22 - Criar Clinte
+2023-01-22 12:11:33 - Listar de Clientes
+2023-01-22 12:12:49 - Voltar
+2023-01-22 12:12:54 - Sair do programa
+2023-01-22 12:59:13 - Menu Cliente
+2023-01-22 13:05:17 - Menu Cliente
+2023-01-22 13:11:52 - Menu Cliente
+2023-01-22 13:11:55 - Registar Encomenda
+2023-01-22 13:15:15 - Menu Cliente
+2023-01-22 13:18:22 - Menu Cliente
+2023-01-22 13:32:17 - Sair do programa
+2023-01-22 13:32:45 - Menu Cliente
+2023-01-22 13:35:14 - Sair do programa
+2023-01-22 13:36:07 - Sair do programa
+2023-01-22 13:36:41 - Menu Admin
+2023-01-22 13:36:51 - Criar Clinte
+2023-01-22 13:37:03 - Remover Cliente
+2023-01-22 13:37:17 - Eliminar Produto
+2023-01-22 13:37:26 - Eliminar Produto
+2023-01-22 13:38:15 - Voltar
+2023-01-22 13:38:16 - Sair do programa
+2023-01-22 13:41:19 - Menu Admin
+2023-01-22 13:41:23 - Eliminar Produto
+2023-01-22 13:41:28 - Voltar
+2023-01-22 13:41:29 - Sair do programa
+2023-01-22 13:43:20 - Menu Admin
+2023-01-22 13:43:24 - Eliminar Produto
+2023-01-22 13:43:29 - Voltar
+2023-01-22 13:43:29 - Sair do programa
+2023-01-22 13:45:29 - Menu Admin
+2023-01-22 13:45:31 - Eliminar Produto
+2023-01-22 13:45:36 - Voltar
+2023-01-22 13:45:37 - Sair do programa
+2023-01-22 14:50:29 - Menu Cliente
+2023-01-22 15:24:05 - Sair do programa
+2023-01-22 15:24:16 - Menu Admin
+2023-01-22 15:24:18 - Eliminar Produto
+2023-01-22 15:24:56 - Mostrar o cliente que mais gastou
+2023-01-22 15:24:56 - Voltar
+2023-01-22 15:25:09 - Menu Admin
+2023-01-22 15:25:11 - Mostrar o cliente que mais gastou
+2023-01-22 15:25:11 - Voltar
+2023-01-22 15:25:15 - Menu Admin
+2023-01-22 15:25:19 - Listar clientes por compra
+2023-01-22 15:25:30 - Listar mês com mais encomendas
+2023-01-22 15:26:05 - Voltar
+2023-01-22 15:26:06 - Sair do programa
+2023-01-22 15:55:00 - Menu Cliente
+2023-01-22 15:58:36 - Menu Admin
+2023-01-22 15:58:37 - Eliminar Produto
+2023-01-22 15:58:51 - Voltar
+2023-01-22 15:58:53 - Sair do programa
+2023-01-22 16:07:27 - Menu Cliente
+2023-01-22 16:08:52 - Menu Cliente
+2023-01-22 16:12:53 - Menu Cliente
+2023-01-22 16:14:06 - Menu Cliente
+2023-01-22 16:14:38 - Menu Cliente
+2023-01-22 16:15:21 - Menu Cliente
+2023-01-22 16:17:18 - Menu Cliente
+2023-01-22 16:18:01 - Menu Cliente
+2023-01-22 16:18:28 - Menu Cliente
+2023-01-22 16:18:33 - Menu Admin
+2023-01-22 16:18:36 - Voltar
+2023-01-22 16:18:37 - Menu Cliente

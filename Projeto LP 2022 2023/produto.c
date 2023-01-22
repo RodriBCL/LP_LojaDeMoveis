@@ -125,12 +125,16 @@ void writeListaProdutos(ProdutoList lista) {
     fclose(fp);
 }
 
+
+
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     int i, k;
-    char *idChar;
+    char idChar[7];
+    
+    printListaProdutos(*produtos);
+    lerString(idChar, 7, "Id do produto que pretende apagar: ");
+    
     int id = procurarProdutoIndice(*produtos, idChar);
-
-
 
     if (strcmp(idChar, "NULL") == 0) {
 
@@ -163,6 +167,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     }
 }
 
+
 char* procurarProduto(ProdutoList produtos, char *id) {
     int i;
 
@@ -184,6 +189,7 @@ int procurarProdutoIndice(ProdutoList produtos, char *id) {
     }
     return -1;
 }
+
 
 void freeProdutos(ProdutoList *produtos) {
     int i, j;

@@ -19,13 +19,14 @@
 #include <stdlib.h>
 #include <time.h>
 
+
 void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoList produtos) {
     char idProduto[7];
     int i;
 
     if ((*encomendas).totalEncomendas == (*encomendas).maxEncomendas) {
         (*encomendas).maxEncomendas += 3;
-        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).maxEncomendas) * sizeof (Cliente));
+        (*encomendas).encomendas = (Encomenda*) realloc((*encomendas).encomendas, ((*encomendas).maxEncomendas) * sizeof (Encomenda));
     }
 
     listarClientes(listaClientes);
@@ -45,9 +46,10 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
     } else {
         printListaProdutos(produtos);
         lerString(idProduto, 7, "Id do produto que deseja comprar: ");
+        //indiceProduto = procurarProdutoIndice(produtos, idProduto);
 
-        for (i = 0; i < produtos.totalProdutos; i++) {
-            if (strcmp(idProduto, produtos.produtos[i].id) == 0) {
+        //for (i = 0; i < produtos.totalProdutos; i++) {
+            if (procurarProduto(produtos, idProduto) == idProduto) {
 
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].quantidade = obterInt("Quantas unidades deseja comprar: ");
@@ -57,24 +59,36 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.mes = obterInt("Mes: ");
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].data.ano = obterInt("Ano: ");
 
-                (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
+                
+                printf("Testew1");
 
+                (*encomendas).encomendas[(*encomendas).totalEncomendas].idCliente = idCliente;
+                printf("Testew2");
+                //(*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto = (char*) malloc((strlen(produtos.produtos[indiceProduto - 1].id) + 1) * sizeof (char));
                 strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].idProduto, idProduto);
+                printf("Testew3");
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente = (char*) malloc((strlen(listaClientes.clientes[indiceCliente].nome) + 1) * sizeof (char));
+                printf("Testew4");
                 strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeCliente, listaClientes.clientes[indiceCliente].nome);
+                printf("Testew5");
 
                 (*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto = (char*) malloc((strlen(produtos.produtos[indiceProduto - 1].nome) + 1) * sizeof (char));
+                printf("Testew6");
                 strcpy((*encomendas).encomendas[(*encomendas).totalEncomendas].nomeProduto, produtos.produtos[indiceProduto - 1].nome);
+                printf("Testew7");
 
                 encomendas->totalEncomendas++;
-
+                printf("Testew8");
                 (*encomendas).encomendas[((*encomendas).totalEncomendas) - 1].id = encomendas->totalEncomendas;
+                printf("Testew9");
 
+            
                 imprimirEncomendaCliente(*encomendas, listaClientes, idCliente);
 
                 struct tm data_tm;
                 char buffer[80];
+
 
                 data_tm.tm_year = (*encomendas).encomendas->data.ano - 1900;
                 data_tm.tm_mon = (*encomendas).encomendas->data.mes - 1; 
@@ -83,15 +97,17 @@ void registarEncomenda(Encomendas *encomendas, Clientes listaClientes, ProdutoLi
                 mktime(&data_tm);
                 strftime(buffer, sizeof (buffer), "%V", &data_tm);
                 (*encomendas).encomendas->data.semana = atoi(buffer);
-
+             
+                
                 return;
 
             } else {
                 printf("Produto não existe!!");
             }
-        }
+        //}
     }
 }
+
 
 void imprimirEncomendas(Encomendas listaEncomendas) {
     int i;
@@ -351,9 +367,10 @@ void apagarEncomenda(Encomendas *encomendas) {
 
         strcpy(encomendas->encomendas[id].nomeCliente, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeCliente);
         strcpy(encomendas->encomendas[id].nomeProduto, encomendas->encomendas[encomendas->totalEncomendas - 1].nomeProduto);
+        strcpy(encomendas->encomendas[id].idProduto, encomendas->encomendas[encomendas->totalEncomendas - 1].idProduto);
         encomendas->encomendas[id].id = encomendas->encomendas[encomendas->totalEncomendas - 1].id;
         encomendas->encomendas[id].idCliente = encomendas->encomendas[encomendas->totalEncomendas - 1].idCliente;
-        encomendas->encomendas[id].idProduto = encomendas->encomendas[encomendas->totalEncomendas - 1].idProduto;
+        //encomendas->encomendas[id].idProduto = encomendas->encomendas[encomendas->totalEncomendas - 1].idProduto;
         encomendas->encomendas[id].quantidade = encomendas->encomendas[encomendas->totalEncomendas - 1].quantidade;
         encomendas->encomendas[id].totalPagar = encomendas->encomendas[encomendas->totalEncomendas - 1].totalPagar;
         encomendas->encomendas[id].data.dia = encomendas->encomendas[encomendas->totalEncomendas - 1].data.dia;
