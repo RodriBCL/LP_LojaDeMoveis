@@ -3,12 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/cFiles/file_header.c to edit this template
  */
 
-/*
- * File:   cliente.c
- * Author: rodri
- *
- * Created on 7 de dezembro de 2022, 20:12
- */
+
 
 #include "cliente.h"
 #include "encomenda.h"
@@ -272,6 +267,7 @@ void writeClientes(Clientes clientes) {
     fclose(fp);
 }
 
+ 
 void readClientes(Clientes * clientes) {
     FILE *fp;
     char **dados;

@@ -8,11 +8,7 @@
 
 #include "log.h"
 
-/**
- * Funcionalidade extra, consiste em guardar os "movimentos" feitos pelo utilizador no programa.
- * @param msg Mensagem de testo que será escrita no ficheiro.
- * @param filename ficheiro onde é guardado as logs.
- */
+
 void logMsg(char *msg) {
 
     time_t t = time(NULL);

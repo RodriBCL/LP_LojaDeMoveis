@@ -3,13 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/cFiles/main.c to edit this template
  */
 
-/* 
- * File:   main.c
- * Author: Rodrigo
- *Author: Manuel
- *Author: Mara
- * Created on 5 de dezembro de 2022, 12:16
- */
+
 
 #include "menu.h"
 #include <stdio.h>
@@ -57,31 +51,13 @@ int main(int argc, char** argv) {
     clientes.clientes = (Cliente*) malloc(sizeof (Cliente) * (clientes).maxClientes);
     produto.produtos = (Produto*) malloc(sizeof (Produto) * (produto).maxProdutos);
     
-/**
- * @brief lê a lista de produtos do sistema e armazena em produto.
- * @param produto apontador para a estrutura de produtos. 
- */
-    readListaProdutos(&produto);
     
- /**
-  * @brief lê a lista de clientes do sistema e armazena em clientes.
-  * @param clientes apontador para a estrutura de clientes.
-  */
+    readListaProdutos(&produto);
     
     readClientes(&clientes);
     
-/**
- * @brief lê a lista de encomendas do sistema e armazena em encomenda
- * @param encomenda apontador para a estrutura de encomendas.
- */
     readEncomendas(&encomenda);
 
-/**
- * @brief exibe o menu principal e permite acessar as funcionalidades do sistema.
- * @param clientes apontador para a estrutura de clientes.
- * @param encomenda apontador para a estrutura de encomendas
- * @param produto apontador para a estrutura de produtos.
- */
     menu(&clientes, &encomenda, &produto);
 
     return (EXIT_SUCCESS);

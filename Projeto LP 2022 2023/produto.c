@@ -3,12 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/cFiles/file_header.c to edit this template
  */
 
-/*
- * File:   produto.c
- * Author: rodri
- *
- * Created on 20 de dezembro de 2022, 16:01
- */
+
 
 #include "produto.h"
 #include "encomenda.h"
@@ -17,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
+
 
 void readListaProdutos(ProdutoList *lista) {
     FILE *fp;
@@ -33,6 +29,7 @@ void readListaProdutos(ProdutoList *lista) {
         puts("Erro ao abrir o ficheiro");
         return;
     }
+    
     int i = 0;
     (*lista).produtos = (Produto*) malloc(sizeof (Produto));
     char buffer[1024];
@@ -91,6 +88,7 @@ void readListaProdutos(ProdutoList *lista) {
     fclose(fp);
 }
 
+
 void printListaProdutos(ProdutoList lista) {
     int i, j;
     printf("Em loja exixtem %d produtos:\n", lista.totalProdutos);
@@ -103,6 +101,7 @@ void printListaProdutos(ProdutoList lista) {
         }
     }
 }
+
 
 void writeListaProdutos(ProdutoList lista) {
     FILE *fp;
@@ -126,6 +125,7 @@ void writeListaProdutos(ProdutoList lista) {
     }
     fclose(fp);
 }
+
 
 void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     int i, j;
@@ -180,6 +180,7 @@ void eleminarProduto(ProdutoList *produtos, Encomendas encomendas) {
     }
 }
 
+
 char* procurarProduto(ProdutoList produtos, char *id) {
     int i;
 
@@ -191,6 +192,7 @@ char* procurarProduto(ProdutoList produtos, char *id) {
     return "NULL";
 }
 
+
 int procurarProdutoIndice(ProdutoList produtos, char *id) {
     int i;
 
@@ -201,6 +203,7 @@ int procurarProdutoIndice(ProdutoList produtos, char *id) {
     }
     return -1;
 }
+
 
 void freeProdutos(ProdutoList *produtos) {
     int i, j;
@@ -230,4 +233,80 @@ void freeProdutos(ProdutoList *produtos) {
     }
 }
 
+void atualizarDadosProduto(Produto *produto) {
+    int escolha, i;
+    char buffer[SIZE_BUFFER];
+
+    do {
+        printf("1- Id Produto\n");
+        printf("2- Nome Produto\n");
+        printf("3- Dimenões Produto\n");
+        printf("4- Preço\n");
+        printf("5- Componentes\n");
+        printf("0- Voltar\n");
+        escolha = obterInt("\nEscolha uma opção!\n");
+        switch (escolha) {
+            case 0:
+                fflush(stdin);
+                system("clear");
+                break;
+            case 1:
+                lerString(buffer, SIZE_BUFFER, "Id Produto: ");
+                produto->id = realloc(produto->id, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(produto->id, buffer);
+                break;
+            case 2:
+                lerString(buffer, SIZE_BUFFER, "Nome Produto: ");
+                produto->nome = realloc(produto->nome, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(produto->nome, buffer);
+                break;
+            case 3:
+                lerString(buffer, SIZE_BUFFER, "Dimenões Produto: ");
+                produto->dimensoes = realloc(produto->dimensoes, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(produto->dimensoes, buffer);
+                break;
+            case 4:
+                produto->preco = obterFloat(0, 100000000000, "Preço: ");
+                break;
+            case 5:
+                lerString(buffer, SIZE_BUFFER, "Id do componente: ");
+                for (i = 0; i < produto->n_componentes; i++) {
+                    if (strcmp(produto->componentesUsados[i].codMaterial, buffer) == 0) {
+                        lerString(buffer, SIZE_BUFFER, "Descrição: ");
+                        produto->componentesUsados[i].descricao = realloc(produto->componentesUsados[i].descricao, (strlen(buffer) + 1) * sizeof (char));
+                        strcpy(produto->componentesUsados[i].descricao, buffer);
+                        lerString(buffer, SIZE_BUFFER, "Unidade: ");
+                        produto->componentesUsados[i].unidade = realloc(produto->componentesUsados[i].unidade, (strlen(buffer) + 1) * sizeof (char));
+                        strcpy(produto->componentesUsados[i].unidade, buffer);
+                        lerString(buffer, SIZE_BUFFER, "Código Material: ");
+                        produto->componentesUsados[i].codMaterial = realloc(produto->componentesUsados[i].codMaterial, (strlen(buffer) + 1) * sizeof (char));
+                        strcpy(produto->componentesUsados[i].codMaterial, buffer);
+                        
+                        produto->componentesUsados[i].quantidade = obterInt("Quantidade: ");
+                    }
+                }
+
+            default:
+                printf("Opção inválida\n");
+                printf("Prima ENTER para voltar ao menu\n");
+                fflush(stdin);
+                system("clear");
+                break;
+        }
+    } while (escolha != 0);
+}
+
+void editarProduto(ProdutoList *produtos) {
+    writeListaProdutos(*produtos);
+
+    printf("Editar dados dos produtos:\n");
+    char cod[7];
+    lerString(&cod[0], 7, "Id Produto: ");
+    if (strcmp(procurarProduto(*produtos), &cod[0]) == 0) {
+        int i = procurarProdutoIndice(*produtos, &cod[0]);
+        atualizarDadosProduto(produtos->produtos[i]);
+    } else {
+        printf("Produto não existe!!\n");
+    }
+}
 

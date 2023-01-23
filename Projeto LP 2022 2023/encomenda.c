@@ -3,12 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/cFiles/file_header.c to edit this template
  */
 
-/* 
- * File:   encomenda.c
- * Author: rodri
- * 
- * Created on 7 de dezembro de 2022, 20:12
- */
+
 
 #include "encomenda.h"
 #include "cliente.h"
@@ -181,6 +176,7 @@ void writeEncomendas(Encomendas encomendas) {
     fclose(fp);
 }
 
+
 void readEncomendas(Encomendas * encomendas) {
     FILE *fp;
     char **dados;
@@ -311,6 +307,7 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
         }
     }
 }
+
 
 int procurarEncomenda(Encomendas encomendas, int id) {
     int i;
@@ -483,4 +480,81 @@ int codProdutoParaInt(char* codigo) {
     cod[0] = '0';
     idProduto = atoi(cod);
     return idProduto;
+}
+
+void atualizarDadosEncomenda(Encomenda *encomenda) {
+    int escolha;
+    char buffer[SIZE_BUFFER];
+
+    do {
+        printf("1- Nome Cliente\n");
+        printf("2- Nome Produto\n");
+        printf("3- Id Produto\n");
+        printf("4- Data\n");
+        printf("5- Id encomenda\n");
+        printf("6- Id cliente\n");
+        printf("7- Quantidade\n");
+        printf("8- Total a pagar\n");
+        printf("0- Voltar\n");
+        escolha = obterInt("\nEscolha uma opção!\n");
+        switch (escolha) {
+            case 0:
+                fflush(stdin);
+                system("clear");
+                break;
+            case 1:
+                lerString(buffer, SIZE_BUFFER, "Nome Cliente: ");
+                encomenda->nomeCliente = realloc(encomenda->nomeCliente, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(encomenda->nomeCliente, buffer);
+                break;
+            case 2:
+                lerString(buffer, SIZE_BUFFER, "Nome Produto: ");
+                encomenda->nomeProduto = realloc(encomenda->nomeProduto, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(encomenda->nomeProduto, buffer);
+                break;
+            case 3:
+                lerString(buffer, SIZE_BUFFER, "Id Produto: ");
+                encomenda->idProduto = realloc(encomenda->idProduto, (strlen(buffer) + 1) * sizeof (char));
+                strcpy(encomenda->idProduto, buffer);
+                break;
+            case 4:
+                encomenda->data.dia = obterInt("Dia: ");
+                encomenda->data.mes = obterInt("Mês: ");
+                encomenda->data.ano = obterInt("Ano: ");
+                encomenda->data.semana = obterInt("Semana do ano: ");
+                break;
+            case 5:
+                encomenda->id = obterInt("Id encomenda: ");
+                break;
+            case 6:
+                encomenda->idCliente = obterInt("Id cliente: ");
+                break;
+            case 7:
+                encomenda->quantidade = obterInt("Quantidade: ");
+                break;
+            case 8:
+                encomenda->totalPagar = obterFloat(0, 100000000000, "Total a pagar: ");
+                break;
+            default:
+                printf("Opção inválida\n");
+                printf("Prima ENTER para voltar ao menu\n");
+                fflush(stdin);
+                system("clear");
+                break;
+        }
+    } while (escolha != 0);
+}
+
+void editarEncomenda(Encomendas *encomendas) {
+    
+
+    printf("Editar dados da encomenda:\n");
+    int id = procurarEncomenda(*encomendas, obterInt("Insira o Id da encomenda que pertende alterar: "));
+
+    if (id != -1) {
+        atualizarDadosEncomenda(&(*encomendas).encomendas[id]);
+
+    } else {
+        printf("Encomenda não existe!!\n");
+    }
 }
