@@ -16,14 +16,14 @@
 
 void readListaProdutos(ProdutoList *lista) {
     FILE *fp;
-    //ProdutoList (*lista);
+    ProdutoList (*lista);
     Produto produtos;
     char **dados;
 
     int produto = 0;
     int componentes = 0;
 
-    fp = fopen("Tabela_Ficha_Tecnica.csv", "r");
+    fp = fopen("Tabela_Ficha_Tecnica1.csv", "r");
 
     if (fp == NULL) {
         puts("Erro ao abrir o ficheiro");

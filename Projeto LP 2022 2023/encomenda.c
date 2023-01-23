@@ -470,6 +470,10 @@ void listarComponentesPorSemana(Encomendas encomendas, ProdutoList produtos) {
             idProduto[j] = idInteiro [k - 1];
         }
         printf("%s       >     %d\n", idProduto, componentes[i][0]);
+        
+    free(componentes[0]);
+    free(componentes[1]);
+    free(componentes);
     }
 }
 
@@ -480,6 +484,7 @@ int codProdutoParaInt(char* codigo) {
     cod[0] = '0';
     idProduto = atoi(cod);
     return idProduto;
+    
 }
 
 void atualizarDadosEncomenda(Encomenda *encomenda) {
