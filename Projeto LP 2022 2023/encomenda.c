@@ -519,7 +519,6 @@ void atualizarDadosEncomenda(Encomenda *encomenda) {
                 break;
             case 3:
                 lerString(buffer, SIZE_BUFFER, "Id Produto: ");
-                encomenda->idProduto = realloc(encomenda->idProduto, (strlen(buffer) + 1) * sizeof (char));
                 strcpy(encomenda->idProduto, buffer);
                 break;
             case 4:

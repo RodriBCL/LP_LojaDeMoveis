@@ -16,7 +16,7 @@
 
 void readListaProdutos(ProdutoList *lista) {
     FILE *fp;
-    ProdutoList (*lista);
+    //ProdutoList (*lista);
     Produto produtos;
     char **dados;
 
@@ -302,9 +302,9 @@ void editarProduto(ProdutoList *produtos) {
     printf("Editar dados dos produtos:\n");
     char cod[7];
     lerString(&cod[0], 7, "Id Produto: ");
-    if (strcmp(procurarProduto(*produtos), &cod[0]) == 0) {
+    if (strcmp(procurarProduto(*produtos,&cod[0]), &cod[0]) == 0) {
         int i = procurarProdutoIndice(*produtos, &cod[0]);
-        atualizarDadosProduto(produtos->produtos[i]);
+        atualizarDadosProduto(&(*produtos).produtos[i]);
     } else {
         printf("Produto não existe!!\n");
     }
