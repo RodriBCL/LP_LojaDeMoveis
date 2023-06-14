@@ -1,1 +1,5 @@
 idEncomenda;idCliente;idProduto;nomeCliente;nomeProduto;totalPagar;quantidade;dataDia;dataMes;dataAno;dataSemana
+3;2;P00003;Marta;Mesa de Cabeçeira ;149.000000;1;1;1;50;50
+2;2;P00002;Rodrigo;Cómoda 3 Gavetas ;299.000000;1;1;2;3;2
+3;123;1;Rodrigo;Movel WC ;99.000000;1;25;1;2023;2
+4;9;P00002;Duarte;Cómoda 3 Gavetas ;1495.000000;5;27;1;2023;2

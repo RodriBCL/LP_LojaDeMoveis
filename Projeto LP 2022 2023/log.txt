@@ -3958,3 +3958,113 @@
 2023-01-23 23:50:50 - Mostrar componentes por semana
 2023-01-23 23:50:51 - Voltar
 2023-01-23 23:50:52 - Sair do programa
+2023-01-26 16:04:45 - Sair do programa
+2023-01-26 18:47:15 - Menu Cliente
+2023-01-26 18:47:25 - Registar Encomenda
+2023-01-26 18:47:43 - Registar Encomenda
+2023-01-26 18:48:02 - Registar Encomenda
+2023-01-26 18:48:22 - Registar Encomenda
+2023-01-26 18:48:24 - Voltar
+2023-01-26 18:48:26 - Menu Admin
+2023-01-26 18:48:34 - Listar clientes por compra
+2023-01-26 18:49:16 - Mostrar o cliente que mais gastou
+2023-01-26 18:49:55 - Mostrar componentes por semana
+2023-01-26 18:50:17 - Listar mês com mais encomendas
+2023-01-26 18:50:49 - Mostrar componentes por semana
+2023-01-26 18:51:19 - Apagar encomenda
+2023-01-26 18:51:30 - Apagar encomenda
+2023-01-26 18:51:40 - Listar encomendas
+2023-01-26 18:51:45 - Voltar
+2023-01-26 18:51:47 - Sair do programa
+2023-01-27 00:38:15 - Menu Admin
+2023-01-27 00:38:32 - Editar produto
+2023-01-27 00:38:49 - Editar encomenda
+2023-01-27 00:38:56 - Voltar
+2023-01-27 00:38:59 - Menu Admin
+2023-01-27 00:39:09 - Listar encomendas
+2023-01-27 00:39:33 - Editar encomenda
+2023-01-27 00:39:35 - Listar encomendas
+2023-01-27 00:39:44 - Voltar
+2023-01-27 00:39:45 - Sair do programa
+2023-01-27 00:40:41 - Menu Admin
+2023-01-27 00:40:44 - Editar produto
+2023-01-27 00:40:54 - Voltar
+2023-01-27 00:40:55 - Sair do programa
+2023-01-27 00:41:28 - Menu Admin
+2023-01-27 00:41:34 - Editar produto
+2023-01-27 00:41:43 - Voltar
+2023-01-27 00:41:44 - Sair do programa
+2023-01-27 00:45:06 - Menu Admin
+2023-01-27 00:45:10 - Editar produto
+2023-01-27 00:46:07 - Menu Admin
+2023-01-27 00:46:12 - Editar produto
+2023-01-27 00:46:15 - Voltar
+2023-01-27 00:46:16 - Sair do programa
+2023-01-27 00:47:13 - Menu Admin
+2023-01-27 00:47:17 - Editar produto
+2023-01-27 00:47:21 - Voltar
+2023-01-27 00:47:22 - Sair do programa
+2023-01-27 00:52:34 - Menu Admin
+2023-01-27 00:52:38 - Editar produto
+2023-01-27 00:52:46 - Voltar
+2023-01-27 00:52:47 - Sair do programa
+2023-01-27 00:54:00 - Menu Admin
+2023-01-27 00:54:03 - Editar produto
+2023-01-27 00:54:12 - Editar produto
+2023-01-27 00:54:14 - Editar produto
+2023-01-27 00:54:15 - Editar produto
+2023-01-27 00:54:16 - Editar produto
+2023-01-27 00:54:16 - Editar produto
+2023-01-27 00:54:20 - Voltar
+2023-01-27 00:54:21 - Sair do programa
+2023-01-27 00:55:14 - Menu Admin
+2023-01-27 00:55:43 - Editar produto
+2023-01-27 00:56:31 - Voltar
+2023-01-27 00:56:32 - Sair do programa
+2023-01-27 00:59:21 - Menu Admin
+2023-01-27 00:59:36 - Mostrar componentes por semana
+2023-01-27 00:59:56 - Listar encomendas
+2023-01-27 01:00:01 - Listar encomendas
+2023-01-27 01:00:28 - Mostrar componentes por semana
+2023-01-27 01:00:38 - Mostrar componentes por semana
+2023-01-27 01:01:04 - Voltar
+2023-01-27 01:01:06 - Menu Cliente
+2023-01-27 01:01:31 - Registar Encomenda
+2023-01-27 01:01:38 - Voltar
+2023-01-27 01:01:40 - Menu Admin
+2023-01-27 01:02:17 - Mostrar componentes por semana
+2023-01-27 01:02:35 - Mostrar componentes por semana
+2023-01-27 01:02:42 - Voltar
+2023-01-27 01:02:43 - Sair do programa
+2023-01-27 01:03:34 - Menu Admin
+2023-01-27 01:04:29 - Menu Admin
+2023-01-27 01:04:37 - Mostrar componentes por semana
+2023-01-27 01:05:17 - Voltar
+2023-01-27 01:05:18 - Sair do programa
+2023-01-27 01:08:28 - Sair do programa
+2023-01-27 01:09:07 - Menu Admin
+2023-01-27 01:09:15 - Mostrar componentes por semana
+2023-01-27 01:09:17 - Voltar
+2023-01-27 01:09:19 - Sair do programa
+2023-01-27 19:07:48 - Menu Admin
+2023-01-27 19:07:54 - Mostrar o cliente que mais gastou
+2023-01-27 19:08:15 - Mostrar componentes por semana
+2023-01-27 19:08:18 - Voltar
+2023-01-27 19:08:19 - Sair do programa
+2023-01-27 19:09:52 - Menu Admin
+2023-01-27 19:10:07 - Mostrar o cliente que mais gastou
+2023-01-27 19:10:23 - Mostrar componentes por semana
+2023-01-27 19:10:25 - Voltar
+2023-01-27 19:10:27 - Sair do programa
+2023-01-27 19:11:18 - Menu Cliente
+2023-01-27 19:11:33 - Registar Encomenda
+2023-01-27 19:11:41 - Registar Encomenda
+2023-01-27 19:11:51 - Registar Encomenda
+2023-01-27 19:12:14 - Registar Encomenda
+2023-01-27 19:12:19 - Voltar
+2023-01-27 19:12:21 - Menu Admin
+2023-01-27 19:12:34 - Mostrar o cliente que mais gastou
+2023-01-27 19:12:49 - Mostrar componentes por semana
+2023-01-27 19:12:50 - Voltar
+2023-01-27 19:12:51 - Sair do programa
+2023-02-19 02:09:05 - Sair do programa

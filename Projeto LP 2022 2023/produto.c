@@ -297,11 +297,12 @@ void atualizarDadosProduto(Produto *produto) {
 }
 
 void editarProduto(ProdutoList *produtos) {
-    writeListaProdutos(*produtos);
+    printListaProdutos(*produtos);
 
-    printf("Editar dados dos produtos:\n");
+    printf("Editar dados dos produtos\n");
     char cod[7];
-    lerString(&cod[0], 7, "Id Produto: ");
+    cleanInputBuffer();
+    lerString(cod, 7, "Id Produto: ");
     if (strcmp(procurarProduto(*produtos,&cod[0]), &cod[0]) == 0) {
         int i = procurarProdutoIndice(*produtos, &cod[0]);
         atualizarDadosProduto(&(*produtos).produtos[i]);

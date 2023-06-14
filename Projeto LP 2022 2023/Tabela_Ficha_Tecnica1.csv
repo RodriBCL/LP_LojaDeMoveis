@@ -1,5 +1,5 @@
 Cod_Produto;Produto;Dimensoes;Pre�o;Cod_Material;Descri��o;Quantidade;Unidade
-P00001;Movel WC ;80x120x60;99.000000;M0001;Tubo Cola 10GR;1;UN
+1;Movel WC ;80x120x60;99.000000;M0001;Tubo Cola 10GR;1;UN
 ;;;;M0002;Parafuso 30MM;4;UN
 ;;;;M0003;Bucha 30MM;4;UN
 ;;;;M0004;Base 80x60;2;UN

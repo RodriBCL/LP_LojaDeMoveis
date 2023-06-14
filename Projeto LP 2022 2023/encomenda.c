@@ -176,7 +176,6 @@ void writeEncomendas(Encomendas encomendas) {
     fclose(fp);
 }
 
-
 void readEncomendas(Encomendas * encomendas) {
     FILE *fp;
     char **dados;
@@ -307,7 +306,6 @@ void ListarClientePorEncomenda(Encomendas encomendas, Clientes listaClientes) {
         }
     }
 }
-
 
 int procurarEncomenda(Encomendas encomendas, int id) {
     int i;
@@ -460,7 +458,10 @@ void listarComponentesPorSemana(Encomendas encomendas, ProdutoList produtos) {
             }
         }
     }
-
+    if (componentesnum == 0) {
+        printf("Não ha encomendas nessa semana oh ANIMAL!!!!!!!!!!!!!!!");
+        return;
+    }
     printf("Componente----Quantidade\n");
     for (i = 0; i < componentesnum; i++) {
         sprintf(&idInteiro[0], "%d\n", componentes[i][1]);
@@ -470,11 +471,12 @@ void listarComponentesPorSemana(Encomendas encomendas, ProdutoList produtos) {
             idProduto[j] = idInteiro [k - 1];
         }
         printf("%s       >     %d\n", idProduto, componentes[i][0]);
-        
-    free(componentes[0]);
-    free(componentes[1]);
-    free(componentes);
+
     }
+    for (int i = 0; i < linhas; i++) {
+        free(componentes[i]);
+    }
+    free(componentes);
 }
 
 int codProdutoParaInt(char* codigo) {
@@ -484,7 +486,7 @@ int codProdutoParaInt(char* codigo) {
     cod[0] = '0';
     idProduto = atoi(cod);
     return idProduto;
-    
+
 }
 
 void atualizarDadosEncomenda(Encomenda *encomenda) {
@@ -550,7 +552,7 @@ void atualizarDadosEncomenda(Encomenda *encomenda) {
 }
 
 void editarEncomenda(Encomendas *encomendas) {
-    
+
 
     printf("Editar dados da encomenda:\n");
     int id = procurarEncomenda(*encomendas, obterInt("Insira o Id da encomenda que pertende alterar: "));

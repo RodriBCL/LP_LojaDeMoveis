@@ -217,11 +217,21 @@ void eliminarCliente(Clientes *clientes, Encomendas encomenda) {
             }
         }
         
+        
         strcpy(clientes->clientes[id].nome, clientes->clientes[clientes->total - 1].nome);
+        
+       
         strcpy(clientes->clientes[id].email, clientes->clientes[clientes->total - 1].email);
+        
+       
         strcpy(clientes->clientes[id].morada, clientes->clientes[clientes->total - 1].morada);
+        
+        
         strcpy(clientes->clientes[id].telefone, clientes->clientes[clientes->total - 1].telefone);
+        
+       
         strcpy(clientes->clientes[id].pais, clientes->clientes[clientes->total - 1].pais);
+        
         strcpy(clientes->clientes[id].nif, clientes->clientes[clientes->total - 1].nif);
         clientes->clientes[id].id = clientes->clientes[clientes->total - 1].id;
         clientes->clientes[id].estado = clientes->clientes[clientes->total - 1].estado;
@@ -306,7 +316,7 @@ void readClientes(Clientes * clientes) {
 
             if (dados[7] != NULL) {
 
-                //Perigo!!!!!!!!
+              
                 if ((*clientes).total == (*clientes).maxClientes) {
                     (*clientes).maxClientes += 3;
                     (*clientes).clientes = (Cliente*) realloc((*clientes).clientes, ((*clientes).maxClientes) * sizeof (Cliente));
@@ -337,7 +347,7 @@ void readClientes(Clientes * clientes) {
     fclose(fp);
 }
 
-void clienteMaisGastador(Clientes clientes, Encomendas encomendas){
+void clienteMaisGastadorPorMes(Clientes clientes, Encomendas encomendas, int mes){
     int i;
     float totalGasto[clientes.total], maisGasto = 0;
     int maisGastador = 0; 
@@ -347,13 +357,15 @@ void clienteMaisGastador(Clientes clientes, Encomendas encomendas){
     }
 
     for(i = 0; i < encomendas.totalEncomendas; i++){
+        if(encomendas.encomendas[i].data.mes == mes){
          totalGasto[(encomendas.encomendas[i].idCliente) - 1] += encomendas.encomendas[i].totalPagar;
     }
+  }
 
     for(i = 0; i < clientes.total; i++){
         if(totalGasto[i] > maisGasto){
             maisGasto = totalGasto[i];
-            maisGastador = i;
+            maisGastador = i    ;
         }
     }
 
@@ -366,3 +378,5 @@ void clienteMaisGastador(Clientes clientes, Encomendas encomendas){
     printf("Pais: %s\n", clientes.clientes[maisGastador].pais);
 
 }
+
+

@@ -114,6 +114,8 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
     printf("11- Mostrar o cliente que mais gastou\n");
     printf("12- Mostrar componentes por semana\n");
     printf("13- Apagar encomenda\n");
+    printf("14- Editar encomenda\n");
+    printf("15- Editar produto\n");
     printf("0- Voltar\n");
 
     puts(MENU);
@@ -167,7 +169,11 @@ void menuAdmin(Clientes *clientes, Encomendas *encomenda, ProdutoList *produto) 
             logMsg("Listar mês com mais encomendas");
             break;
         case 11:
-            clienteMaisGastador(*clientes, *encomenda);
+            int mes;
+            //clienteMaisGastador(*clientes, *encomenda);
+            printf("Insira o mes: ");
+            scanf("%d", &mes);
+            clienteMaisGastadorPorMes(*clientes, *encomenda, mes);
             logMsg("Mostrar o cliente que mais gastou");
         case 12:
             listarComponentesPorSemana(*encomenda, *produto);

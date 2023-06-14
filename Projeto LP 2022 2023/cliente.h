@@ -73,7 +73,6 @@ void libertarMemcliente(Clientes *clientes);
  */
 void imprimirCliente(Cliente cliente);
 
-
 /**
  *@brief Lista todos os clientes numa matriz de clientes.
  * Verifica se o campo "total" da struct é maior que 0, e indica que existem clientes no array.
@@ -81,11 +80,12 @@ void imprimirCliente(Cliente cliente);
  * @param clientes contem um array de clientes.
  */
 void listarClientes(Clientes clientes);
+
 /**
  *@brief Esta função atualiza as informações de um único cliente.
  * Para cada opção, usa a função "lerString" para ler o novo valor do campo e a funçao "realloc" para realocar a memoria do campo para armazenar o novo valor
  * Usa a função "strcpy" para copiar o novo valor no campo da estrutura do cliente.
- * @param cliente, contem as informações de um unico cliente.
+ * @param cliente, contem o array de vendedores.
  */
 void atualizarDadosCliente(Cliente *cliente);
 
